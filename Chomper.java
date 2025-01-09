@@ -5,7 +5,7 @@ public class Chomper extends Adventurer{
   *with all parameters.*/
   public Chomper(String name, int hp){
     super(name,hp);
-    pHMax = 14;
+    pHMax = 14; //NOTE THAT LESS PH IS BETTER
     pH = pHMax/2;
   }
 
@@ -35,7 +35,7 @@ public class Chomper extends Adventurer{
     return pHMax;
   }
 
-  /*Deal 5-7 damage to opponent, restores 2 pH*/
+  /*Deal 5-7 damage to opponent, decreases pH by 2*/
   public String attack(Adventurer other){
     int damage = (int)(Math.random()*3)+5;
     other.applyDamage(damage);
@@ -73,11 +73,8 @@ public class Chomper extends Adventurer{
 		return this + "used Blooming! They spit out some helpful acid for "+other+", helping them reinvigorate themselves and regain " + other.restoreSpecial(1)+" "+other.getSpecialName();
 	}
   }
-  /*Restores 6 special and 1 hp to self.*/
+  /*Chomper cannot support itself*/
   public String support(){
-    int hp = 1;
-    setHP(getHP()+hp);
-    return this+" drinks a coffee to restores "+restoreSpecial(6)+" "
-    + getSpecialName()+ " and "+hp+" HP";
+    return this + " isn't flexible enough to spit acid on itself! Nothing happened...";
   }
 }
