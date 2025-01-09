@@ -15,6 +15,47 @@ Make a clear list of features that work/dont work
 
 :beetle: This is a bug that affects the game.
 
+### Chomper:
+
+Attack (Fly Trap) 
+
+Special Attack (Withering)
+
+Support (Blooming)
+
+Support Self (N/A)
+
+### Sunflowers:
+
+Attack (Flamethrower)
+
+Special Attack (Sunburn)
+
+Support (Vitamin D)
+
+Support Self (Plant)
+
+###Zombie:
+
+Attack (Devour)
+
+Special Attack (Horde)
+
+Support (CS Test)
+
+Support Self (Scavenge)
+
+###Game:
+
+Window
+
+Textbox
+
+Color HP by Percent
+
+Draw Party
+
+Input
 
 ## Adventurer Subclasses
 
