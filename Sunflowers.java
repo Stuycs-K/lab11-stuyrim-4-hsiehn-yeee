@@ -1,5 +1,6 @@
 public class Sunflowers extends Adventurer{
   int sunExposure, sunExposureMax;
+  boolean vitaminD = false;
 
   /*the other constructors ultimately call the constructor
   *with all parameters.*/
@@ -35,6 +36,14 @@ public class Sunflowers extends Adventurer{
     return sunExposureMax;
   }
 
+  public boolean getVitamins(){
+    return vitaminD;
+  }
+
+  public boolean setVitamins(boolean D){
+    vitaminD = D;
+  }
+
   /*Deal 3 damage to opponent, increases sunExposure by 1*/
   public String attack(Adventurer other){
     int damage = (int)(Math.random()*3)+1;
@@ -50,28 +59,19 @@ public class Sunflowers extends Adventurer{
     int dropOtherSpecial = (int) 0.25*other.getSpecial();
     int dropOwnSpecial = (int) 0.1*this.getSpecial();
     other.setSpecial(other.getSpecial() - dropOtherSpecial);
-    this.setSpecial(getSpecial() - dropOwnSpecial);
+    this.setSpecial(getSpecialshielding them from the next attack, () - dropOwnSpecial);
     return this + " used Sunburn! They emanated a bright light, temporarily blinding and burning its opponent, dropping their " + other.getSpecialName() + " by " + dropOtherSpecial + ", while also losing " + dropOwnSpecial + " itself.";
   }
   /*If ally is a Sunflowers: restores 3 special. Else, restore 1 special.*/
   public String support(Adventurer other){
-	if(other instanceof Sunflowers){
-		other.restoreSpecial(3);
-		return this + "used Vitamin D! They gave a Vitamin D to "+other+", making them smarter. " + other + " regains 3 sunExposure!";
-	}
-	else{
-		return this + "used Vitamin D! They tried to give a Vitamin D to "+other+", but seeing as plants don't know computer science, they couldn't do it. Thus, "+ this + " decided to use the test as compost for " + other + ", restoring " + other.restoreSpecial(1)+" "+other.getSpecialName();
-	}
+    applyDamage(2);
+    setVitamin(true);
+  	return this + "used Vitamin D! They gave two Sunflowers to be eaten for the strengthening of their bones!, sheilding " + other + " from the next attack!";
   }
   /*75% chance of regaining 4 sunExposure, 25% chance of nothing happening*/
   public String support(){
-	int chance = (int)(Math.random()*4);
-	if(chance < 3){
-		restoreSpecial(4);
-		return this + " used Plant! It's their lucky day! They spotted 4 sunExposure, eagerly shambling over to eat them. 4 sunExposure were restored!";
-	}
-    else{
-		return this + " used Plant! Unfortunately, no sunExposure were to be found nearby..";
-	}
+  	int chance = (int)(Math.random()*3) + 5 ;
+  	
+  }
   }
 }
