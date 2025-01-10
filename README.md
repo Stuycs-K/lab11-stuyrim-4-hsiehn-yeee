@@ -17,7 +17,7 @@ Make a clear list of features that work/dont work
 
 ### Chomper:
 
-Attack (Fly Trap) 
+Attack (Fly Trap)
 
 Special Attack (Withering)
 
@@ -35,7 +35,7 @@ Support (Vitamin D)
 
 Support Self (Plant)
 
-###Zombie:
+### Zombie:
 
 Attack (Devour)
 
@@ -45,7 +45,7 @@ Support (CS Test)
 
 Support Self (Scavenge)
 
-###Game:
+### Game:
 
 Window
 
@@ -65,7 +65,7 @@ Input
 | Attack     | "Flamethrower": Sunflowers launch themselves at the opponent, dealing 1-3 damage and losing 1-3 HP.|"Fly Trap": The Chomper snatches its enemies in their acidic trap, dealing 5-7 HP and losing 2 pH.|"Devour": The Zombie eats at an opponent, dealing 3 damage and gaining 1 brain.|
 | Special Attack | "Sunburn": Sunflowers emanate a bright light, decreasing the opponent’s special by 25% while also dropping their own by 10%.|"Withering": The Chomper spits out acid around it, dealing 14-its current pH level and gaining 3 pH (pH must be lower than 7)|"Horde": The Zombie sets out 2-4 brains, luring its zombie friends to come and help it. The zombies attack the opponents, dealing 3 * 2 to 3 * 4 damage (# of zombies lured* 3) |
 | Support | "Vitamin D": The ally eats two sunflowers, shielding them from the next attack, while the sunflowers take 2 damage.|"Blooming": The Chomper spits out a glob of acid, restoring 1 special or 1 HP depending on which one is lower.|"CS Test": *If ally is a Zombie:* The Zombie proctors a computer science test for its ally, forcing it to get smarter and gain 3 brains. *If ally is not a Zombie:* The Zombie uses the test as compost, giving its ally 1 special.|
-| Support-Self | "Plant":Sunflowers cover the ground with seeds, sprouting new sunflowers and regaining 5-7 HP.| N/A. If called, no action will be taken. |"Scavenge": The Zombie is constantly on the lookout for brains. There is a 75% chance it will spot some and eat them, gaining 4 brains.|
+| Support-Self | "Plant":Sunflowers cover the ground with seeds, sprouting new sunflowers and regaining 5-7 HP while also gaining 2 sunExposure| N/A. If called, no action will be taken. |"Scavenge": The Zombie is constantly on the lookout for brains. There is a 75% chance it will spot some and eat them, gaining 4 brains.|
 
 ## Boss
 
