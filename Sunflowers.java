@@ -10,7 +10,7 @@ public class Sunflowers extends Adventurer{
   }
 
 
-  public (String name){
+  public Sunflowers(String name){
     this(name,35);
   }
 
@@ -20,7 +20,7 @@ public class Sunflowers extends Adventurer{
 
   /*The next 8 methods are all required because they are abstract:*/
   public String getSpecialName(){
-    return "Sunflowers";
+    return "sunExposure";
   }
 
   public int getSpecial(){
@@ -47,27 +47,11 @@ public class Sunflowers extends Adventurer{
   *Decrease sunExposure by 2-4.
   */
   public String specialAttack(Adventurer other){
-	if(getSpecial() == 2){
-		int damage = 2;
-		setSpecial(getSpecial() - damage);
-		other.applyDamage(damage);
-		return this + " used sunExposure! They laid out " + damage + " sunExposure and lured " + damage + " of its friends to come help it! They each attack " + other + " one time, dealing " + damage + " points of damage.";
-	}
-	else if(getSpecial() == 3){
-		int damage = (int)(Math.random()*2)+2;
-		setSpecial(getSpecial() - damage);
-		other.applyDamage(damage);
-		return this + " used sunburn! They laid out " + damage + " sunExposure and lured " + damage + " of its friends to come help it! They each attack " + other + " one time, dealing " + damage + " points of damage.";
-	}
-    else if(getSpecial() > 3){
-		int damage = (int)(Math.random()*3)+2;
-		setSpecial(getSpecial() - damage);
-		other.applyDamage(damage);
-		return this + " used sunburn! They laid out " + damage + " sunExposure and lured " + damage + " of its friends to come help it! They each attack " + other + " one time, dealing " + damage + " points of damage.";
-    }else{
-      return "Oh no! "+this + " doesn't have enough sunExposure to lure over its friends! Nothing happened..";
-    }
-
+    int dropOtherSpecial = (int) 0.25*other.getSpecial();
+    int dropOwnSpecial = (int) 0.1*this.getSpecial();
+    other.setSpecial(other.getSpecial() - dropOtherSpecial);
+    this.setSpecial(getSpecial() - dropOwnSpecial);
+    return this + " used Sunburn! They emanated a bright light, temporarily blinding and burning its opponent, dropping their " + other.getSpecialName() + " by " + dropOtherSpecial + ", while also losing " + dropOwnSpecial + " itself.";
   }
   /*If ally is a Sunflowers: restores 3 special. Else, restore 1 special.*/
   public String support(Adventurer other){
