@@ -15,6 +15,22 @@ public class Game{
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+    Text.go(1, 1);
+		for(int i = 1; i <= 80; i++){
+			System.out.print(Text.colorize(" ", 47));
+		}
+		for(int i = 2; i < 30; i++){
+			Text.go(i, 1);
+			System.out.print(Text.colorize(" ", 47));
+      Text.reset();
+			Text.go(i, 80);
+      Text.reset();
+			System.out.print(Text.colorize(" ", 47));
+		}
+		Text.go(30, 1);
+		for(int i = 1; i <= 80; i++){
+			System.out.print(Text.colorize(" ", 47));
+		}
   }
 
   //Display a line of text starting at
@@ -24,6 +40,8 @@ public class Game{
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+    Text.go(startRow, startCol);
+    System.out.println(s);
   }
 
   /*Use this method to place text on the screen at a particular location.
@@ -40,6 +58,7 @@ public class Game{
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+
   }
 
 
@@ -48,7 +67,7 @@ public class Game{
     //return a random adventurer (choose between all available subclasses)
     //feel free to overload this method to allow specific names/stats.
     public static Adventurer createRandomAdventurer(){
-      return new CodeWarrior("Bob"+(int)(Math.random()*100));
+      return new Chomper("Bob"+(int)(Math.random()*100));
     }
 
     /*Display a List of 2-4 adventurers on the rows row through row+3 (4 rows max)
@@ -68,7 +87,7 @@ public class Game{
     }
 
 
-  //Use this to create a colorized number string based on the % compared to the max value.
+  //Use this to create a colorizeized number string based on the % compared to the max value.
   public static String colorByPercent(int hp, int maxHP){
     String output = String.format("%2s", hp+"")+"/"+String.format("%2s", maxHP+"");
     //COLORIZE THE OUTPUT IF HIGH/LOW:
