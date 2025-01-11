@@ -61,9 +61,22 @@ public class Game{
     Text.go(row, col);
     int place = 0;
     String rowText = "";
-    for(int i = 0; i < height; i++){
-      rowText = text.substring(place, place+width);
-      drawText(rowText, row, i+col);
+    for(int i = 0; i < height && place < text.length(); i++){
+		if(place+width > text.length()){
+			rowText = text.substring(place, text.length());
+		}
+		else{
+			rowText = text.substring(place, place+width);
+		}
+      
+      drawText(rowText, i+row, col);
+	  try {
+    Thread.sleep(1000);
+  }
+    catch (InterruptedException e) {
+  }
+	  place += width;
+	 // System.out.print(i);
     }
   }
 
@@ -142,7 +155,7 @@ public class Game{
     //Clear and initialize
     Text.hideCursor();
     Text.clear();
-    System.out.println("\033[2J");
+   // System.out.println("\033[2J");
 
 
     //Things to attack:
@@ -171,7 +184,8 @@ public class Game{
 
     //You can add parameters to draw screen!
     drawScreen();//initial state.
-    TextBox(2, 2, 30, 80, "helojrewujfsjiojsfdoijasoajlhfaslhfkajhjfkashkashkshkjakjfkjajkdsnkadsnadsnadsadsdsajahdsfjasfasasasfafsfasfhghgfjg");
+    TextBox(2, 2, 78, 28, "abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz");
+	Text.go(32, 1);
     //Main loop
 
     //display this prompt at the start of the game.
