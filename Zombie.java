@@ -10,7 +10,7 @@ public class Zombie extends Adventurer{
   }
 
 
-  public (String name){
+  public Zombie(String name){
     this(name,35);
   }
 
