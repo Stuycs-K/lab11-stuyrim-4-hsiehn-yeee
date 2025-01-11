@@ -17,13 +17,13 @@ Make a clear list of features that work/dont work
 
 ### Chomper:
 
-Attack (Fly Trap)
+:question: Attack (Fly Trap)
 
-Special Attack (Withering)
+:question: Special Attack (Withering)
 
-Support (Blooming)
+:question: Support (Blooming)
 
-Support Self (N/A)
+:question: Support Self (N/A)
 
 ### Sunflowers:
 
@@ -37,25 +37,37 @@ Support Self (Plant)
 
 ### Zombie:
 
-Attack (Devour)
+:question: Attack (Devour)
 
-Special Attack (Horde)
+:question: Special Attack (Horde)
 
-Support (CS Test)
+:question: Support (CS Test)
 
-Support Self (Scavenge)
+:question: Support Self (Scavenge)
+
+### Zomboss:
+
+Attack (Clobber)
+
+Special Attack (Apocalypse)
+
+Support (Shield)
 
 ### Game:
 
-Window
+:white_check_mark: Window
 
-Textbox
+:white_check_mark: Textbox
 
 Color HP by Percent
 
-Draw Party
+:white_check_mark: Draw Parties
 
 Input
+
+Create Random Adventurer
+
+
 
 ## Adventurer Subclasses
 
