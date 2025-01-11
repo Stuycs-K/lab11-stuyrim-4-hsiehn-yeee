@@ -1,5 +1,5 @@
 public class Chomper extends Adventurer{
-  int pH, pHmax;
+  int pH, pHMax;
 
   /*the other constructors ultimately call the constructor
   *with all parameters.*/
@@ -10,7 +10,7 @@ public class Chomper extends Adventurer{
   }
 
 
-  public (String name){
+  public Chomper(String name){
     this(name,25);
   }
 
