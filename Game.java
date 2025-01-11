@@ -16,19 +16,19 @@ public class Game{
     //YOUR CODE HERE
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     Text.go(1, 1);
-		for(int i = 1; i <= 80; i++){
+		for(int i = 1; i <= WIDTH; i++){
 			System.out.print(Text.colorize(" ", 47));
 		}
-		for(int i = 2; i < 30; i++){
+		for(int i = 2; i < HEIGHT; i++){
 			Text.go(i, 1);
 			System.out.print(Text.colorize(" ", 47));
       Text.reset();
-			Text.go(i, 80);
+			Text.go(i, WIDTH);
       Text.reset();
 			System.out.print(Text.colorize(" ", 47));
 		}
-		Text.go(30, 1);
-		for(int i = 1; i <= 80; i++){
+		Text.go(HEIGHT, 1);
+		for(int i = 1; i <= WIDTH; i++){
 			System.out.print(Text.colorize(" ", 47));
 		}
   }
@@ -70,11 +70,6 @@ public class Game{
 		}
       
       drawText(rowText, i+row, col);
-	  try {
-    Thread.sleep(1000);
-  }
-    catch (InterruptedException e) {
-  }
 	  place += width;
 	 // System.out.print(i);
     }
@@ -99,10 +94,25 @@ public class Game{
     * ***THIS ROW INTENTIONALLY LEFT BLANK***
     */
     public static void drawParty(ArrayList<Adventurer> party,int startRow){
-
       /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
       //YOUR CODE HERE
       /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+	  String member = "";
+	  for(int i = 0; i < party.size(); i++){
+		  member = "" + party.get(i);
+		  TextBox(startRow, 2+i*(78/party.size()), 78/party.size(), 1, member);
+		  member = "HP: " + party.get(i).getHP();
+		  TextBox(startRow+1, 2+i*(78/party.size()), 78/party.size(), 1, member);
+		  member = party.get(i).getSpecialName() + ": " + party.get(i).getSpecial();
+		  TextBox(startRow+2, 2+i*(78/party.size()), 78/party.size(), 1, member);
+		 // System.out.print("done");
+		  
+		  try {
+    Thread.sleep(1000);
+  }
+    catch (InterruptedException e) {
+  }
+	  }
     }
 
 
@@ -123,14 +133,15 @@ public class Game{
   //Display the party and enemies
   //Do not write over the blank areas where text will appear.
   //Place the cursor at the place where the user will by typing their input at the end of this method.
-  public static void drawScreen(){
+  public static void drawScreen(ArrayList<Adventurer> party, ArrayList<Adventurer> enemies){
 
     drawBackground();
 
     //draw player party
-
+	
+	drawParty(party, 2);
     //draw enemy party
-
+	drawParty(enemies, 6);
   }
 
   public static String userInput(Scanner in){
@@ -166,14 +177,16 @@ public class Game{
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-
+	enemies.add(new Zombie("Tutorial", 35));
     //Adventurers you control:
     //Make an ArrayList of Adventurers and add 2-4 Adventurers to it.
     ArrayList<Adventurer> party = new ArrayList<>();
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-
+	party.add(new Chomper("Nom nom", 25));
+	party.add(new Chomper("Yumsies", 25));
+	party.add(new Zombie("Brainiac", 35));
     boolean partyTurn = true;
     int whichPlayer = 0;
     int whichOpponent = 0;
@@ -181,17 +194,17 @@ public class Game{
     String input = "";//blank to get into the main loop.
     Scanner in = new Scanner(System.in);
     //Draw the window border
-
+	//System.out.println(party);
     //You can add parameters to draw screen!
-    drawScreen();//initial state.
-    TextBox(2, 2, 78, 28, "abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz");
+    drawScreen(party, enemies);//initial state.
+ //   TextBox(2, 2, 78, 28, "abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz");
 	Text.go(32, 1);
     //Main loop
 
     //display this prompt at the start of the game.
     String preprompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
 
-    while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
+    while(false && ! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
       //Read user input
       input = userInput(in);
 
@@ -270,7 +283,7 @@ public class Game{
       }
 
       //display the updated screen after input has been processed.
-      drawScreen();
+      drawScreen(party, enemies);
 
 
     }//end of main game loop
