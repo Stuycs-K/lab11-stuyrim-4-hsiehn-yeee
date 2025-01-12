@@ -54,6 +54,9 @@ public abstract class Adventurer{
   */
 
   public void applyDamage(int amount){
+    if (shield == true){
+      amount = 0;
+    }
     this.HP -= amount;
   }
 
