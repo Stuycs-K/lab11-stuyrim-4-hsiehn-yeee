@@ -1,6 +1,5 @@
 public class Sunflowers extends Adventurer{
   int sunExposure, sunExposureMax;
-  boolean vitaminD = false;
 
   /*the other constructors ultimately call the constructor
   *with all parameters.*/
@@ -36,14 +35,6 @@ public class Sunflowers extends Adventurer{
     return sunExposureMax;
   }
 
-  public boolean getVitamins(){
-    return vitaminD;
-  }
-
-  public boolean setVitamins(boolean D){
-    vitaminD = D;
-  }
-
   /*Deal 3 damage to opponent, increases sunExposure by 1*/
   public String attack(Adventurer other){
     int damage = (int)(Math.random()*3)+1;
@@ -52,26 +43,26 @@ public class Sunflowers extends Adventurer{
     return this + " used Flamethrower! Sunflowers launch themselves at "+ other + " and deal " + damage + " to them, while also losing " + damage + " itself.";
   }
 
-  /*Deal 2*3 to 4*3 damage to opponent, only if sunExposure > 2.
-  *Decrease sunExposure by 2-4.
+  /*Decrease opponent's special by 25%, also dropping their own by 10%. No threshold of special required
   */
   public String specialAttack(Adventurer other){
     int dropOtherSpecial = (int) 0.25*other.getSpecial();
     int dropOwnSpecial = (int) 0.1*this.getSpecial();
     other.setSpecial(other.getSpecial() - dropOtherSpecial);
-    this.setSpecial(getSpecialshielding them from the next attack, () - dropOwnSpecial);
+    this.setSpecial(this.getSpecial() - dropOwnSpecial);
     return this + " used Sunburn! They emanated a bright light, temporarily blinding and burning its opponent, dropping their " + other.getSpecialName() + " by " + dropOtherSpecial + ", while also losing " + dropOwnSpecial + " itself.";
   }
-  /*If ally is a Sunflowers: restores 3 special. Else, restore 1 special.*/
+  /*Shields the allys from the next atack and take two damage NOTE: A shield attribute must be applied to all other adventurers.*/
   public String support(Adventurer other){
     applyDamage(2);
-    setVitamin(true);
+    setShield(true);
   	return this + "used Vitamin D! They gave two Sunflowers to be eaten for the strengthening of their bones!, sheilding " + other + " from the next attack!";
   }
-  /*75% chance of regaining 4 sunExposure, 25% chance of nothing happening*/
+  /*Regains 5-7HP while also gaining 2 special*/
   public String support(){
-  	int chance = (int)(Math.random()*3) + 5 ;
-  	
-  }
+  	int heal = (int)(Math.random()*3) + 5 ;
+    restoreHP(heal);
+  	restoreSpecial(2); 
+    return this + " used Plant! Sunflower seeds were sowed, and " + heal + " new sunflowers have sprouted, gaining " + heal + " HP, and raining sunExposure by 2!";
   }
 }
