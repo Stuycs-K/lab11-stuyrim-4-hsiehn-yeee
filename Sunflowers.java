@@ -9,7 +9,6 @@ public class Sunflowers extends Adventurer{
     sunExposure = sunExposureMax/2;
   }
 
-
   public Sunflowers(String name){
     this(name,35);
   }

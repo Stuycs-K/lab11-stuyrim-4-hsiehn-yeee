@@ -1,68 +1,71 @@
-public class Zombies extends Adventurer{
-  int brains, brainsMax;
+public class Boss extends Adventurer{
+  int musclePower, musclePowerMax;
 
   /*the other constructors ultimately call the constructor
   *with all parameters.*/
-  public Zombies(String name, int hp){
+  public Boss(String name, int hp){
     super(name,hp);
-    brainsMax = 10;
-    brains = brainsMax/2;
+    musclePowerMax = 10;
+    musclePower = musclePowerMax/2;
   }
 
-
-  public Zombies(String name){
+  public Boss(String name){
     this(name,35);
   }
 
-  public Zombies(){
-    this("Zombies");
+  public Boss(){
+    this("Zomboss");
   }
 
   /*The next 8 methods are all required because they are abstract:*/
   public String getSpecialName(){
-    return "brains";
+    return "musclePower";
   }
 
   public int getSpecial(){
-    return brains;
+    return musclePower;
   }
 
   public void setSpecial(int n){
-    brains = n;
+    musclePower = n;
   }
 
   public int getSpecialMax(){
-    return brainsMax;
+    return musclePowerMax;
   }
 
-  /*Deal 3 damage to opponent, increases brains by 1*/
+  /*Deals 6-8 damage, makes opponent lose 1 special (chompers gain), and gains 4 special.*/
   public String attack(Adventurer other){
-    int damage = (int)(Math.random()*3)+1;
+    int damage = (int)(Math.random()*3)+6;
     other.applyDamage(damage);
-    this.applyDamage(damage);
-    return this + " used Devour! Zombies launch themselves at "+ other + " and deal " + damage + " to them, while also losing " + damage + " itself.";
+    other.setSpecial(other.getSpecial() - 1); 
+    setSpecial(getSpecial() + 4);
+    return this + " used Clobber! Zomboss clubbed "+ other + " and deals " + damage + " to them, paralyzing them and making them lose 1 itself." + other.getSpecialName() + ", while also gaining 4 musclePower";
   }
 
   /*Decrease opponent's special by 25%, also dropping their own by 10%. No threshold of special required
   */
   public String specialAttack(Adventurer other){
-    int dropOtherSpecial = (int) 0.25*other.getSpecial();
-    int dropOwnSpecial = (int) 0.1*this.getSpecial();
-    other.setSpecial(other.getSpecial() - dropOtherSpecial);
-    this.setSpecial(this.getSpecial() - dropOwnSpecial);
-    return this + " used Horde! They emanated a bright light, temporarily blinding and burning its opponent, dropping their " + other.getSpecialName() + " by " + dropOtherSpecial + ", while also losing " + dropOwnSpecial + " itself.";
+    if (getSpecial() > 25){
+      int damage = (int)(Math.random()*3 + 8);
+      other.applyDamage(damage * 2); 
+      setSpecial(getSpecial()-damage);
+      int ownDamage = (int)(Math.random()*5 + 1);
+      applyDamage(ownDamage);
+    }
+    return this + " used Apocalypes! They commanded a horde of " + damage + " zombies, which dealt " + (damage * 2) + ", damage to " + other + ". " + this + " was also hurt in the process, and lost " + ownDamage + " HP. Lost " + damage + " musclePower. ";
   }
   /*Shields the allys from the next atack and take two damage NOTE: A shield attribute must be applied to all other adventurers.*/
   public String support(Adventurer other){
     applyDamage(2);
     setShield(true);
-  	return this + "used CS Test! They gave two Zombies to be eaten for the strengthening of their bones!, sheilding " + other + " from the next attack!";
+  	return this + "used CS Test! They gave two Zomboss to be eaten for the strengthening of their bones!, sheilding " + other + " from the next attack!";
   }
   /*Regains 5-7HP while also gaining 2 special*/
   public String support(){
   	int heal = (int)(Math.random()*3) + 5 ;
     restoreHP(heal);
   	restoreSpecial(2); 
-    return this + " used Scavenge! Zombie seeds were sowed, and " + heal + " new sunflowers have sprouted, gaining " + heal + " HP, and raining brains by 2!";
+    return this + " used Scavenge! Zomboss seeds were sowed, and " + heal + " new sunflowers have sprouted, gaining " + heal + " HP, and raining musclePower by 2!";
   }
 }

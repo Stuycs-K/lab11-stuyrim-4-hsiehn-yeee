@@ -27,13 +27,13 @@ Make a clear list of features that work/dont work
 
 ### Sunflowers:
 
-Attack (Flamethrower)
+:question: Attack (Flamethrower)
 
-Special Attack (Sunburn)
+:question: Special Attack (Sunburn)
 
-Support (Vitamin D)
+:question: Support (Vitamin D)
 
-Support Self (Plant)
+:question: Support Self (Plant)
 
 ### Zombie:
 
@@ -47,11 +47,11 @@ Support Self (Plant)
 
 ### Zomboss:
 
-Attack (Clobber)
+:question: Attack (Clobber)
 
-Special Attack (Apocalypse)
+:question: Special Attack (Apocalypse)
 
-Support (Shield)
+:question: Support (Shield)
 
 ### Game:
 
