@@ -2,6 +2,7 @@ import java.util.Random;
 public abstract class Adventurer{
   private String name;
   private int HP,maxHP;
+  private boolean shield = false;
 
   //Abstract methods are meant to be implemented in child classes.
   /*
@@ -56,6 +57,10 @@ public abstract class Adventurer{
     this.HP -= amount;
   }
 
+  public void restoreHP(int amount){
+    this.HP += amount;
+  }
+
   //You did it wrong if this happens.
   public Adventurer(){
     this("Lester-the-noArg-constructor-string");
@@ -88,6 +93,12 @@ public abstract class Adventurer{
   public int getmaxHP(){
     return maxHP;
   }
+
+  public boolean getShield(){
+    return shield; 
+  }
+
+  // Set Methods 
   public void setmaxHP(int newMax){
     maxHP = newMax;
   }
@@ -99,5 +110,9 @@ public abstract class Adventurer{
 
   public void setName(String s){
     this.name = s;
+  }
+
+  public void setShield(boolean b){
+    this.shield = b;
   }
 }
