@@ -7,6 +7,8 @@ public class Game{
 
   public static void main(String[] args) {
     run();
+
+    //System.out.println(createRandomAdventurer("Bobbie"));
   }
 
   //Display the borders of your screen that will not change.
@@ -80,8 +82,15 @@ public class Game{
 
     //return a random adventurer (choose between all available subclasses)
     //feel free to overload this method to allow specific names/stats.
-    public static Adventurer createRandomAdventurer(){
-      return new Chomper("Bob"+(int)(Math.random()*100));
+    public static Adventurer createRandomAdventurer(String name){
+      int rando = (int)(Math.random()*100);
+      if (rando < 33){
+        return new Chomper(name); 
+      }else if (rando < 66){
+        return new Sunflowers(name); 
+      }else{
+        return new Zombie(name); 
+      }
     }
 
     /*Display a List of 2-4 adventurers on the rows row through row+3 (4 rows max)
