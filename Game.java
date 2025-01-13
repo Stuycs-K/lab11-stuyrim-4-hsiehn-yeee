@@ -114,17 +114,6 @@ public class Game{
         member = party.get(i).getSpecialName() + ": " + party.get(i).getSpecial();
         TextBox(startRow+2, 2+i*(78/party.size()), 78/party.size(), 1, member);
       // System.out.print("done");
-
-<<<<<<< HEAD
-    }
-=======
-        try {
-          Thread.sleep(1000);
-        }
-        catch (InterruptedException e) {
-        }
-      }
->>>>>>> 43672d5734625ff5604cea48c2990d0374d5c1de
     }
 
   //Use this to create a colorizeized number string based on the % compared to the max value.
@@ -156,11 +145,8 @@ public class Game{
 	  drawParty(enemies, 6);
 
     //place the curser where use will type input
-<<<<<<< HEAD
-    go(8, 3);
-=======
     Text.go(8, 3);
->>>>>>> 43672d5734625ff5604cea48c2990d0374d5c1de
+
   }
 
   public static String userInput(Scanner in){
@@ -223,12 +209,9 @@ public class Game{
     //Main loop
 
     //display this prompt at the start of the game.
-<<<<<<< HEAD
-    String preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
-=======
-    String preprompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
 
->>>>>>> 43672d5734625ff5604cea48c2990d0374d5c1de
+    String preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
+
     while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
       //Read user input
       System.out.print(preprompt);
