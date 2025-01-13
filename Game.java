@@ -4,6 +4,9 @@ public class Game{
   private static final int HEIGHT = 30;
   private static final int BORDER_COLOR = Text.BLACK;
   private static final int BORDER_BACKGROUND = Text.WHITE + Text.BACKGROUND;
+  public static final int RED = 31;
+  public static final int GREEN = 32;
+  public static final int YELLOW = 33;
 
   public static void main(String[] args) {
     run();
@@ -132,6 +135,14 @@ public class Game{
     // under 25% : red
     // under 75% : yellow
     // otherwise : white
+    if (hp < 0.25*maxHP){
+      System.out.print("\033[;" + RED + "m");
+    }
+    else if (hp < 0.75*maxHP){
+      System.out.print("\033[;" + YELLOW + "m");
+    }else{
+      System.out.print("\033[;" + GREEN + "m");
+    }
     return output;
   }
 
