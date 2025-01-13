@@ -73,7 +73,7 @@ public class Game{
 		else{
 			rowText = text.substring(place, place+width);
 		}
-      
+
       drawText(rowText, i+row, col);
 	  place += width;
 	 // System.out.print(i);
@@ -85,11 +85,11 @@ public class Game{
     public static Adventurer createRandomAdventurer(String name){
       int rando = (int)(Math.random()*100);
       if (rando < 33){
-        return new Chomper(name); 
+        return new Chomper(name);
       }else if (rando < 66){
-        return new Sunflowers(name); 
+        return new Sunflowers(name);
       }else{
-        return new Zombie(name); 
+        return new Zombie(name);
       }
     }
 
@@ -115,13 +115,8 @@ public class Game{
         member = party.get(i).getSpecialName() + ": " + party.get(i).getSpecial();
         TextBox(startRow+2, 2+i*(78/party.size()), 78/party.size(), 1, member);
       // System.out.print("done");
-        
-        try {
-          Thread.sleep(1000);
-        }
-        catch (InterruptedException e) {
-        }
-      }
+
+    }
     }
 
   //Use this to create a colorizeized number string based on the % compared to the max value.
@@ -153,11 +148,11 @@ public class Game{
   public static void drawScreen(ArrayList<Adventurer> party, ArrayList<Adventurer> enemies){
     drawBackground();
     //draw player party
-	  drawParty(party, 2);
+    drawParty(party, 2);
     //draw enemy party
 	  drawParty(enemies, 6);
 
-    //place the curser where use will type input 
+    //place the curser where use will type input
     go(8, 3);
   }
 
@@ -215,13 +210,13 @@ public class Game{
     //You can add parameters to draw screen!
     drawScreen(party, enemies);//initial state.
  //   TextBox(2, 2, 78, 28, "abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz");
-	Text.go(32, 1);
+	Text.go(33, 1);
     //Main loop
 
     //display this prompt at the start of the game.
-    String preprompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
+    String preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q)";
 
-    while(false && ! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
+    while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
       //Read user input
       input = userInput(in);
 
@@ -230,17 +225,30 @@ public class Game{
 
       //display event based on last turn's input
       if(partyTurn){
-
         //Process user input for the last Adventurer:
-        if(input.equals("attack") || input.equals("a")){
+        if(input.startsWith("a ") || input.startsWith("attack ") ){
           /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
           //YOUR CODE HERE
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+          if(input.indexOf("a ") == -1){
+            whichOpponent = Integer.parseInt(input.charAt(7));
+          }
+          else{
+            whichOpponent = Integer.parseInt(input.charAt(2));
+          }
+          party.get(whichPlayer).attack(enemies.get(whichOpponent));
         }
-        else if(input.equals("special") || input.equals("sp")){
+        else if(input.startsWith("sp ") || input.startsWith("special ")){
           /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
           //YOUR CODE HERE
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+          if(input.indexOf("sp ") == -1){
+            whichOpponent = Integer.parseInt(input.charAt(8));
+          }
+          else{
+            whichOpponent = Integer.parseInt(input.charAt(3));
+          }
+          party.get(whichPlayer).specialAttack(enemies.get(whichOpponent));
         }
         else if(input.startsWith("su ") || input.startsWith("support ")){
           //"support 0" or "su 0" or "su 2" etc.
@@ -248,6 +256,18 @@ public class Game{
           /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
           //YOUR CODE HERE
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+          if(input.indexOf("su ") == -1){
+            whichOpponent = Integer.parseInt(input.charAt(8));
+          }
+          else{
+            whichOpponent = Integer.parseInt(input.charAt(3));
+          }
+          if(whichOpponent == whichPlayer){
+            party.get(whichPlayer).support();
+          }
+          else{
+            party.get(whichPlayer).support(party.get(whichOpponent));
+          }
         }
 
         //You should decide when you want to re-ask for user input
