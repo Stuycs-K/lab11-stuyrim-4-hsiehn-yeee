@@ -43,29 +43,37 @@ public class Boss extends Adventurer{
     return this + " used Clobber! Zomboss clubbed "+ other + " and deals " + damage + " to them, paralyzing them and making them lose 1 itself." + other.getSpecialName() + ", while also gaining 4 musclePower";
   }
 
-  /*Decrease opponent's special by 25%, also dropping their own by 10%. No threshold of special required
+  /*"Apocalypse": The Zomboss commands a horde of 8-10 zombies, dealing 2 damage per each zombie and losing 8-10 musclePower. Zombies are careless when they fight, so they damage the Zomboss as well, dealing 1-5 damage to the Zomboss. (musclePower must be greater than 25)
   */
   public String specialAttack(Adventurer other){
+    int damage = (int)(Math.random()*3 + 8);
+    int ownDamage = (int)(Math.random()*5 + 1);
     if (getSpecial() > 25){
-      int damage = (int)(Math.random()*3 + 8);
       other.applyDamage(damage * 2); 
       setSpecial(getSpecial()-damage);
-      int ownDamage = (int)(Math.random()*5 + 1);
       applyDamage(ownDamage);
+      return this + " used Apocalypes! They commanded a horde of " + damage + " zombies, which dealt " + (damage * 2) + ", damage to " + other + ". " + this + " was also hurt in the process, and lost " + ownDamage + " HP. Lost " + damage + " musclePower. ";
+    }else{
+      return "oops! Zomboss did not have enough musclePower to use Apocalypse!";
     }
-    return this + " used Apocalypes! They commanded a horde of " + damage + " zombies, which dealt " + (damage * 2) + ", damage to " + other + ". " + this + " was also hurt in the process, and lost " + ownDamage + " HP. Lost " + damage + " musclePower. ";
   }
-  /*Shields the allys from the next atack and take two damage NOTE: A shield attribute must be applied to all other adventurers.*/
+
   public String support(Adventurer other){
-    applyDamage(2);
-    setShield(true);
-  	return this + "used CS Test! They gave two Zomboss to be eaten for the strengthening of their bones!, sheilding " + other + " from the next attack!";
+    return "Oh no... Zomboss doesn't have any real life friends :( his efforts to support others were in vain and nothing happened...";
   }
-  /*Regains 5-7HP while also gaining 2 special*/
+
+
+  /*"Shield": The Zomboss collects fallen zombie parts to form a shield, hiding behind them while healing itself, regaining 6-8 HP, with a 50% chance it will gain 2 musclePower from the workout of collecting zombies.
+  */
   public String support(){
-  	int heal = (int)(Math.random()*3) + 5 ;
+    int heal = (int)(Math.random()*3 + 6);
+    double chance = Math.random();
     restoreHP(heal);
-  	restoreSpecial(2); 
-    return this + " used Scavenge! Zomboss seeds were sowed, and " + heal + " new sunflowers have sprouted, gaining " + heal + " HP, and raining musclePower by 2!";
+    if (chance > 0.5){
+      restoreSpecial(2); 
+      return this + "used Shield! They gave collected fallen zombie parts and made a shield, allowing them to regain " + heal + "HP. They also gained 2 musclePower from the workout.";
+    }
+  	return this + "used Shield! They gave collected fallen zombie parts and made a shield, allowing them to regain " + heal + "HP.";
   }
+  /* Support others does not exist */
 }
