@@ -115,6 +115,7 @@ public class Game{
         TextBox(startRow+2, 2+i*(78/party.size()), 78/party.size(), 1, member);
       // System.out.print("done");
     }
+  }
 
   //Use this to create a colorizeized number string based on the % compared to the max value.
   public static String colorByPercent(int hp, int maxHP){
@@ -228,10 +229,10 @@ public class Game{
           //YOUR CODE HERE
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
           if(input.indexOf("a ") == -1){
-            whichOpponent = Integer.parseInt(input.charAt(7));
+            whichOpponent = Integer.parseInt(""+input.charAt(7));
           }
           else{
-            whichOpponent = Integer.parseInt(input.charAt(2));
+            whichOpponent = Integer.parseInt(""+input.charAt(2));
           }
           party.get(whichPlayer).attack(enemies.get(whichOpponent));
         }
@@ -240,10 +241,10 @@ public class Game{
           //YOUR CODE HERE
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
           if(input.indexOf("sp ") == -1){
-            whichOpponent = Integer.parseInt(input.charAt(8));
+            whichOpponent = Integer.parseInt(""+input.charAt(8));
           }
           else{
-            whichOpponent = Integer.parseInt(input.charAt(3));
+            whichOpponent = Integer.parseInt(""+input.charAt(3));
           }
           party.get(whichPlayer).specialAttack(enemies.get(whichOpponent));
         }
@@ -254,10 +255,10 @@ public class Game{
           //YOUR CODE HERE
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
           if(input.indexOf("su ") == -1){
-            whichOpponent = Integer.parseInt(input.charAt(8));
+            whichOpponent = Integer.parseInt(""+input.charAt(8));
           }
           else{
-            whichOpponent = Integer.parseInt(input.charAt(3));
+            whichOpponent = Integer.parseInt(""+input.charAt(3));
           }
           if(whichOpponent == whichPlayer){
             party.get(whichPlayer).support();
