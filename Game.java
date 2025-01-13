@@ -72,8 +72,10 @@ public class Game{
 		else{
 			rowText = text.substring(place, place+width);
 		}
-
       drawText(rowText, i+row, col);
+	  for(int j = rowText.length(); j < width; j++){
+		 drawText(" ", i+row, j+col);
+	  }
 	  place += width;
 	 // System.out.print(i);
     }
@@ -154,12 +156,25 @@ public class Game{
     Scanner userInput = new Scanner(System.in);
 
       //Move cursor to prompt location
-      Text.go(10, 10);
-      String winner = "";
-      String a = userInput.nextLine();
-      String input = in.nextLine();
+      Text.go(11, 2);
+	   try {
+    Thread.sleep(1000);
+  }
+    catch (InterruptedException e) {
+  }
+      String input = userInput.nextLine();
+	   try {
+    Thread.sleep(1000);
+  }
+    catch (InterruptedException e) {
+  }
       //show cursor
       Text.showCursor();
+	   try {
+    Thread.sleep(1000);
+  }
+    catch (InterruptedException e) {
+  }
       //clear the text that was written
       Text.clear();
       return input;
@@ -210,14 +225,19 @@ public class Game{
     //Main loop
 
     //display this prompt at the start of the game.
-
     String preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
 
     while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
       //Read user input
+	  Text.go(10, 2);
       System.out.print(preprompt);
       input = userInput(in);
-
+	  while(!(input.startsWith("a ") || input.startsWith("attack ") || input.startsWith("sp ") || input.startsWith("special ") || input.startsWith("su ") || input.startsWith("support "))){
+		 
+		  Text.go(10, 2);
+		  System.out.print("Invalid input. Please try again. " + preprompt);
+		  input = userInput(in);
+	  }
       //example debug statment
       //TextBox(24,2,1,78,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
 
