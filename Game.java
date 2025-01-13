@@ -147,21 +147,19 @@ public class Game{
   }
 
 
-
-
-
   //Display the party and enemies
   //Do not write over the blank areas where text will appear.
   //Place the cursor at the place where the user will by typing their input at the end of this method.
   public static void drawScreen(ArrayList<Adventurer> party, ArrayList<Adventurer> enemies){
-
     drawBackground();
-
     //draw player party
-	
-	drawParty(party, 2);
+	  drawParty(party, 2);
     //draw enemy party
-	drawParty(enemies, 6);
+	  drawParty(enemies, 6);
+
+    //place the curser where use will type input 
+    System.out.print("\033[" + 8 + ";" + 3 + "H");
+
   }
 
   public static String userInput(Scanner in){
