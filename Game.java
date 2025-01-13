@@ -1,12 +1,11 @@
 import java.util.*;
+import java.util.Scanner;
 public class Game{
   private static final int WIDTH = 80;
   private static final int HEIGHT = 30;
   private static final int BORDER_COLOR = Text.BLACK;
   private static final int BORDER_BACKGROUND = Text.WHITE + Text.BACKGROUND;
-  public static final int RED = 31;
-  public static final int GREEN = 32;
-  public static final int YELLOW = 33;
+
 
   public static void main(String[] args) {
     run();
@@ -116,7 +115,16 @@ public class Game{
         TextBox(startRow+2, 2+i*(78/party.size()), 78/party.size(), 1, member);
       // System.out.print("done");
 
+<<<<<<< HEAD
     }
+=======
+        try {
+          Thread.sleep(1000);
+        }
+        catch (InterruptedException e) {
+        }
+      }
+>>>>>>> 43672d5734625ff5604cea48c2990d0374d5c1de
     }
 
   //Use this to create a colorizeized number string based on the % compared to the max value.
@@ -127,19 +135,14 @@ public class Game{
     // under 75% : yellow
     // otherwise : white
     if (hp < 0.25*maxHP){
-      System.out.print("\033[;" + RED + "m");
+      System.out.print(Text.colorize(output, Text.RED));
     }
     else if (hp < 0.75*maxHP){
-      System.out.print("\033[;" + YELLOW + "m");
+      System.out.print(Text.colorize(output, Text.YELLOW));
     }else{
-      System.out.print("\033[;" + GREEN + "m");
+      System.out.print(Text.colorize(output, Text.GREEN));
     }
     return output;
-  }
-
-
-  public static void go(int row,int col){
-    System.out.print("\033[" + row + ";" + col + "H");
   }
 
   //Display the party and enemies
@@ -153,18 +156,25 @@ public class Game{
 	  drawParty(enemies, 6);
 
     //place the curser where use will type input
+<<<<<<< HEAD
     go(8, 3);
+=======
+    Text.go(8, 3);
+>>>>>>> 43672d5734625ff5604cea48c2990d0374d5c1de
   }
 
   public static String userInput(Scanner in){
+    Scanner userInput = new Scanner(System.in);
+
       //Move cursor to prompt location
-
-      //show cursor
-
+      Text.go(10, 10);
+      String winner = "";
+      String a = userInput.nextLine();
       String input = in.nextLine();
-
+      //show cursor
+      Text.showCursor();
       //clear the text that was written
-
+      Text.clear();
       return input;
   }
 
@@ -213,14 +223,19 @@ public class Game{
     //Main loop
 
     //display this prompt at the start of the game.
+<<<<<<< HEAD
     String preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
+=======
+    String preprompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
+
+>>>>>>> 43672d5734625ff5604cea48c2990d0374d5c1de
     while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
       //Read user input
       System.out.print(preprompt);
       input = userInput(in);
 
       //example debug statment
-      TextBox(24,2,1,78,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
+      //TextBox(24,2,1,78,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
 
       //display event based on last turn's input
       if(partyTurn){

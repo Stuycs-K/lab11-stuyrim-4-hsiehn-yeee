@@ -56,6 +56,7 @@ public abstract class Adventurer{
   public void applyDamage(int amount){
     if (shield == true){
       amount = 0;
+      this.shield = false;
     }
     this.HP -= amount;
   }
@@ -98,10 +99,10 @@ public abstract class Adventurer{
   }
 
   public boolean getShield(){
-    return shield; 
+    return shield;
   }
 
-  // Set Methods 
+  // Set Methods
   public void setmaxHP(int newMax){
     maxHP = newMax;
   }
