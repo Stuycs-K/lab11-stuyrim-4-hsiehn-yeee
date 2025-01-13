@@ -80,9 +80,6 @@ public class Game{
     }
   }
 
-
-
-
     //return a random adventurer (choose between all available subclasses)
     //feel free to overload this method to allow specific names/stats.
     public static Adventurer createRandomAdventurer(String name){
@@ -106,27 +103,26 @@ public class Game{
     * ***THIS ROW INTENTIONALLY LEFT BLANK***
     */
     public static void drawParty(ArrayList<Adventurer> party,int startRow){
-      /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-      //YOUR CODE HERE
-      /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-	  String member = "";
-	  for(int i = 0; i < party.size(); i++){
-		  member = "" + party.get(i);
-		  TextBox(startRow, 2+i*(78/party.size()), 78/party.size(), 1, member);
-		  member = "HP: " + party.get(i).getHP();
-		  TextBox(startRow+1, 2+i*(78/party.size()), 78/party.size(), 1, member);
-		  member = party.get(i).getSpecialName() + ": " + party.get(i).getSpecial();
-		  TextBox(startRow+2, 2+i*(78/party.size()), 78/party.size(), 1, member);
-		 // System.out.print("done");
-		  
-		  try {
-    Thread.sleep(1000);
-  }
-    catch (InterruptedException e) {
-  }
-	  }
+        /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+        //YOUR CODE HERE
+        /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+      String member = "";
+      for(int i = 0; i < party.size(); i++){
+        member = "" + party.get(i);
+        TextBox(startRow, 2+i*(78/party.size()), 78/party.size(), 1, member);
+        member = "HP: " + party.get(i).getHP();
+        TextBox(startRow+1, 2+i*(78/party.size()), 78/party.size(), 1, member);
+        member = party.get(i).getSpecialName() + ": " + party.get(i).getSpecial();
+        TextBox(startRow+2, 2+i*(78/party.size()), 78/party.size(), 1, member);
+      // System.out.print("done");
+        
+        try {
+          Thread.sleep(1000);
+        }
+        catch (InterruptedException e) {
+        }
+      }
     }
-
 
   //Use this to create a colorizeized number string based on the % compared to the max value.
   public static String colorByPercent(int hp, int maxHP){
@@ -147,6 +143,10 @@ public class Game{
   }
 
 
+  public static void go(int row,int col){
+    System.out.print("\033[" + row + ";" + col + "H");
+  }
+
   //Display the party and enemies
   //Do not write over the blank areas where text will appear.
   //Place the cursor at the place where the user will by typing their input at the end of this method.
@@ -158,8 +158,7 @@ public class Game{
 	  drawParty(enemies, 6);
 
     //place the curser where use will type input 
-    System.out.print("\033[" + 8 + ";" + 3 + "H");
-
+    go(8, 3);
   }
 
   public static String userInput(Scanner in){
