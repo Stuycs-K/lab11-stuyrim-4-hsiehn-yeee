@@ -185,7 +185,7 @@ public class Game{
     //YOUR CODE HERE
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 	party.add(new Chomper("Nom nom", 25));
-	party.add(new Chomper("Yumsies", 25));
+	party.add(new Sunflowers("Polaris", 30));
 	party.add(new Zombie("Brainiac", 35));
     boolean partyTurn = true;
     int whichPlayer = 0;

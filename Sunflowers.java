@@ -5,8 +5,8 @@ public class Sunflowers extends Adventurer{
   *with all parameters.*/
   public Sunflowers(String name, int hp){
     super(name,hp);
-    sunExposureMax = 10;
-    sunExposure = sunExposureMax/2;
+    sunExposureMax = 15;
+    sunExposure = 5;
   }
 
   public Sunflowers(String name){
