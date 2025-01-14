@@ -148,7 +148,7 @@ public class Game{
 	  drawParty(enemies, 6);
 
     //place the curser where use will type input
-    Text.go(8, 3);
+    Text.go(10, 2);
 
   }
 
@@ -157,26 +157,13 @@ public class Game{
 
       //Move cursor to prompt location
       Text.go(11, 2);
-	   try {
-    Thread.sleep(1000);
-  }
-    catch (InterruptedException e) {
-  }
       String input = userInput.nextLine();
-	   try {
-    Thread.sleep(1000);
-  }
-    catch (InterruptedException e) {
-  }
+	   
       //show cursor
       Text.showCursor();
-	   try {
-    Thread.sleep(1000);
-  }
-    catch (InterruptedException e) {
-  }
+	  
       //clear the text that was written
-      Text.clear();
+      TextBox(11, 2, 77, 1, " ");
       return input;
   }
 
@@ -229,13 +216,13 @@ public class Game{
 
     while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
       //Read user input
-	  Text.go(10, 2);
+	  
       System.out.print(preprompt);
       input = userInput(in);
 	  while(!(input.startsWith("a ") || input.startsWith("attack ") || input.startsWith("sp ") || input.startsWith("special ") || input.startsWith("su ") || input.startsWith("support "))){
 		 
 		  Text.go(10, 2);
-		  System.out.print("Invalid input. Please try again. " + preprompt);
+		  TextBox(10, 2, 77, 2, "Invalid. " + preprompt);
 		  input = userInput(in);
 	  }
       //example debug statment
