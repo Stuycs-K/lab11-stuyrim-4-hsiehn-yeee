@@ -152,18 +152,18 @@ public class Game{
 
   }
 
-  public static String userInput(Scanner in){
+  public static String userInput(Scanner in, int playerNum){
     Scanner userInput = new Scanner(System.in);
 
       //Move cursor to prompt location
-      Text.go(11, 2);
+      Text.go(10+playerNum, 2);
       String input = userInput.nextLine();
 	   
       //show cursor
       Text.showCursor();
 	  
       //clear the text that was written
-      TextBox(11, 2, 77, 1, " ");
+      TextBox(10+playerNum, 2, 77, 1, " ");
       return input;
   }
 
@@ -188,7 +188,9 @@ public class Game{
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-	enemies.add(new Zombie("Tutorial", 35));
+	enemies.add(createRandomAdventurer("Enemy 1"));
+	enemies.add(createRandomAdventurer("Enemy 2"));
+	enemies.add(createRandomAdventurer("Enemy 3"));
     //Adventurers you control:
     //Make an ArrayList of Adventurers and add 2-4 Adventurers to it.
     ArrayList<Adventurer> party = new ArrayList<>();
@@ -213,17 +215,15 @@ public class Game{
 
     //display this prompt at the start of the game.
     String preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
-
+	System.out.print(preprompt);
     while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
       //Read user input
-	  
-      System.out.print(preprompt);
-      input = userInput(in);
+      
+      input = userInput(in, whichPlayer*3 + preprompt.length()/78+1);
 	  while(!(input.startsWith("a ") || input.startsWith("attack ") || input.startsWith("sp ") || input.startsWith("special ") || input.startsWith("su ") || input.startsWith("support "))){
 		 
-		  Text.go(10, 2);
-		  TextBox(10, 2, 77, 2, "Invalid. " + preprompt);
-		  input = userInput(in);
+		  TextBox(10+whichPlayer*3, 2, 77, 2, "Invalid input. Please retry. " + preprompt);
+		  input = userInput(in, whichPlayer*3+("Invalid input. Please retry. " + preprompt).length()/78+1);
 	  }
       //example debug statment
       //TextBox(24,2,1,78,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
@@ -241,7 +241,7 @@ public class Game{
           else{
             whichOpponent = Integer.parseInt(""+input.charAt(2));
           }
-          party.get(whichPlayer).attack(enemies.get(whichOpponent));
+          TextBox(11+whichPlayer*3, 2, 77, 3, party.get(whichPlayer).attack(enemies.get(whichOpponent)));
         }
         else if(input.startsWith("sp ") || input.startsWith("special ")){
           /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
@@ -253,7 +253,7 @@ public class Game{
           else{
             whichOpponent = Integer.parseInt(""+input.charAt(3));
           }
-          party.get(whichPlayer).specialAttack(enemies.get(whichOpponent));
+          TextBox(11+whichPlayer*3, 2, 77, 3, party.get(whichPlayer).specialAttack(enemies.get(whichOpponent)));
         }
         else if(input.startsWith("su ") || input.startsWith("support ")){
           //"support 0" or "su 0" or "su 2" etc.
@@ -268,10 +268,10 @@ public class Game{
             whichOpponent = Integer.parseInt(""+input.charAt(3));
           }
           if(whichOpponent == whichPlayer){
-            party.get(whichPlayer).support();
+            TextBox(11+whichPlayer*3, 2, 77, 3, party.get(whichPlayer).support());
           }
           else{
-            party.get(whichPlayer).support(party.get(whichOpponent));
+            TextBox(11+whichPlayer*3, 2, 77, 3, party.get(whichPlayer).support(party.get(whichOpponent)));
           }
         }
 
@@ -283,12 +283,13 @@ public class Game{
         if(whichPlayer < party.size()){
           //This is a player turn.
           //Decide where to draw the following prompt:
-          String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
-
+          String prompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
+		  TextBox(10+whichPlayer, 2, 77, 2, prompt);
 
         }else{
           //This is after the player's turn, and allows the user to see the enemy turn
           //Decide where to draw the following prompt:
+		  
           String prompt = "press enter to see monster's turn";
 
           partyTurn = false;
