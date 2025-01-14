@@ -207,6 +207,8 @@ public class Game{
     String input = "";//blank to get into the main loop.
     Scanner in = new Scanner(System.in);
 	int extra = 0;
+  String action = "";
+  int actLen = 0;
     //Draw the window border
 	//System.out.println(party);
     //You can add parameters to draw screen!
@@ -216,17 +218,17 @@ public class Game{
 
     //display this prompt at the start of the game.
     String preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
-	 extra = preprompt.length()/78+1;
+	 extra = preprompt.length()/78;
 	System.out.print(preprompt);
     while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
       //Read user input
 
-      input = userInput(in, whichPlayer*3 + extra);
+      input = userInput(in, whichPlayer*(actLen) +1);
 	  while((partyTurn) && !(input.startsWith("a ") || input.startsWith("attack ") || input.startsWith("sp ") || input.startsWith("special ") || input.startsWith("su ") || input.startsWith("support "))){
       preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
 		  TextBox(10+whichPlayer*3, 2, 77, 2, "Invalid input. Please retry. " + preprompt);
-		  extra = ("Invalid input. Please retry. " + preprompt).length()/78+1;
-		  input = userInput(in, whichPlayer*3+extra);
+		  extra = ("Invalid input. Please retry. " + preprompt).length()/78;
+		  input = userInput(in, whichPlayer*(actLen)+1);
 	  }
       //example debug statment
       //TextBox(24,2,1,78,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
@@ -244,7 +246,9 @@ public class Game{
           else{
             whichOpponent = Integer.parseInt(""+input.charAt(2));
           }
-          TextBox(10+whichPlayer*3+extra, 2, 77, 3, party.get(whichPlayer).attack(enemies.get(whichOpponent)));
+          action = party.get(whichPlayer).attack(enemies.get(whichOpponent));
+          actLen += action.length()/78;
+          TextBox(10+whichPlayer*(actLen), 2, 77, 3, action);
         }
         else if(input.startsWith("sp ") || input.startsWith("special ")){
           /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
@@ -256,7 +260,9 @@ public class Game{
           else{
             whichOpponent = Integer.parseInt(""+input.charAt(3));
           }
-          TextBox(10+whichPlayer*3+extra, 2, 77, 3, party.get(whichPlayer).specialAttack(enemies.get(whichOpponent)));
+          action = party.get(whichPlayer).specialAttack(enemies.get(whichOpponent));
+          actLen += action.length()/78;
+          TextBox(10+whichPlayer*(actLen), 2, 77, 3, action);
         }
         else if(input.startsWith("su ") || input.startsWith("support ")){
           //"support 0" or "su 0" or "su 2" etc.
@@ -271,10 +277,14 @@ public class Game{
             whichOpponent = Integer.parseInt(""+input.charAt(3));
           }
           if(whichOpponent == whichPlayer){
-            TextBox(10+whichPlayer*3+extra, 2, 77, 3, party.get(whichPlayer).support());
+            action = party.get(whichPlayer).support();
+            actLen += action.length()/78;
+            TextBox(10+whichPlayer*(actLen), 2, 77, 3, action);
           }
           else{
-            TextBox(10+whichPlayer*3+extra, 2, 77, 3, party.get(whichPlayer).support(party.get(whichOpponent)));
+            action = party.get(whichPlayer).support(party.get(whichOpponent));
+            actLen += action.length()/78;
+            TextBox(10+whichPlayer*(actLen), 2, 77, 3, action);
           }
         }
 
@@ -287,7 +297,7 @@ public class Game{
           //This is a player turn.
           //Decide where to draw the following prompt:
           String prompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
-		  TextBox(10+whichPlayer*3+extra, 2, 77, 2, prompt);
+		  TextBox(10+whichPlayer*(actLen), 2, 77, 2, prompt);
 		  extra++;
 
         }else{
@@ -297,6 +307,7 @@ public class Game{
           String prompt = "press enter to see monster's turn";
           partyTurn = false;
           whichOpponent = 0;
+          actLen = 0;
           extra = 0;
           TextBox(10, 2, 77, 19, prompt);
           extra++;
