@@ -222,8 +222,8 @@ public class Game{
       //Read user input
 
       input = userInput(in, whichPlayer*3 + extra);
-	  while((!partyTurn) || !(input.startsWith("a ") || input.startsWith("attack ") || input.startsWith("sp ") || input.startsWith("special ") || input.startsWith("su ") || input.startsWith("support "))){
-
+	  while((partyTurn) && !(input.startsWith("a ") || input.startsWith("attack ") || input.startsWith("sp ") || input.startsWith("special ") || input.startsWith("su ") || input.startsWith("support "))){
+      preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
 		  TextBox(10+whichPlayer*3, 2, 77, 2, "Invalid input. Please retry. " + preprompt);
 		  extra = ("Invalid input. Please retry. " + preprompt).length()/78+1;
 		  input = userInput(in, whichPlayer*3+extra);
@@ -298,7 +298,7 @@ public class Game{
           partyTurn = false;
           whichOpponent = 0;
           extra = 0;
-          TextBox(10+whichOpponent*3+extra, 2, 77, 19, prompt);
+          TextBox(10, 2, 77, 19, prompt);
           extra++;
         }
         //done with one party member
