@@ -158,10 +158,10 @@ public class Game{
       //Move cursor to prompt location
       Text.go(10+playerNum, 2);
       String input = userInput.nextLine();
-	   
+
       //show cursor
       Text.showCursor();
-	  
+
       //clear the text that was written
       TextBox(10+playerNum, 2, 77, 1, " ");
       return input;
@@ -220,10 +220,10 @@ public class Game{
 	System.out.print(preprompt);
     while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
       //Read user input
-     
+
       input = userInput(in, whichPlayer*3 + extra);
-	  while(!(input.startsWith("a ") || input.startsWith("attack ") || input.startsWith("sp ") || input.startsWith("special ") || input.startsWith("su ") || input.startsWith("support "))){
-		 
+	  while((!partyTurn) || !(input.startsWith("a ") || input.startsWith("attack ") || input.startsWith("sp ") || input.startsWith("special ") || input.startsWith("su ") || input.startsWith("support "))){
+
 		  TextBox(10+whichPlayer*3, 2, 77, 2, "Invalid input. Please retry. " + preprompt);
 		  extra = ("Invalid input. Please retry. " + preprompt).length()/78+1;
 		  input = userInput(in, whichPlayer*3+extra);
@@ -293,11 +293,13 @@ public class Game{
         }else{
           //This is after the player's turn, and allows the user to see the enemy turn
           //Decide where to draw the following prompt:
-		  
-          String prompt = "press enter to see monster's turn";
 
+          String prompt = "press enter to see monster's turn";
           partyTurn = false;
           whichOpponent = 0;
+          extra = 0;
+          TextBox(10+whichOpponent*3+extra, 2, 77, 19, prompt);
+          extra++;
         }
         //done with one party member
       }else{
@@ -309,11 +311,24 @@ public class Game{
         /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
         //YOUR CODE HERE
         /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-
+        int randoAdven = (int)(Math.random()*3);
+        if((int)(Math.random()*3) == 0){
+          TextBox(10+whichOpponent*3+extra, 2, 77, 2, enemies.get(whichOpponent).attack(party.get(randoAdven)));
+        }
+        else if((int)(Math.random()*3) == 0){
+          TextBox(10+whichOpponent*3+extra, 2, 77, 2, enemies.get(whichOpponent).specialAttack(party.get(randoAdven)));
+        }
+        else{
+          while(randoAdven == whichOpponent && enemies.get(whichOpponent) instanceof Chomper){
+            randoAdven = (int)(Math.random()*3);
+          }
+          TextBox(10+whichOpponent*3+extra, 2, 77, 2, enemies.get(whichOpponent).support(enemies.get(randoAdven)));
+        }
 
         //Decide where to draw the following prompt:
+        extra++;
         String prompt = "press enter to see next turn";
-
+        TextBox(10+whichOpponent*3+extra, 2, 77, 2, prompt);
         whichOpponent++;
 
       }//end of one enemy.
@@ -327,6 +342,7 @@ public class Game{
         partyTurn=true;
         //display this prompt before player's turn
         String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
+        TextBox(10, 2, 77, 19, prompt);
       }
 
       //display the updated screen after input has been processed.
