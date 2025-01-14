@@ -10,7 +10,7 @@ public class Sunflowers extends Adventurer{
   }
 
   public Sunflowers(String name){
-    this(name,35);
+    this(name,30);
   }
 
   public Sunflowers(){
