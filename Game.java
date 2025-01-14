@@ -64,8 +64,9 @@ public class Game{
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     Text.go(row, col);
     int place = 0;
+	int i = 0;
     String rowText = "";
-    for(int i = 0; i < height && place < text.length(); i++){
+    for(i = 0; i < height && place < text.length(); i++){
 		if(place+width > text.length()){
 			rowText = text.substring(place, text.length());
 		}
@@ -79,6 +80,11 @@ public class Game{
 	  place += width;
 	 // System.out.print(i);
     }
+	for(; i < height; i++){
+		for(int j = col; j < width; j++){
+			drawText(" ", i+row, j);
+		}
+	}
   }
 
     //return a random adventurer (choose between all available subclasses)
