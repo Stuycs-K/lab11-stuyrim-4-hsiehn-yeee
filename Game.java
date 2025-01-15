@@ -87,8 +87,8 @@ public class Game{
 	  place += width;
 	 // System.out.print(i);
     }
-	for(; i < height; i++){
-		for(int j = col; j < width; j++){
+	for(; i <= height; i++){
+		for(int j = col; j <= width; j++){
 			drawText(" ", i+row, j);
 		}
 	}
@@ -311,7 +311,7 @@ public class Game{
           //Decide where to draw the following prompt:
           String prompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
 		  Text.showCursor();
-		  TextBox(10+actLen, 2, 78, prompt.length()/78+1, prompt);
+		  TextBox(10+actLen, 2, 79, prompt.length()/78+1, prompt);
 		  extra = 1;
 
         }else{
@@ -322,7 +322,7 @@ public class Game{
           partyTurn = false;
           whichOpponent = 0;
           actLen = 0;
-          TextBox(10, 2, 78, 19, prompt);
+          TextBox(10, 2, 79, 19, prompt);
           extra = 1;
         }
         //done with one party member
@@ -364,7 +364,7 @@ public class Game{
 
         //Decide where to draw the following prompt:
         String prompt = "press enter to see next turn";
-        TextBox(10+actLen, 2, 78, 2, prompt);
+        TextBox(10+actLen, 2, 79, 2, prompt);
         whichOpponent++;
 
       }//end of one enemy.
@@ -374,7 +374,7 @@ public class Game{
         //THIS BLOCK IS TO END THE ENEMY TURN
         //It only triggers after the last enemy goes.
 		String prompt = "press enter to continue to your turn";
-		TextBox(10+actLen, 2, 78, 2, prompt);
+		TextBox(10+actLen, 2, 65, 2, prompt);
 		input = userInput(in, 0);
         whichPlayer = 0;
 		actLen = 0;
@@ -383,7 +383,7 @@ public class Game{
     //    drawText("went into enter command", 31, 1);
         //display this prompt before player's turn
         prompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q)";
-        TextBox(10, 2, 78, 20, prompt);
+        TextBox(10, 2, 79, 20, prompt);
       }
 
       //display the updated screen after input has been processed.
