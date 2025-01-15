@@ -58,7 +58,11 @@ public abstract class Adventurer{
       amount = 0;
       this.shield = false;
     }
-    this.HP -= amount;
+    if (amount > HP){
+      this.HP = 0;
+    }else{
+      this.HP -= amount;
+    }
   }
 
   public void restoreHP(int amount){

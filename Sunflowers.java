@@ -45,8 +45,8 @@ public class Sunflowers extends Adventurer{
   /*Decrease opponent's special by 25%, also dropping their own by 10%. No threshold of special required
   */
   public String specialAttack(Adventurer other){
-    int dropOtherSpecial = (int) 0.25*other.getSpecial();
-    int dropOwnSpecial = (int) 0.1*this.getSpecial();
+    int dropOtherSpecial = (int) (0.25*other.getSpecial());
+    int dropOwnSpecial = (int) (0.1*this.getSpecial());
     other.setSpecial(other.getSpecial() - dropOtherSpecial);
     this.setSpecial(this.getSpecial() - dropOwnSpecial);
     return this + " used Sunburn! They emanated a bright light, temporarily blinding and burning its opponent, dropping their " + other.getSpecialName() + " by " + dropOtherSpecial + ", while also losing " + dropOwnSpecial + " itself.";
@@ -61,7 +61,7 @@ public class Sunflowers extends Adventurer{
   public String support(){
   	int heal = (int)(Math.random()*3) + 5 ;
     restoreHP(heal);
-  	restoreSpecial(2); 
+  	restoreSpecial(2);
     return this + " used Plant! Sunflower seeds were sowed, and " + heal + " new sunflowers have sprouted, gaining " + heal + " HP, and raining sunExposure by 2!";
   }
 }

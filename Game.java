@@ -124,7 +124,7 @@ public class Game{
       for(int i = 0; i < party.size(); i++){
         member = "" + party.get(i);
         TextBox(startRow, 2+i*(78/party.size()), 78/party.size(), 1, member);
-        member = "HP: " + party.get(i).getHP();
+        member = "HP: " + colorByPercent(party.get(i).getHP(), party.get(i).getmaxHP());
         TextBox(startRow+1, 2+i*(78/party.size()), 78/party.size(), 1, member);
         member = party.get(i).getSpecialName() + ": " + party.get(i).getSpecial();
         TextBox(startRow+2, 2+i*(78/party.size()), 78/party.size(), 1, member);
@@ -140,12 +140,12 @@ public class Game{
     // under 75% : yellow
     // otherwise : white
     if (hp < 0.25*maxHP){
-      System.out.print(Text.colorize(output, Text.RED));
+      output = Text.colorize(output, Text.RED);
     }
     else if (hp < 0.75*maxHP){
-      System.out.print(Text.colorize(output, Text.YELLOW));
+      output = Text.colorize(output, Text.YELLOW);
     }else{
-      System.out.print(Text.colorize(output, Text.GREEN));
+      output = Text.colorize(output, Text.GREEN);
     }
     return output;
   }
