@@ -23,6 +23,7 @@ public class Game{
 		for(int i = 1; i <= WIDTH; i++){
 			System.out.print(Text.colorize(" ", 47));
 		}
+		//Text.go(1, 80); Text.showCursor();
 		for(int i = 2; i < HEIGHT; i++){
 			Text.go(i, 1);
 			System.out.print(Text.colorize(" ", 47));
@@ -35,6 +36,12 @@ public class Game{
 		for(int i = 1; i <= WIDTH; i++){
 			System.out.print(Text.colorize(" ", 47));
 		}
+		//Text.go(30, 80); Text.showCursor();
+	/*	try {
+    Thread.sleep(2000);
+  }
+    catch (InterruptedException e) {
+  }*/
   }
 
   //Display a line of text starting at
