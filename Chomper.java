@@ -67,10 +67,10 @@ public class Chomper extends Adventurer{
   public String support(Adventurer other){
 	if(other.getSpecial() > other.getHP()){
 		other.applyDamage(-1);
-		return this + "used Blooming! They spit out some helpful acid for "+other+", helping them reinvigorate themselves and regain 1 HP.";
+		return this + " used Blooming! They spit out some helpful acid for "+other+", helping them reinvigorate themselves and regain 1 HP.";
 	}
 	else{
-		return this + "used Blooming! They spit out some helpful acid for "+other+", helping them reinvigorate themselves and regain " + other.restoreSpecial(1)+" "+other.getSpecialName();
+		return this + " used Blooming! They spit out some helpful acid for "+other+", helping them reinvigorate themselves and regain " + other.restoreSpecial(1)+" "+other.getSpecialName();
 	}
   }
   /*Chomper cannot support itself*/

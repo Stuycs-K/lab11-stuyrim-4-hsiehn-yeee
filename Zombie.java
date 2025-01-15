@@ -5,7 +5,7 @@ public class Zombie extends Adventurer{
   *with all parameters.*/
   public Zombie(String name, int hp){
     super(name,hp);
-    brainsMax = 10; 
+    brainsMax = 10;
     brains = brainsMax/2;
   }
 
@@ -73,10 +73,10 @@ public class Zombie extends Adventurer{
   public String support(Adventurer other){
 	if(other instanceof Zombie){
 		other.restoreSpecial(3);
-		return this + "used CS Test! They gave a CS test to "+other+", making them smarter. " + other + " regains 3 brains!";
+		return this + " used CS Test! They gave a CS test to "+other+", making them smarter. " + other + " regains 3 brains!";
 	}
 	else{
-		return this + "used CS Test! They tried to give a CS test to "+other+", but seeing as plants don't know computer science, they couldn't do it. Thus, "+ this + " decided to use the test as compost for " + other + ", restoring " + other.restoreSpecial(1)+" "+other.getSpecialName();
+		return this + " used CS Test! They tried to give a CS test to "+other+", but seeing as plants don't know computer science, they couldn't do it. Thus, "+ this + " decided to use the test as compost for " + other + ", restoring " + other.restoreSpecial(1)+" "+other.getSpecialName();
 	}
   }
   /*75% chance of regaining 4 brains, 25% chance of nothing happening*/

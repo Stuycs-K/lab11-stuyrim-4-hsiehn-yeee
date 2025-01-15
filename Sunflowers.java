@@ -55,13 +55,13 @@ public class Sunflowers extends Adventurer{
   public String support(Adventurer other){
     applyDamage(2);
     setShield(true);
-  	return this + "used Vitamin D! They gave two Sunflowers to be eaten for the strengthening of their bones!, sheilding " + other + " from the next attack!";
+  	return this + " used Vitamin D! They gave two Sunflowers to be eaten for the strengthening of their bones!, sheilding " + other + " from the next attack!";
   }
   /*Regains 5-7HP while also gaining 2 special*/
   public String support(){
   	int heal = (int)(Math.random()*3) + 5 ;
     restoreHP(heal);
-  	restoreSpecial(2); 
+  	restoreSpecial(2);
     return this + " used Plant! Sunflower seeds were sowed, and " + heal + " new sunflowers have sprouted, gaining " + heal + " HP, and raining sunExposure by 2!";
   }
 }
