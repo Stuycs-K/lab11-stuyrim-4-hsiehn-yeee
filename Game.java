@@ -201,58 +201,58 @@ public class Game{
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-	enemies.add(createRandomAdventurer("Enemy 1"));
-	enemies.add(createRandomAdventurer("Enemy 2"));
-	enemies.add(createRandomAdventurer("Enemy 3"));
+  	enemies.add(createRandomAdventurer("Enemy 1"));
+  	enemies.add(createRandomAdventurer("Enemy 2"));
+  	enemies.add(createRandomAdventurer("Enemy 3"));
     //Adventurers you control:
     //Make an ArrayList of Adventurers and add 2-4 Adventurers to it.
     ArrayList<Adventurer> party = new ArrayList<>();
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-	party.add(new Chomper("Nom nom", 25));
-	party.add(new Sunflowers("Polaris", 30));
-	party.add(new Zombie("Brainiac", 35));
-    boolean partyTurn = true;
-    int whichPlayer = 0;
-    int whichOpponent = 0;
-    int turn = 0;
-    String input = "";//blank to get into the main loop.
-    Scanner in = new Scanner(System.in);
-	int extra = 0;
-  String action = "";
-  int actLen = 0;
+  	party.add(new Chomper("Nom nom", 25));
+  	party.add(new Sunflowers("Polaris", 30));
+  	party.add(new Zombie("Brainiac", 35));
+      boolean partyTurn = true;
+      int whichPlayer = 0;
+      int whichOpponent = 0;
+      int turn = 0;
+      String input = "";//blank to get into the main loop.
+      Scanner in = new Scanner(System.in);
+  	int extra = 0;
+    String action = "";
+    int actLen = 0;
     //Draw the window border
-	//System.out.println(party);
+	   //System.out.println(party);
     //You can add parameters to draw screen!
     drawScreen(party, enemies);//initial state.
- //   TextBox(2, 2, 78, 28, "abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz");
+    // TextBox(2, 2, 78, 28, "abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz");
+
     //Main loop
 
     //display this prompt at the start of the game.
     String preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
-	 extra = preprompt.length()/78+1;
-	System.out.print(preprompt);
+	  extra = preprompt.length()/78+1;
+	  System.out.print(preprompt);
     while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
       //Read user input
-
       input = userInput(in, actLen+extra);
-	  while((partyTurn) && !(input.startsWith("a ") || input.startsWith("attack ") || input.startsWith("sp ") || input.startsWith("special ") || input.startsWith("su ") || input.startsWith("support "))){
-      preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
-		  TextBox(10+actLen, 2, 78, preprompt.length()/78+1, "Invalid input. Please retry. " + preprompt);
-		  extra = ("Invalid input. Please retry. " + preprompt).length()/78+1;
-		  input = userInput(in, actLen+extra);
-	  }
+	    while((partyTurn) && !(input.startsWith("a ") || input.startsWith("attack ") || input.startsWith("sp ") || input.startsWith("special ") || input.startsWith("su ") || input.startsWith("support "))){
+        preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
+		    TextBox(10+actLen, 2, 78, preprompt.length()/78+1, "Invalid input. Please retry. " + preprompt);
+		    extra = ("Invalid input. Please retry. " + preprompt).length()/78+1;
+		    input = userInput(in, actLen+extra);
+	    }
       //example debug statment
       //TextBox(24,2,1,78,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
 
       //display event based on last turn's input
       if(partyTurn){
         //Process user input for the last Adventurer:
+
+        // ATTACK
         if(input.startsWith("a ") || input.startsWith("attack ") ){
-          /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-          //YOUR CODE HERE
-          /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+
           if(input.indexOf("a ") == -1){
             whichOpponent = Integer.parseInt(""+input.charAt(7));
           }
@@ -261,12 +261,11 @@ public class Game{
           }
           action = party.get(whichPlayer).attack(enemies.get(whichOpponent));
           TextBox(10+actLen, 2, 78, action.length()/78+1, action);
-		  actLen += action.length()/78+1;
+		      actLen += action.length()/78+1;
         }
+
+        // SPECIAL
         else if(input.startsWith("sp ") || input.startsWith("special ")){
-          /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-          //YOUR CODE HERE
-          /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
           if(input.indexOf("sp ") == -1){
             whichOpponent = Integer.parseInt(""+input.charAt(8));
           }
@@ -275,8 +274,10 @@ public class Game{
           }
           action = party.get(whichPlayer).specialAttack(enemies.get(whichOpponent));
           TextBox(10+actLen, 2, 78, action.length()/78+1, action);
-		  actLen += action.length()/78+1;
+		      actLen += action.length()/78+1;
         }
+
+        // SUPPORTS
         else if(input.startsWith("su ") || input.startsWith("support ")){
           //"support 0" or "su 0" or "su 2" etc.
           //assume the value that follows su  is an integer.
@@ -292,7 +293,7 @@ public class Game{
           if(whichOpponent == whichPlayer){
             action = party.get(whichPlayer).support();
             TextBox(10+actLen, 2, 78, action.length()/78+1, action);
-			actLen += action.length()/78+1;
+			    actLen += action.length()/78+1;
           }
           else{
             action = party.get(whichPlayer).support(party.get(whichOpponent));
