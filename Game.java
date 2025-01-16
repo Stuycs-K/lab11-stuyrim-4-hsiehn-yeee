@@ -243,6 +243,12 @@ public class Game{
 		  extra = ("Invalid input. Please retry. " + preprompt).length()/78+1;
 		  input = userInput(in, actLen+extra);
 	  }
+	  while(partyTurn && ((input.startsWith("a")) && (Integer.parseInt(""+input.charAt(2)) >= enemies.size()) || (input.startsWith("sp")) && (Integer.parseInt(""+input.charAt(3)) >= enemies.size()) || (input.startsWith("su")) && (Integer.parseInt(""+input.charAt(3)) >= party.size()))){
+		preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
+		  TextBox(10+actLen, 2, 78, preprompt.length()/78+2, "Invalid input. Please retry. " + preprompt);
+		  extra = ("Invalid input. Please retry. " + preprompt).length()/78+1;
+		  input = userInput(in, actLen+extra);  
+	  }
       //example debug statment
       //TextBox(24,2,1,78,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
 
