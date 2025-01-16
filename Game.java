@@ -52,7 +52,7 @@ public class Game{
     //YOUR CODE HERE
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     Text.go(startRow, startCol);
-    System.out.println(s);
+    System.out.print(s);
   }
 
   /*Use this method to place text on the screen at a particular location.
@@ -397,6 +397,7 @@ public class Game{
 		drawScreen(party, enemies);
         prompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q)";
         TextBox(10, 2, 78, 19, prompt);
+
       }
 	  else{//display the updated screen after input has been processed.
 		  drawScreen(party, enemies);
@@ -405,7 +406,7 @@ public class Game{
 
 
 
-		
+
 
     }//end of main game loop
 
