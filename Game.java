@@ -52,7 +52,7 @@ public class Game{
     //YOUR CODE HERE
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     Text.go(startRow, startCol);
-    System.out.println(s);
+    System.out.print(s);
   }
 
   /*Use this method to place text on the screen at a particular location.
@@ -210,15 +210,35 @@ public class Game{
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-  	party.add(new Chomper("Nom nom", 25));
-  	party.add(new Sunflowers("Polaris", 30));
-  	party.add(new Zombie("Brainiac", 35));
+    drawBackground();
+    String name = "";
+    String playerClass = "";
+        Scanner in = new Scanner(System.in);
+    for(int i = 0; i < 3; i++){
+      TextBox(10, 2, 78, 19, "Enter name of player " + i + ": ");
+      name = userInput(in, 1);
+      TextBox(10, 2, 78, 19, "Enter class of player " + i + "(chomper/sunflowers/zombie):");
+      playerClass = userInput(in, 1);
+      while(!(playerClass.equals("chomper") || playerClass.equals("sunflowers") || playerClass.equals("zombie"))){
+        TextBox(10, 2, 78, 19, "Invalid input. Enter class of player " + i + "(chomper/sunflowers/zombie):");
+        playerClass = userInput(in, 1);
+      }
+      if(playerClass.equals("chomper")){
+        party.add(new Chomper(name, 25));
+      }
+      else if(playerClass.equals("sunflowers")){
+        party.add(new Sunflowers(name, 30));
+      }
+      else{
+        party.add(new Zombie(name, 35));
+      }
+    }
       boolean partyTurn = true;
       int whichPlayer = 0;
       int whichOpponent = 0;
       int turn = 0;
       String input = "";//blank to get into the main loop.
-      Scanner in = new Scanner(System.in);
+
   	int extra = 0;
     String action = "";
     int actLen = 0;
@@ -351,6 +371,9 @@ public class Game{
         //YOUR CODE HERE
         /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
         int randoAdven = (int)(Math.random()*3);
+        while(party.get(randoAdven).getHP() == 0){
+          randoAdven = (int)(Math.random()*3);
+        }
         if((int)(Math.random()*3) == 0){
 			action = enemies.get(whichOpponent).attack(party.get(randoAdven));
           TextBox(10+actLen, 2, 78, action.length()/78+1, action);
@@ -401,6 +424,7 @@ public class Game{
 		drawScreen(party, enemies);
         prompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q)";
         TextBox(10, 2, 78, 19, prompt);
+
       }
 	  else{//display the updated screen after input has been processed.
 		  drawScreen(party, enemies);
