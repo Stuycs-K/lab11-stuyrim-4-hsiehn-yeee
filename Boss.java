@@ -38,7 +38,11 @@ public class Boss extends Adventurer{
   public String attack(Adventurer other){
     int damage = (int)(Math.random()*3)+6;
     other.applyDamage(damage);
-    other.setSpecial(other.getSpecial() - 1); 
+    if (other instanceof Chomper){
+      other.setSpecial(other.getSpecial() + 1);
+    }else{
+      other.setSpecial(other.getSpecial() - 1); 
+    }
     setSpecial(getSpecial() + 4);
     return this + " used Clobber! Zomboss clubbed "+ other + " and deals " + damage + " to them, paralyzing them and making them lose 1 damage itself." + other.getSpecialName() + ", while also gaining 4 musclePower";
   }
@@ -49,7 +53,7 @@ public class Boss extends Adventurer{
     int damage = (int)(Math.random()*3 + 8);
     int ownDamage = (int)(Math.random()*5 + 1);
     if (getSpecial() > 25){
-      other.applyDamage(damage * 2); 
+      other.applyDamage(damage * 2);
       setSpecial(getSpecial()-damage);
       applyDamage(ownDamage);
       return this + " used Apocalypes! They commanded a horde of " + damage + " zombies, which dealt " + (damage * 2) + ", damage to " + other + ". " + this + " was also hurt in the process, and lost " + ownDamage + " HP. Lost " + damage + " musclePower. ";
@@ -70,7 +74,7 @@ public class Boss extends Adventurer{
     double chance = Math.random();
     restoreHP(heal);
     if (chance > 0.5){
-      restoreSpecial(2); 
+      restoreSpecial(2);
       return this + "used Shield! They collected fallen zombie parts and made a shield, allowing them to regain " + heal + "HP. They also gained 2 musclePower from the workout.";
     }
   	return this + "used Shield! They collected fallen zombie parts and made a shield, allowing them to regain " + heal + "HP.";

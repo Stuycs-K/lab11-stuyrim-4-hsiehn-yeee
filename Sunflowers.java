@@ -47,7 +47,11 @@ public class Sunflowers extends Adventurer{
   public String specialAttack(Adventurer other){
     int dropOtherSpecial = (int) (0.25*other.getSpecial());
     int dropOwnSpecial = (int) (0.1*this.getSpecial());
-    other.setSpecial(other.getSpecial() - dropOtherSpecial);
+    if (other instanceof Chomper){
+      other.setSpecial(other.getSpecial() + dropOtherSpecial);
+    }else{
+      other.setSpecial(other.getSpecial() - dropOtherSpecial);
+    }
     this.setSpecial(this.getSpecial() - dropOwnSpecial);
     return this + " used Sunburn! They emanated a bright light, temporarily blinding and burning their opponent, dropping their " + other.getSpecialName() + " by " + dropOtherSpecial + ", while also losing " + dropOwnSpecial + " itself.";
   }

@@ -49,7 +49,11 @@ public class Zombie extends Adventurer{
   public String specialAttack(Adventurer other){
 	if(getSpecial() == 2){
 		int damage = 2;
+    if (other instanceof Chomper){
+      setSpecial(getSpecial() + damage);
+    }else{
 		setSpecial(getSpecial() - damage);
+    }
 		other.applyDamage(damage);
 		return this + " used Horde! They laid out " + damage + " brains and lured " + damage + " of its friends to come help it! They each attack " + other + " one time, dealing " + damage + " points of damage.";
 	}
@@ -71,7 +75,7 @@ public class Zombie extends Adventurer{
   }
   /*If ally is a Zombie: restores 3 special. Else, restore 1 special.*/
   public String support(Adventurer other){
-  if (other instanceOf Chomper){
+  if (other instanceof Chomper){
     other.setSpecial(other.getSpecial()-1);
     return this + " used CS Test! They tried to give a CS test to "+other+", but seeing as plants don't know computer science, they couldn't do it. Thus, "+ this + " decided to use the test as compost for " + other + ", subtracting 1" +other.getSpecialName() +".";
   }
