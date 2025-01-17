@@ -210,15 +210,35 @@ public class Game{
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-  	party.add(new Chomper("Nom nom", 25));
-  	party.add(new Sunflowers("Polaris", 30));
-  	party.add(new Zombie("Brainiac", 35));
+    drawBackground();
+    String name = "";
+    String playerClass = "";
+        Scanner in = new Scanner(System.in);
+    for(int i = 0; i < 3; i++){
+      TextBox(10, 2, 78, 19, "Enter name of player " + i + ": ");
+      name = userInput(in, 1);
+      TextBox(10, 2, 78, 19, "Enter class of player " + i + "(chomper/sunflowers/zombie):");
+      playerClass = userInput(in, 1);
+      while(!(playerClass.equals("chomper") || playerClass.equals("sunflowers") || playerClass.equals("zombie"))){
+        TextBox(10, 2, 78, 19, "Invalid input. Enter class of player " + i + "(chomper/sunflowers/zombie):");
+        playerClass = userInput(in, 1);
+      }
+      if(playerClass.equals("chomper")){
+        party.add(new Chomper(name, 25));
+      }
+      else if(playerClass.equals("sunflowers")){
+        party.add(new Sunflowers(name, 30));
+      }
+      else{
+        party.add(new Zombie(name, 35));
+      }
+    }
       boolean partyTurn = true;
       int whichPlayer = 0;
       int whichOpponent = 0;
       int turn = 0;
       String input = "";//blank to get into the main loop.
-      Scanner in = new Scanner(System.in);
+
   	int extra = 0;
     String action = "";
     int actLen = 0;
@@ -418,5 +438,5 @@ public class Game{
   // Add chomper rule that PH would decrease instead of increase
   // Add death, because after they die they're still prompted for an action
   // Add quit
-  /// add variability in the enemy party 
+  /// add variability in the enemy party
 }
