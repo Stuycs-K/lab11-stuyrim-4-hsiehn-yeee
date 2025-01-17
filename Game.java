@@ -414,4 +414,9 @@ public class Game{
     //After quit reset things:
     quit();
   }
+
+  // Add chomper rule that PH would decrease instead of increase
+  // Add death, because after they die they're still prompted for an action
+  // Add quit
+  /// add variability in the enemy party 
 }
