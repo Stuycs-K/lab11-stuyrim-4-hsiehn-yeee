@@ -237,6 +237,10 @@ public class Game{
     while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
       //Read user input
       input = userInput(in, actLen+extra);
+      if (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")){
+        quit();
+      }else{
+
 	  while((partyTurn) && !(input.startsWith("a ") || input.startsWith("attack ") || input.startsWith("sp ") || input.startsWith("special ") || input.startsWith("su ") || input.startsWith("support "))){
       preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
 		  TextBox(10+actLen, 2, 78, preprompt.length()/78+2, "Invalid input. Please retry. " + preprompt);
@@ -401,6 +405,7 @@ public class Game{
 	  else{//display the updated screen after input has been processed.
 		  drawScreen(party, enemies);
 	  }
+  }
 
 
 
@@ -417,5 +422,5 @@ public class Game{
   // Add chomper rule that PH would decrease instead of increase
   // Add death, because after they die they're still prompted for an action
   // Add quit
-  /// add variability in the enemy party 
+  /// add variability in the enemy party
 }
