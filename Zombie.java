@@ -71,6 +71,10 @@ public class Zombie extends Adventurer{
   }
   /*If ally is a Zombie: restores 3 special. Else, restore 1 special.*/
   public String support(Adventurer other){
+  if (other instanceOf Chomper){
+    other.setSpecial(other.getSpecial()-1);
+    return this + " used CS Test! They tried to give a CS test to "+other+", but seeing as plants don't know computer science, they couldn't do it. Thus, "+ this + " decided to use the test as compost for " + other + ", subtracting 1" +other.getSpecialName() +".";
+  }
 	if(other instanceof Zombie){
 		other.restoreSpecial(3);
 		return this + " used CS Test! They gave a CS test to "+other+", making them smarter. " + other + " regains 3 brains!";
