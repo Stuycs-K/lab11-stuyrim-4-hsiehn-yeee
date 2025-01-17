@@ -367,6 +367,9 @@ public class Game{
         //YOUR CODE HERE
         /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
         int randoAdven = (int)(Math.random()*3);
+        while(party.get(randoAdven).getHP() == 0){
+          randoAdven = (int)(Math.random()*3);
+        }
         if((int)(Math.random()*3) == 0){
 			action = enemies.get(whichOpponent).attack(party.get(randoAdven));
           TextBox(10+actLen, 2, 78, action.length()/78+1, action);
