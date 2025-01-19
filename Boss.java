@@ -44,7 +44,11 @@ public class Boss extends Adventurer{
       other.setSpecial(other.getSpecial() - 1); 
     }
     setSpecial(getSpecial() + 4);
+<<<<<<< HEAD
     return this + " used Clobber! Zomboss clubbed "+ other + " and deals " + damage + " damage to them, paralyzing them and making them lose 1 damage itself." + other.getSpecialName() + ", while also gaining 4 musclePower";
+=======
+    return this + " used Clobber! " + this + " clubbed "+ other + " and deals " + damage + " to them, paralyzing them and making them lose 1 " + other.getSpecialName() + ", while also gaining 4 musclePower";
+>>>>>>> refs/remotes/origin/main
   }
 
   /*"Apocalypse": The Zomboss commands a horde of 8-10 zombies, dealing 2 damage per each zombie and losing 8-10 musclePower. Zombies are careless when they fight, so they damage the Zomboss as well, dealing 1-5 damage to the Zomboss. (musclePower must be greater than 25)
@@ -56,14 +60,14 @@ public class Boss extends Adventurer{
       other.applyDamage(damage * 2);
       setSpecial(getSpecial()-damage);
       applyDamage(ownDamage);
-      return this + " used Apocalypes! They commanded a horde of " + damage + " zombies, which dealt " + (damage * 2) + ", damage to " + other + ". " + this + " was also hurt in the process, and lost " + ownDamage + " HP. Lost " + damage + " musclePower. ";
+      return this + " used Apocalypse! They commanded a horde of " + damage + " zombies, which dealt " + (damage * 2) + ", damage to " + other + ". " + this + " was also hurt in the process, and lost " + ownDamage + " HP. Lost " + damage + " musclePower. ";
     }else{
-      return "oops! Zomboss did not have enough musclePower to use Apocalypse!";
+      return "oops! "+ this+ " did not have enough musclePower to use Apocalypse!";
     }
   }
 
   public String support(Adventurer other){
-    return "Oh no... Zomboss doesn't have any real life friends :( his efforts to support others were in vain and nothing happened...";
+    return "Oh no..."+this+" doesn't have any real life friends :( his efforts to support others were in vain and nothing happened...";
   }
 
 

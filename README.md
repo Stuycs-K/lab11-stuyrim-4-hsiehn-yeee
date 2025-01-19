@@ -35,6 +35,8 @@ Make a clear list of features that work/dont work
 
 :question: Support Self (Plant)
 
+:white_check_mark: Special pH rule
+
 ### Zombie:
 
 :question: Attack (Devour)
@@ -59,13 +61,23 @@ Make a clear list of features that work/dont work
 
 :white_check_mark: Textbox
 
-Color HP by Percent
+:white_check_mark: Color HP by Percent
 
 :white_check_mark: Draw Parties
 
-Input
+:white_check_mark: Input
 
-Create Random Adventurer
+:white_check_mark: Create Random Adventurer
+
+:white_check_mark: Default vs. Selection
+
+:white_check_mark: Invalid Inputs
+
+:white_check_mark: Random Enemy Action
+
+Favored Enemy Action
+
+:white_check_mark: Quit
 
 
 
