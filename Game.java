@@ -38,7 +38,7 @@ public class Game{
 		}
 		
     //Text.go(30, 80); Text.showCursor();
-    
+
 	/*	try {
     Thread.sleep(2000);
   }
@@ -213,41 +213,59 @@ public class Game{
     //YOUR CODE HERE
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     drawBackground();
-    String name = "";
-    String playerClass = "";
-        Scanner in = new Scanner(System.in);
-    for(int i = 0; i < 3; i++){
-      TextBox(10, 2, 78, 19, "Enter name of player " + i + ": ");
-      name = userInput(in, 1);
-      TextBox(10, 2, 78, 19, "Enter class of player " + i + "(chomper/sunflowers/zombie):");
-      playerClass = userInput(in, 1);
-      while(!(playerClass.equals("chomper") || playerClass.equals("sunflowers") || playerClass.equals("zombie"))){
-        TextBox(10, 2, 78, 19, "Invalid input. Enter class of player " + i + "(chomper/sunflowers/zombie):");
+
+    // Default Party
+    TextBox(10, 2, 78, 18, "Choose your party! Would you like to use the default party (a) or would you like to costumize your party (b)?");  
+    Scanner in = new Scanner(System.in);
+    String choice = userInput(in, 2); 
+    if (choice.equalsIgnoreCase("a")){
+      party.add(new Chomper("Piranha Plant", 25)); 
+      party.add(new Sunflowers("Bullet Bill", 30)); 
+      party.add(new Zombie("Koopa Paratroopa", 35));
+    }else if (choice.equalsIgnoreCase("b")){
+
+      String name = "";
+      String playerClass = "";
+    
+      // Costumize Party 
+      for(int i = 0; i < 3; i++){
+        TextBox(10, 2, 78, 19, "Enter name of player " + i + ": ");
+        name = userInput(in, 1);
+        TextBox(10, 2, 78, 19, "Enter class of player " + i + "(chomper/sunflowers/zombie):");
         playerClass = userInput(in, 1);
+        while(!(playerClass.equals("chomper") || playerClass.equals("sunflowers") || playerClass.equals("zombie"))){
+          TextBox(10, 2, 78, 19, "Invalid input. Enter class of player " + i + "(chomper/sunflowers/zombie):");
+          playerClass = userInput(in, 1);
+        }
+        if(playerClass.equals("chomper")){
+          party.add(new Chomper(name, 25));
+        }
+        else if(playerClass.equals("sunflowers")){
+          party.add(new Sunflowers(name, 30));
+        }
+        else{
+          party.add(new Zombie(name, 35));
+        }
       }
-      if(playerClass.equals("chomper")){
-        party.add(new Chomper(name, 25));
-      }
-      else if(playerClass.equals("sunflowers")){
-        party.add(new Sunflowers(name, 30));
-      }
-      else{
-        party.add(new Zombie(name, 35));
-      }
+    }else{
+      TextBox(10, 2, 78, 19, "Invalid input. Enter party setting: (default(a)/custombize(b)):");
     }
+
       boolean partyTurn = true;
       int whichPlayer = 0;
       int whichOpponent = 0;
       int turn = 0;
       String input = "";//blank to get into the main loop.
 
-  	int extra = 0;
-    String action = "";
-    int actLen = 0;
+      int extra = 0;
+      String action = "";
+      int actLen = 0;
     //Draw the window border
 	   //System.out.println(party);
     //You can add parameters to draw screen!
+
     drawScreen(party, enemies);//initial state.
+
     // TextBox(2, 2, 78, 28, "abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz");
 
     //Main loop
