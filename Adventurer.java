@@ -60,7 +60,7 @@ public abstract class Adventurer{
     }
     if (amount > HP){
       this.HP = 0;
-      System.out.println(name + "has died!");
+      //System.out.println(name + "has died!");
     }else{
       this.HP -= amount;
     }

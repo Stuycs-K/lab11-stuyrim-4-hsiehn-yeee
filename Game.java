@@ -217,7 +217,7 @@ public class Game{
     TextBox(10, 2, 78, 18, "Choose your difficulty level! (Hard(1)/Easy(2)/Medium(3)):");
     Scanner in = new Scanner(System.in);
     String choice = userInput(in, 2); 
-    if (choice.equals("1")){
+    if (choice.startsWith("1")){
       enemies.add(new Boss("King Bowser")); 
     }
     else if (choice.equals("2")){
@@ -238,12 +238,12 @@ public class Game{
     TextBox(10, 2, 78, 18, "Choose your party! Would you like to use the default party (a) or would you like to costumize your party (b)?");  
     in = new Scanner(System.in);
     choice = userInput(in, 2); 
-    if (choice.equalsIgnoreCase("a")){
+    if (choice.startsWith("a")){
       party.add(new Chomper("Piranha Plant", 25)); 
       party.add(new Sunflowers("Bullet Bill", 30)); 
       party.add(new Zombie("Koopa Paratroopa", 35));
       TextBox(10, 2, 78, 20, " "); 
-    }else if (choice.equalsIgnoreCase("b")){
+    }else if (choice.startsWith("b")){
       String name = "";
       String playerClass = "";
     
@@ -271,7 +271,6 @@ public class Game{
       TextBox(10, 2, 78, 19, "Invalid input. Enter party setting: (default(a)/custombize(b)):");
     }
 
-
       boolean partyTurn = true;
       int whichPlayer = 0;
       int whichOpponent = 0;
@@ -291,17 +290,31 @@ public class Game{
 
     //Main loop
 
+    //DEATH
+    int enemyHealth = 0; 
+    int partyHealth = 0; 
+    boolean gameOver = false; 
+    
     //display this prompt at the start of the game.
-    String preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
+    String preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su) player #";
 	  extra = preprompt.length()/78+1;
 	  System.out.print(preprompt);
-    while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
+    
+    
+    while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")) && ! gameOver){
       //Read user input
       input = userInput(in, actLen+extra);
+      
+      partyHealth = party.get(0).getHP() + party.get(1).getHP() + party.get(2).getHP();
+      for (int i = 0; i < enemies.size(); i ++){
+        enemyHealth += enemies.get(i).getHP(); 
+      }
+
       if (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")){
         quit();
-      }else{
-
+      }
+      else{
+    
 	  while((partyTurn) && !(input.startsWith("a ") || input.startsWith("attack ") || input.startsWith("sp ") || input.startsWith("special ") || input.startsWith("su ") || input.startsWith("support "))){
       preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
 		  TextBox(10+actLen, 2, 78, preprompt.length()/78+2, "Invalid input. Please retry. " + preprompt);
@@ -405,9 +418,7 @@ public class Game{
 
         //enemy attacks a randomly chosen person with a randomly chosen attack.z`
         //Enemy action choices go here!
-        /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-        //YOUR CODE HERE
-        /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+       
         int randoAdven = (int)(Math.random()*3);
         while(party.get(randoAdven).getHP() == 0){
           randoAdven = (int)(Math.random()*3);
@@ -467,14 +478,18 @@ public class Game{
 	  else{//display the updated screen after input has been processed.
 		  drawScreen(party, enemies);
 	  }
-  }
+  
 
-
-
-
-
-
-    }//end of main game loop
+      if (enemyHealth == 0 && partyHealth != 0){
+        TextBox(10, 2, 78, 19, "YOU HAVE WON! \n Congratulations! You successfully defeated all the enemies!!");
+        gameOver = true; 
+      }
+      else if (partyHealth == 0 && enemyHealth != 0){
+        TextBox(10, 2, 78, 19, "Oh No. You have been defeated by the enemy. You fought bravely, please try again!");
+        gameOver = true; 
+      }
+      }
+    } //end of main game loop
 
 
     //After quit reset things:
@@ -484,7 +499,7 @@ public class Game{
   // Add chomper rule that PH would decrease instead of increase
   // Add death, because after they die they're still prompted for an action
   // Add quit; DONE 
-  /// add variability in the enemy party
+  /// add variability in the enemy party; DONE 
   // change the drawScreen 
   // Add default group option 
   // add party size option for enemy and boss  
