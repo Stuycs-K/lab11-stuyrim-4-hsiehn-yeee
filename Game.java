@@ -233,9 +233,6 @@ public class Game{
       enemies.add(createRandomAdventurer("Miney"));
       enemies.add(createRandomAdventurer("Moe"));
     }
-    else{
-      TextBox(10, 2, 78, 19, "Invalid input. Enter enemy setting. (Hard(1)/Easy(2)/Medium(3)):");
-    }
 
     ArrayList<Adventurer> party = new ArrayList<>();
     // Default Party
@@ -275,8 +272,6 @@ public class Game{
           party.add(new Zombie(name, 35));
         }
       }
-    }else{
-      TextBox(10, 2, 78, 19, "Invalid input. Enter party setting: (default(a)/custombize(b)):");
     }
 
 
@@ -384,7 +379,7 @@ public class Game{
           String prompt = "press enter to see monster's turn";
           partyTurn = false;
           whichOpponent = 0;
-		      TextBox(10+actLen, 2, 78, prompt.length()/78+1, prompt);
+		  TextBox(10+actLen, 2, 78, prompt.length()/78+1, prompt);
           actLen = 0;
          // TextBox(10, 2, 79, 19, prompt);
           extra = 1;
@@ -393,7 +388,7 @@ public class Game{
       }else{
         //not the party turn!
 		    if(whichOpponent == 0){
-			  TextBox(10, 2, 79, 19, " ");
+			  TextBox(10, 2, 78, 19, " ");
 		  }
 
         //enemy attacks a randomly chosen person with a randomly chosen attack.z`
@@ -419,22 +414,20 @@ public class Game{
           while(randoAdven == whichOpponent && enemies.get(whichOpponent) instanceof Chomper){
             randoAdven = (int)(Math.random()*3);
           }
-		  if(randoAdven == whichOpponent){
+		  if(randoAdven == whichOpponent || enemies.size() == 1){
 			  action = enemies.get(whichOpponent).support();
 			  TextBox(10+actLen, 2, 78, action.length()/78+1, action);
 			  actLen += action.length()/78+1;
 		  }
 		  else{
+			  if(randoAdven > enemies.size()){
+				  randoAdven = (int)(Math.random()*enemies.size());
+			  }
 			  action = enemies.get(whichOpponent).support(enemies.get(randoAdven));
 			  TextBox(10+actLen, 2, 78, action.length()/78+1, action);
 			  actLen += action.length()/78+1;
 		  }
         }
-		try {
-    Thread.sleep(1000);
-  }
-    catch (InterruptedException e) {
-  }
         //Decide where to draw the following prompt:
         String prompt = "press enter to see next turn";
         TextBox(10+actLen, 2, 78, 2, prompt);

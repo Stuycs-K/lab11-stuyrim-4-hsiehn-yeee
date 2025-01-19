@@ -44,7 +44,7 @@ public class Boss extends Adventurer{
       other.setSpecial(other.getSpecial() - 1); 
     }
     setSpecial(getSpecial() + 4);
-    return this + " used Clobber!" + this + " clubbed "+ other + " and deals " + damage + " to them, paralyzing them and making them lose 1 " + other.getSpecialName() + ", while also gaining 4 musclePower";
+    return this + " used Clobber! " + this + " clubbed "+ other + " and deals " + damage + " to them, paralyzing them and making them lose 1 " + other.getSpecialName() + ", while also gaining 4 musclePower";
   }
 
   /*"Apocalypse": The Zomboss commands a horde of 8-10 zombies, dealing 2 damage per each zombie and losing 8-10 musclePower. Zombies are careless when they fight, so they damage the Zomboss as well, dealing 1-5 damage to the Zomboss. (musclePower must be greater than 25)
