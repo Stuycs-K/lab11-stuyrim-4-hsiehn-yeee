@@ -202,30 +202,42 @@ public class Game{
     Text.clear();
    // System.out.println("\033[2J");
 
+    drawBackground();
 
+    //Adventurers you control:
+    //Make an ArrayList of Adventurers and add 2-4 Adventurers to it.
+    
     //Things to attack:
     //Make an ArrayList of Adventurers and add 1-3 enemies to it.
     //If only 1 enemy is added it should be the boss class.
     //start with 1 boss and modify the code to allow 2-3 adventurers later.
-    ArrayList<Adventurer>enemies = new ArrayList<Adventurer>();
-    /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-    //YOUR CODE HERE
-    /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-  	enemies.add(createRandomAdventurer("Enemy 0"));
-  	enemies.add(createRandomAdventurer("Enemy 1"));
-  	enemies.add(createRandomAdventurer("Enemy 2"));
-    //Adventurers you control:
-    //Make an ArrayList of Adventurers and add 2-4 Adventurers to it.
-    ArrayList<Adventurer> party = new ArrayList<>();
-    /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-    //YOUR CODE HERE
-    /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-    drawBackground();
 
-    // Default Party
-    TextBox(10, 2, 78, 18, "Choose your party! Would you like to use the default party (a) or would you like to costumize your party (b)?");  
+    ArrayList<Adventurer>enemies = new ArrayList<Adventurer>();
+
+    TextBox(10, 2, 78, 18, "Choose your difficulty level! (Hard(1)/Easy(2)/Medium(3)):");
     Scanner in = new Scanner(System.in);
     String choice = userInput(in, 2); 
+    if (choice.equals("1")){
+      enemies.add(new Boss("King Bowser")); 
+    }
+    else if (choice.equals("2")){
+      enemies.add(createRandomAdventurer("Jessie")); 
+      enemies.add(createRandomAdventurer("James")); 
+    }
+    else if (choice.equals("3")){
+      enemies.add(createRandomAdventurer("Meeny"));
+      enemies.add(createRandomAdventurer("Miney"));
+      enemies.add(createRandomAdventurer("Moe"));
+    }
+    else{
+      TextBox(10, 2, 78, 19, "Invalid input. Enter enemy setting. (Hard(1)/Easy(2)/Medium(3)):");
+    }
+
+    ArrayList<Adventurer> party = new ArrayList<>();
+    // Default Party
+    TextBox(10, 2, 78, 18, "Choose your party! Would you like to use the default party (a) or would you like to costumize your party (b)?");  
+    in = new Scanner(System.in);
+    choice = userInput(in, 2); 
     if (choice.equalsIgnoreCase("a")){
       party.add(new Chomper("Piranha Plant", 25)); 
       party.add(new Sunflowers("Bullet Bill", 30)); 
@@ -258,6 +270,7 @@ public class Game{
     }else{
       TextBox(10, 2, 78, 19, "Invalid input. Enter party setting: (default(a)/custombize(b)):");
     }
+
 
       boolean partyTurn = true;
       int whichPlayer = 0;
