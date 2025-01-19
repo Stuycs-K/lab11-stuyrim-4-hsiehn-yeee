@@ -308,7 +308,7 @@ public class Game{
 		  extra = ("Invalid input. Please retry. " + preprompt).length()/78+1;
 		  input = userInput(in, actLen+extra);
 	  }
-	  while(partyTurn && ((input.startsWith("a")) && (Integer.parseInt(""+input.charAt(2)) >= enemies.size()) || (input.startsWith("sp")) && (Integer.parseInt(""+input.charAt(3)) >= enemies.size()) || (input.startsWith("su")) && (Integer.parseInt(""+input.charAt(3)) >= party.size()))){
+	  while(partyTurn && (input.startsWith("su") && Integer.parseInt(""+input.charAt(input.length()-1)) >= party.size() || (input.startsWith("a") || input.startsWith("sp")) && (Integer.parseInt(""+input.charAt(input.length()-1)) >= enemies.size()) || (input.charAt(input.length()-2) != ' '))){
 		preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
 		  TextBox(10+actLen, 2, 78, preprompt.length()/78+2, "Invalid input. Please retry. " + preprompt);
 		  extra = ("Invalid input. Please retry. " + preprompt).length()/78+1;
@@ -324,12 +324,7 @@ public class Game{
         // ATTACK
         if(input.startsWith("a ") || input.startsWith("attack ") ){
 
-          if(input.indexOf("a ") == -1){
-            whichOpponent = Integer.parseInt(""+input.charAt(7));
-          }
-          else{
-            whichOpponent = Integer.parseInt(""+input.charAt(2));
-          }
+          whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
           action = party.get(whichPlayer).attack(enemies.get(whichOpponent));
           TextBox(10+actLen, 2, 78, action.length()/78+1, action);
 		      actLen += action.length()/78+1;
@@ -337,12 +332,7 @@ public class Game{
 
         // SPECIAL
         else if(input.startsWith("sp ") || input.startsWith("special ")){
-          if(input.indexOf("sp ") == -1){
-            whichOpponent = Integer.parseInt(""+input.charAt(8));
-          }
-          else{
-            whichOpponent = Integer.parseInt(""+input.charAt(3));
-          }
+          whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
           action = party.get(whichPlayer).specialAttack(enemies.get(whichOpponent));
           TextBox(10+actLen, 2, 78, action.length()/78+1, action);
 		      actLen += action.length()/78+1;
@@ -352,12 +342,7 @@ public class Game{
         else if(input.startsWith("su ") || input.startsWith("support ")){
           //"support 0" or "su 0" or "su 2" etc.
           //assume the value that follows su  is an integer.
-          if(input.indexOf("su ") == -1){
-            whichOpponent = Integer.parseInt(""+input.charAt(8));
-          }
-          else{
-            whichOpponent = Integer.parseInt(""+input.charAt(3));
-          }
+          whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
           if(whichOpponent == whichPlayer){
             action = party.get(whichPlayer).support();
             TextBox(10+actLen, 2, 78, action.length()/78+1, action);
