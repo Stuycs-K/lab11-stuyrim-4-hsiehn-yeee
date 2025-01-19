@@ -54,10 +54,13 @@ public class Chomper extends Adventurer{
   */
   public String specialAttack(Adventurer other){
     if(getSpecial()  < 7){
-		int damage = 14-pH;
-		restoreSpecial(3);
-		other.applyDamage(damage);
-		return this + " used Withering! They spit out acid around it. This melted "+other+" dealing "+ damage +" points of damage.";
+      int damage = 14-pH;
+      if (getSpecial() <= 3){
+        other.setShield(false); 
+      }
+      restoreSpecial(3);
+      other.applyDamage(damage);
+      return this + " used Withering! They spit out acid around it. This melted "+other+" dealing "+ damage +" points of damage.";
     }else{
       return "Oh no! "+this + " is too basic to spit out potent acid! Nothing happened..";
     }

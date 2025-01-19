@@ -36,22 +36,22 @@ public class Boss extends Adventurer{
 
   /*Deals 6-8 damage, makes opponent lose 1 special (chompers gain), and gains 4 special.*/
   public String attack(Adventurer other){
-    int damage = (int)(Math.random()*3)+6;
+    int damage = (int)(Math.random()*3)+8;
     other.applyDamage(damage);
     if (other instanceof Chomper){
-      other.setSpecial(other.getSpecial() + 1);
+      other.setSpecial(other.getSpecial() + 2);
     }else{
-      other.setSpecial(other.getSpecial() - 1); 
+      other.setSpecial(other.getSpecial() - 2); 
     }
     setSpecial(getSpecial() + 4);
-    return this + " used Clobber! Zomboss clubbed "+ other + " and deals " + damage + " damage to them, paralyzing them and making them lose 1 damage itself." + other.getSpecialName() + ", while also gaining 4 musclePower";
+    return this + " used Clobber! Zomboss clubbed "+ other + " and deals " + damage + " damage to them, paralyzing them and making them lose 2" + other.getSpecialName() + ", while also gaining 4 musclePower";
   }
 
   /*"Apocalypse": The Zomboss commands a horde of 8-10 zombies, dealing 2 damage per each zombie and losing 8-10 musclePower. Zombies are careless when they fight, so they damage the Zomboss as well, dealing 1-5 damage to the Zomboss. (musclePower must be greater than 25)
   */
   public String specialAttack(Adventurer other){
     int damage = (int)(Math.random()*3 + 8);
-    int ownDamage = (int)(Math.random()*5 + 1);
+    int ownDamage = (int)(Math.random()*5 + 2);
     if (getSpecial() > 25){
       other.applyDamage(damage * 2);
       setSpecial(getSpecial()-damage);
@@ -72,6 +72,9 @@ public class Boss extends Adventurer{
   public String support(){
     int heal = (int)(Math.random()*3 + 6);
     double chance = Math.random();
+    if (getHP() < 15){
+      setShield(true); 
+    }
     restoreHP(heal);
     if (chance > 0.5){
       restoreSpecial(2);
