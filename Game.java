@@ -217,9 +217,9 @@ public class Game{
     TextBox(10, 2, 78, 18, "Choose your difficulty level! (Hard(1)/Easy(2)/Medium(3)):");
     Scanner in = new Scanner(System.in);
     String choice = userInput(in, 1);
-	while(!(choice.equals("1") || choice.equals("2") || choice.equals("3"))){
-		TextBox(10, 2, 78, 18, "Invalid input. Please retry. Choose your difficulty level! (Hard(1)/Easy(2)/Medium(3)):");
-		choice = userInput(in, 2);
+	  while(!(choice.equals("1") || choice.equals("2") || choice.equals("3"))){
+		  TextBox(10, 2, 78, 18, "Invalid input. Please retry. Choose your difficulty level! (Hard(1)/Easy(2)/Medium(3)):");
+		  choice = userInput(in, 2);
 	  }
     if (choice.equals("1")){
       enemies.add(new Boss("King Bowser")); 
@@ -239,10 +239,11 @@ public class Game{
     TextBox(10, 2, 78, 18, "Choose your party! Would you like to use the default party (a) or would you like to customize your party (b)?");  
     in = new Scanner(System.in);
     choice = userInput(in, 2); 
-	while(!(choice.equalsIgnoreCase("a") || choice.equalsIgnoreCase("b"))){
-		TextBox(10, 2, 78, 18, "Invalid input. Please retry. Choose your party! Would you like to use the default party (a) or would you like to customize your party (b)?");
-		choice = userInput(in, 2);
-	  }
+
+	  while(!(choice.equalsIgnoreCase("a") || choice.equalsIgnoreCase("b"))){
+      TextBox(10, 2, 78, 18, "Invalid input. Please retry. Choose your party! Would you like to use the default party (a) or would you like to customize your party (b)?");
+      choice = userInput(in, 2);
+    }
     if (choice.equalsIgnoreCase("a")){
       party.add(new Chomper("Piranha Plant", 25)); 
       party.add(new Sunflowers("Bullet Bill", 30)); 
@@ -251,8 +252,8 @@ public class Game{
     }else if (choice.startsWith("b")){
       String name = "";
       String playerClass = "";
-    
-      // Costumize Party 
+      
+        // Costumize Party 
       for(int i = 0; i < 3; i++){
         TextBox(10, 2, 78, 20, "Enter name of player " + i + ": ");
         name = userInput(in, 1);
@@ -274,15 +275,16 @@ public class Game{
       }
     }
 
-      boolean partyTurn = true;
-      int whichPlayer = 0;
-      int whichOpponent = 0;
-      int turn = 0;
-      String input = "";//blank to get into the main loop.
+    boolean partyTurn = true;
+    int whichPlayer = 0;
+    int whichOpponent = 0;
+    int turn = 0;
+    String input = "";//blank to get into the main loop.
 
-      int extra = 0;
-      String action = "";
-      int actLen = 0;
+    int extra = 0;
+    String action = "";
+    int actLen = 0;
+
     //Draw the window border
 	   //System.out.println(party);
     //You can add parameters to draw screen!
@@ -294,8 +296,6 @@ public class Game{
     //Main loop
 
     //DEATH
-    int enemyHealth = 0; 
-    int partyHealth = 0; 
     boolean gameOver = false; 
     
     //display this prompt at the start of the game.
@@ -304,148 +304,167 @@ public class Game{
 	  System.out.print(preprompt);
     
     
-    while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")) && ! gameOver){
-      //Read user input
-      input = userInput(in, actLen+extra);
+    while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")) && !gameOver){
       
-      partyHealth = party.get(0).getHP() + party.get(1).getHP() + party.get(2).getHP();
-      for (int i = 0; i < enemies.size(); i ++){
-        enemyHealth += enemies.get(i).getHP(); 
+      int enemyHealth = 0; 
+      int partyHealth = 0; 
+
+      // Calculate health for both parties 
+      for (Adventurer player : party){
+        partyHealth += player.getHP(); 
       }
+      for (Adventurer enemy : enemies){
+        enemyHealth += enemy.getHP(); 
+      }
+
       if (partyHealth == 0 || enemyHealth == 0){
         gameOver = true; 
+
+        if (enemyHealth == 0 && partyHealth > 0){
+          TextBox(10, 2, 78, 19, "YOU HAVE WON! Congratulations! You successfully defeated all the enemies!!");
+          gameOver = true; 
+        }
+        else if (partyHealth == 0 && enemyHealth > 0){
+          TextBox(10, 2, 78, 19, "Oh No. You have been defeated by the enemy. You fought bravely, please try again!");
+          gameOver = true; 
+        }
       }
+      else{
+
+
+      //Read user input
+      input = userInput(in, actLen+extra);
 
       if (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")){
         quit();
       }
       else{
-    
-	  while((partyTurn) && !(input.startsWith("a ") || input.startsWith("attack ") || input.startsWith("sp ") || input.startsWith("special ") || input.startsWith("su ") || input.startsWith("support "))){
-      preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
-		  TextBox(10+actLen, 2, 78, preprompt.length()/78+2, "Invalid input. Please retry. " + preprompt);
-		  extra = ("Invalid input. Please retry. " + preprompt).length()/78+1;
-		  input = userInput(in, actLen+extra);
-	  }
-	  while(partyTurn && (input.startsWith("su") && Integer.parseInt(""+input.charAt(input.length()-1)) >= party.size() || (input.startsWith("a") || input.startsWith("sp")) && (Integer.parseInt(""+input.charAt(input.length()-1)) >= enemies.size()) || (input.charAt(input.length()-2) != ' '))){
-		preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
-		  TextBox(10+actLen, 2, 78, preprompt.length()/78+2, "Invalid input. Please retry. " + preprompt);
-		  extra = ("Invalid input. Please retry. " + preprompt).length()/78+1;
-		  input = userInput(in, actLen+extra);
-	  }
-      //example debug statment
-      //TextBox(24,2,1,78,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
-
-      //display event based on last turn's input
-      if(partyTurn){
-        //Process user input for the last Adventurer:
-
-        // ATTACK
-        if(input.startsWith("a ") || input.startsWith("attack ") ){
-
-          whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
-          action = party.get(whichPlayer).attack(enemies.get(whichOpponent));
-          TextBox(10+actLen, 2, 78, action.length()/78+1, action);
-		      actLen += action.length()/78+1;
+      
+        while((partyTurn) && !(input.startsWith("a ") || input.startsWith("attack ") || input.startsWith("sp ") || input.startsWith("special ") || input.startsWith("su ") || input.startsWith("support "))){
+          preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
+          TextBox(10+actLen, 2, 78, preprompt.length()/78+2, "Invalid input. Please retry. " + preprompt);
+          extra = ("Invalid input. Please retry. " + preprompt).length()/78+1;
+          input = userInput(in, actLen+extra);
         }
-
-        // SPECIAL
-        else if(input.startsWith("sp ") || input.startsWith("special ")){
-          whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
-          action = party.get(whichPlayer).specialAttack(enemies.get(whichOpponent));
-          TextBox(10+actLen, 2, 78, action.length()/78+1, action);
-		      actLen += action.length()/78+1;
+        while(partyTurn && (input.startsWith("su") && Integer.parseInt(""+input.charAt(input.length()-1)) >= party.size() || (input.startsWith("a") || input.startsWith("sp")) && (Integer.parseInt(""+input.charAt(input.length()-1)) >= enemies.size()) || (input.charAt(input.length()-2) != ' '))){
+        preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
+          TextBox(10+actLen, 2, 78, preprompt.length()/78+2, "Invalid input. Please retry. " + preprompt);
+          extra = ("Invalid input. Please retry. " + preprompt).length()/78+1;
+          input = userInput(in, actLen+extra);
         }
+        //example debug statment
+        //TextBox(24,2,1,78,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
 
-        // SUPPORTS
-        else if(input.startsWith("su ") || input.startsWith("support ")){
-          //"support 0" or "su 0" or "su 2" etc.
-          //assume the value that follows su  is an integer.
-          whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
-          if(whichOpponent == whichPlayer){
-            action = party.get(whichPlayer).support();
+        //display event based on last turn's input
+        if(partyTurn){
+          //Process user input for the last Adventurer:
+
+          // ATTACK
+          if(input.startsWith("a ") || input.startsWith("attack ") ){
+
+            whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
+            action = party.get(whichPlayer).attack(enemies.get(whichOpponent));
             TextBox(10+actLen, 2, 78, action.length()/78+1, action);
-			      actLen += action.length()/78+1;
+            actLen += action.length()/78+1;
+          }
+
+          // SPECIAL
+          else if(input.startsWith("sp ") || input.startsWith("special ")){
+            whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
+            action = party.get(whichPlayer).specialAttack(enemies.get(whichOpponent));
+            TextBox(10+actLen, 2, 78, action.length()/78+1, action);
+            actLen += action.length()/78+1;
+          }
+
+          // SUPPORTS
+          else if(input.startsWith("su ") || input.startsWith("support ")){
+            //"support 0" or "su 0" or "su 2" etc.
+            //assume the value that follows su  is an integer.
+            whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
+            if(whichOpponent == whichPlayer){
+              action = party.get(whichPlayer).support();
+              TextBox(10+actLen, 2, 78, action.length()/78+1, action);
+              actLen += action.length()/78+1;
+            }
+            else{
+              action = party.get(whichPlayer).support(party.get(whichOpponent));
+              TextBox(10+actLen, 2, 78, action.length()/78+1, action);
+              actLen += action.length()/78+1;
+            }
+          }
+
+          //You should decide when you want to re-ask for user input
+          //If no errors:
+          whichPlayer++;
+
+
+          if(whichPlayer < party.size()){
+            //This is a player turn.
+            //Decide where to draw the following prompt:
+            String prompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
+            Text.showCursor();
+            TextBox(10+actLen, 2, 78, prompt.length()/78+1, prompt);
+            extra = 1;
+
+
+          }else{
+            //This is after the player's turn, and allows the user to see the enemy turn
+            //Decide where to draw the following prompt:
+          //  drawText("went into enter monster", 31, 1);
+            String prompt = "press enter to see monster's turn";
+            partyTurn = false;
+            whichOpponent = 0;
+            TextBox(11+actLen, 2, 78, prompt.length()/78+1, prompt);
+            actLen = 0;
+          // TextBox(10, 2, 79, 19, prompt);
+            extra = 1;
+          }
+          //done with one party member
+        }else{
+          //not the party turn!
+          if(whichOpponent == 0){
+          TextBox(10, 2, 78, 19, " ");
+        }
+
+          //enemy attacks a randomly chosen person with a randomly chosen attack.z`
+          //Enemy action choices go here!
+        
+          int randoAdven = (int)(Math.random()*3);
+          while(party.get(randoAdven).getHP() == 0){
+            randoAdven = (int)(Math.random()*3);
+          }
+          if((int)(Math.random()*enemies.size()) == 0){
+            action = enemies.get(whichOpponent).attack(party.get(randoAdven));
+            TextBox(10+actLen, 2, 78, action.length()/78+1, action);
+            actLen += action.length()/78+1;
+          }
+          else if((int)(Math.random()*enemies.size()) == 0){
+        action = enemies.get(whichOpponent).specialAttack(party.get(randoAdven));
+            TextBox(10+actLen, 2, 78, action.length()/78+1, action);
+        actLen += action.length()/78+1;
           }
           else{
-            action = party.get(whichPlayer).support(party.get(whichOpponent));
-            TextBox(10+actLen, 2, 78, action.length()/78+1, action);
-			      actLen += action.length()/78+1;
-          }
-        }
-
-        //You should decide when you want to re-ask for user input
-        //If no errors:
-        whichPlayer++;
-
-
-        if(whichPlayer < party.size()){
-          //This is a player turn.
-          //Decide where to draw the following prompt:
-          String prompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
-		  Text.showCursor();
-		  TextBox(10+actLen, 2, 78, prompt.length()/78+1, prompt);
-		  extra = 1;
-
-
-        }else{
-          //This is after the player's turn, and allows the user to see the enemy turn
-          //Decide where to draw the following prompt:
-        //  drawText("went into enter monster", 31, 1);
-          String prompt = "press enter to see monster's turn";
-          partyTurn = false;
-          whichOpponent = 0;
-		  TextBox(10+actLen, 2, 78, prompt.length()/78+1, prompt);
-          actLen = 0;
-         // TextBox(10, 2, 79, 19, prompt);
-          extra = 1;
-        }
-        //done with one party member
-      }else{
-        //not the party turn!
-		    if(whichOpponent == 0){
-			  TextBox(10, 2, 78, 19, " ");
-		  }
-
-        //enemy attacks a randomly chosen person with a randomly chosen attack.z`
-        //Enemy action choices go here!
-       
-        int randoAdven = (int)(Math.random()*3);
-        while(party.get(randoAdven).getHP() == 0){
-          randoAdven = (int)(Math.random()*3);
-        }
-        if((int)(Math.random()*enemies.size()) == 0){
-			    action = enemies.get(whichOpponent).attack(party.get(randoAdven));
+            while(randoAdven == whichOpponent && enemies.get(whichOpponent) instanceof Chomper){
+              randoAdven = (int)(Math.random()*enemies.size());
+            }
+        if(randoAdven == whichOpponent || enemies.size() == 1){
+          action = enemies.get(whichOpponent).support();
           TextBox(10+actLen, 2, 78, action.length()/78+1, action);
-		      actLen += action.length()/78+1;
-        }
-        else if((int)(Math.random()*enemies.size()) == 0){
-			action = enemies.get(whichOpponent).specialAttack(party.get(randoAdven));
-          TextBox(10+actLen, 2, 78, action.length()/78+1, action);
-		  actLen += action.length()/78+1;
+          actLen += action.length()/78+1;
         }
         else{
-          while(randoAdven == whichOpponent && enemies.get(whichOpponent) instanceof Chomper){
+          if(randoAdven > enemies.size()){
             randoAdven = (int)(Math.random()*enemies.size());
           }
-		  if(randoAdven == whichOpponent || enemies.size() == 1){
-			  action = enemies.get(whichOpponent).support();
-			  TextBox(10+actLen, 2, 78, action.length()/78+1, action);
-			  actLen += action.length()/78+1;
-		  }
-		  else{
-			  if(randoAdven > enemies.size()){
-				  randoAdven = (int)(Math.random()*enemies.size());
-			  }
-			  action = enemies.get(whichOpponent).support(enemies.get(randoAdven));
-			  TextBox(10+actLen, 2, 78, action.length()/78+1, action);
-			  actLen += action.length()/78+1;
-		  }
+          action = enemies.get(whichOpponent).support(enemies.get(randoAdven));
+          TextBox(10+actLen, 2, 78, action.length()/78+1, action);
+          actLen += action.length()/78+1;
         }
-        //Decide where to draw the following prompt:
-        String prompt = "press enter to see next turn";
-        TextBox(10+actLen, 2, 78, 2, prompt);
-        whichOpponent++;
+          }
+          //Decide where to draw the following prompt:
+          String prompt = "press enter to see next turn";
+          TextBox(11+actLen, 2, 78, 2, prompt);
+          whichOpponent++;
 
       }//end of one enemy.
 
@@ -454,50 +473,44 @@ public class Game{
         //THIS BLOCK IS TO END THE ENEMY TURN
         //It only triggers after the last enemy goes.
 
-		String prompt = "press enter to continue to your turn";
-		TextBox(10+actLen, 2, 65, 1, prompt);
-		input = userInput(in, 0);
-        whichPlayer = 0;
-		actLen = 0;
-        turn++;
-        partyTurn=true;
-    //    drawText("went into enter command", 31, 1);
-        //display this prompt before player's turn
-		drawScreen(party, enemies);
-        prompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q)";
-        TextBox(10, 2, 78, 19, prompt);
+      String prompt = "press enter to continue to your turn";
+      TextBox(11+actLen, 2, 65, 1, prompt);
+      input = userInput(in, 0);
+          whichPlayer = 0;
+      actLen = 0;
+          turn++;
+          partyTurn=true;
+      //    drawText("went into enter command", 31, 1);
+          //display this prompt before player's turn
+      drawScreen(party, enemies);
+          prompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q)";
+          TextBox(10, 2, 78, 19, prompt);
 
+        }
+        else{//display the updated screen after input has been processed.
+          drawScreen(party, enemies);
+        }
       }
-	  else{//display the updated screen after input has been processed.
-		  drawScreen(party, enemies);
-	  }
-  
-
-      if (enemyHealth == 0 && partyHealth != 0){
-        TextBox(10, 2, 78, 19, "YOU HAVE WON! \n Congratulations! You successfully defeated all the enemies!!");
-        gameOver = true; 
-      }
-      else if (partyHealth == 0 && enemyHealth != 0){
-        TextBox(10, 2, 78, 19, "Oh No. You have been defeated by the enemy. You fought bravely, please try again!");
-        gameOver = true; 
-      }
-      }
-    } //end of main game loop
-
+    }
+    if (gameOver){
+      quit(); 
+    }
+    
+    //end of main game loop
 
     //After quit reset things:
     quit();
+    } 
   }
 
-  // Add chomper rule that PH would decrease instead of increase
+  // Add chomper rule that PH would decrease instead of increase; DONE 
   // Add death, because after they die they're still prompted for an action
   // Add quit; DONE 
   /// add variability in the enemy party; DONE 
   // change the drawScreen 
-  // Add default group option 
-  // add party size option for enemy and boss  
+  // Add default group option; DONE 
+  // add party size option for enemy and boss; DONE 
   // add win/lose screen 
   // add add enemy prefer an action 
-
-
 }
+
