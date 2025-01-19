@@ -36,7 +36,9 @@ public class Game{
 		for(int i = 1; i <= WIDTH; i++){
 			System.out.print(Text.colorize(" ", 47));
 		}
-		//Text.go(30, 80); Text.showCursor();
+		
+    //Text.go(30, 80); Text.showCursor();
+    
 	/*	try {
     Thread.sleep(2000);
   }
@@ -71,7 +73,7 @@ public class Game{
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     Text.go(row, col);
     int place = 0;
-	int i = 0;
+	  int i = 0;
     String rowText = "";
     for(i = 0; i < height && place < text.length(); i++){
 		if(place+width > text.length()){
@@ -87,11 +89,11 @@ public class Game{
 	  place += width;
 	 // System.out.print(i);
     }
-	for(; i < height; i++){
-		for(int j = 0; j < width; j++){
-			drawText(" ", i+row, j+col);
-		}
-	}
+    for(; i < height; i++){
+      for(int j = 0; j < width; j++){
+        drawText(" ", i+row, j+col);
+      }
+    }
   }
 
     //return a random adventurer (choose between all available subclasses)
@@ -201,9 +203,9 @@ public class Game{
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+  	enemies.add(createRandomAdventurer("Enemy 0"));
   	enemies.add(createRandomAdventurer("Enemy 1"));
   	enemies.add(createRandomAdventurer("Enemy 2"));
-  	enemies.add(createRandomAdventurer("Enemy 3"));
     //Adventurers you control:
     //Make an ArrayList of Adventurers and add 2-4 Adventurers to it.
     ArrayList<Adventurer> party = new ArrayList<>();
@@ -445,6 +447,13 @@ public class Game{
 
   // Add chomper rule that PH would decrease instead of increase
   // Add death, because after they die they're still prompted for an action
-  // Add quit
+  // Add quit; DONE 
   /// add variability in the enemy party
+  // change the drawScreen 
+  // Add default group option 
+  // add party size option for enemy and boss  
+  // add win/lose screen 
+  // add add enemy prefer an action 
+
+
 }

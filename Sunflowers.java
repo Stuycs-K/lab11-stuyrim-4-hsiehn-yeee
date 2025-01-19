@@ -39,7 +39,7 @@ public class Sunflowers extends Adventurer{
     int damage = (int)(Math.random()*3)+1;
     other.applyDamage(damage);
     this.applyDamage(damage);
-    return this + " used Flamethrower! Sunflowers launch themselves at "+ other + " and deal " + damage + " to them, while also losing " + damage + " itself.";
+    return this + " used Flamethrower! Sunflowers launch themselves at "+ other + " and deal " + damage + " damage to them, while also losing " + damage + " itself.";
   }
 
   /*Decrease opponent's special by 25%, also dropping their own by 10%. No threshold of special required

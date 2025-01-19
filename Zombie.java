@@ -47,13 +47,9 @@ public class Zombie extends Adventurer{
   *Decrease brains by 2-4.
   */
   public String specialAttack(Adventurer other){
-	if(getSpecial() == 2){
+	if(getSpecial() > 2){
 		int damage = 2;
-    if (other instanceof Chomper){
-      setSpecial(getSpecial() + damage);
-    }else{
 		setSpecial(getSpecial() - damage);
-    }
 		other.applyDamage(damage);
 		return this + " used Horde! They laid out " + damage + " brains and lured " + damage + " of its friends to come help it! They each attack " + other + " one time, dealing " + damage + " points of damage.";
 	}
