@@ -201,7 +201,7 @@ public class Game{
     Text.hideCursor();
     Text.clear();
    // System.out.println("\033[2J");
-	boolean hasQuitten = false;
+	  boolean hasQuitten = false;
     drawBackground();
 
     //Adventurers you control:
@@ -217,164 +217,104 @@ public class Game{
     TextBox(10, 2, 78, 18, "Choose your difficulty level! (Hard(1)/Easy(2)/Medium(3)/Quit(q):");
     Scanner in = new Scanner(System.in);
     String choice = userInput(in, 1);
-<<<<<<< HEAD
-	  while(!(choice.equals("1") || choice.equals("2") || choice.equals("3"))){
-		  TextBox(10, 2, 78, 18, "Invalid input. Please retry. Choose your difficulty level! (Hard(1)/Easy(2)/Medium(3)):");
-		  choice = userInput(in, 2);
+	  
+    if(choice.equalsIgnoreCase("q")){
+		  hasQuitten = true;
+		  quit();
 	  }
-    if (choice.equals("1")){
-      enemies.add(new Boss("King Bowser")); 
-    }
-    else if (choice.equals("2")){
-      enemies.add(createRandomAdventurer("Jessie")); 
-      enemies.add(createRandomAdventurer("James")); 
-    }
-    else if (choice.equals("3")){
-      enemies.add(createRandomAdventurer("Meeny"));
-      enemies.add(createRandomAdventurer("Miney"));
-      enemies.add(createRandomAdventurer("Moe"));
-    }
-
-    ArrayList<Adventurer> party = new ArrayList<>();
-=======
-	if(choice.equalsIgnoreCase("q")){
-		hasQuitten = true;
-		quit();
-	}
-	else{
-		while(!(choice.equals("1") || choice.equals("2") || choice.equals("3") || choice.equalsIgnoreCase("q"))){
-		TextBox(10, 2, 78, 18, "Invalid input. Please retry. Choose your difficulty level! (Hard(1)/Easy(2)/Medium(3)/Quit(q)):");
-		choice = userInput(in, 2);
-		}
-		if (choice.equals("1")){
-		  enemies.add(new Boss("King Bowser")); 
-		}
-		else if (choice.equals("2")){
-		  enemies.add(createRandomAdventurer("Jessie")); 
-		  enemies.add(createRandomAdventurer("James")); 
-		}
-		else if (choice.equals("3")){
-		  enemies.add(createRandomAdventurer("Meeny"));
-		  enemies.add(createRandomAdventurer("Miney"));
-		  enemies.add(createRandomAdventurer("Moe"));
-		}
-		else{
-			quit();
-			hasQuitten = true;
-		}
-	}
-	ArrayList<Adventurer> party = new ArrayList<>();
-	if(!hasQuitten){
-		
->>>>>>> 936884b963ee4568672d07494888bc069b9620f5
-    // Default Party
-    TextBox(10, 2, 78, 18, "Choose your party! Would you like to use the default party (a), customize your party (b) or quit (q)?");  
-    in = new Scanner(System.in);
-    choice = userInput(in, 2); 
-<<<<<<< HEAD
-
-	  while(!(choice.equalsIgnoreCase("a") || choice.equalsIgnoreCase("b"))){
-      TextBox(10, 2, 78, 18, "Invalid input. Please retry. Choose your party! Would you like to use the default party (a) or would you like to customize your party (b)?");
+	  else{
+		  while(!(choice.equals("1") || choice.equals("2") || choice.equals("3") || choice.equalsIgnoreCase("q"))){
+      TextBox(10, 2, 78, 18, "Invalid input. Please retry. Choose your difficulty level! (Hard(1)/Easy(2)/Medium(3)/Quit(q)):");
       choice = userInput(in, 2);
-    }
-    if (choice.equalsIgnoreCase("a")){
-      party.add(new Chomper("Piranha Plant", 25)); 
-      party.add(new Sunflowers("Bullet Bill", 30)); 
-      party.add(new Zombie("Koopa Paratroopa", 35));
-      TextBox(10, 2, 78, 20, " "); 
-    }else if (choice.startsWith("b")){
-      String name = "";
-      String playerClass = "";
-      
-        // Costumize Party 
-      for(int i = 0; i < 3; i++){
-        TextBox(10, 2, 78, 20, "Enter name of player " + i + ": ");
-        name = userInput(in, 1);
-        TextBox(10, 2, 78, 20, "Enter class of player " + i + "(chomper/sunflowers/zombie):");
-        playerClass = userInput(in, 1);
-        while(!(playerClass.equals("chomper") || playerClass.equals("sunflowers") || playerClass.equals("zombie"))){
-          TextBox(10, 2, 78, 20, "Invalid input. Enter class of player " + i + "(chomper/sunflowers/zombie):");
-          playerClass = userInput(in, 1);
-        }
-        if(playerClass.equals("chomper")){
-          party.add(new Chomper(name, 25));
-        }
-        else if(playerClass.equals("sunflowers")){
-          party.add(new Sunflowers(name, 30));
-        }
-        else{
-          party.add(new Zombie(name, 35));
-        }
       }
-    }
+      if (choice.equals("1")){
+        enemies.add(new Boss("King Bowser")); 
+      }
+      else if (choice.equals("2")){
+        enemies.add(createRandomAdventurer("Jessie")); 
+        enemies.add(createRandomAdventurer("James")); 
+      }
+      else if (choice.equals("3")){
+        enemies.add(createRandomAdventurer("Meeny"));
+        enemies.add(createRandomAdventurer("Miney"));
+        enemies.add(createRandomAdventurer("Moe"));
+      }
+      else{
+        quit();
+        hasQuitten = true;
+      }
+	  }
 
+    // CHOOSING ADVENTURER PARTY 
+	  ArrayList<Adventurer> party = new ArrayList<>();
+	  if(!hasQuitten){
+		
+      // Default Party
+      TextBox(10, 2, 78, 18, "Choose your party! Would you like to use the default party (a), customize your party (b) or quit (q)?");  
+      in = new Scanner(System.in);
+      choice = userInput(in, 2); 
+      if(choice.equalsIgnoreCase("q")){
+        hasQuitten = true;
+        quit();
+      }
+      else{
+        while(!(choice.equalsIgnoreCase("a") || choice.equalsIgnoreCase("b") || choice.equalsIgnoreCase("q"))){
+        TextBox(10, 2, 78, 18, "Invalid input. Please retry. Choose your party! Would you like to use the default party (a), customize your party (b), or quit (q)?");
+        choice = userInput(in, 2);
+        }
+        if (choice.equalsIgnoreCase("a")){
+          party.add(new Chomper("Piranha Plant", 25)); 
+          party.add(new Sunflowers("Bullet Bill", 30)); 
+          party.add(new Zombie("Koopa Paratroopa", 35));
+          TextBox(10, 2, 78, 20, " "); 
+        }else if (choice.startsWith("b")){
+          String name = "";
+          String playerClass = "";
+        
+          // Costumize Party 
+          for(int i = 0; i < 3; i++){
+            TextBox(10, 2, 78, 20, "Enter name of player " + i + ": ");
+            name = userInput(in, 1);
+            TextBox(10, 2, 78, 20, "Enter class of player " + i + "(chomper/sunflowers/zombie):");
+            playerClass = userInput(in, 1);
+            while(!(playerClass.equals("chomper") || playerClass.equals("sunflowers") || playerClass.equals("zombie"))){
+              TextBox(10, 2, 78, 20, "Invalid input. Enter class of player " + i + "(chomper/sunflowers/zombie):");
+              playerClass = userInput(in, 1);
+            }
+            if(playerClass.equals("chomper")){
+              party.add(new Chomper(name, 25));
+            }
+            else if(playerClass.equals("sunflowers")){
+              party.add(new Sunflowers(name, 30));
+            }
+            else{
+              party.add(new Zombie(name, 35));
+            }
+          }
+		    }
+		  else{
+			  hasQuitten = true;
+        quit(); 
+		  }
+	  }
+	}
+    
+	
+  if(!hasQuitten){
     boolean partyTurn = true;
     int whichPlayer = 0;
     int whichOpponent = 0;
     int turn = 0;
-    String input = "";//blank to get into the main loop.
-
-    int extra = 0;
-    String action = "";
-    int actLen = 0;
-=======
-	if(choice.equalsIgnoreCase("q")){
-		hasQuitten = true;
-		quit();
-	}
-	else{
-		while(!(choice.equalsIgnoreCase("a") || choice.equalsIgnoreCase("b") || choice.equalsIgnoreCase("q"))){
-		TextBox(10, 2, 78, 18, "Invalid input. Please retry. Choose your party! Would you like to use the default party (a), customize your party (b), or quit (q)?");
-		choice = userInput(in, 2);
-	  }
-		if (choice.equalsIgnoreCase("a")){
-		  party.add(new Chomper("Piranha Plant", 25)); 
-		  party.add(new Sunflowers("Bullet Bill", 30)); 
-		  party.add(new Zombie("Koopa Paratroopa", 35));
-		  TextBox(10, 2, 78, 20, " "); 
-		}else if (choice.startsWith("b")){
-		  String name = "";
-		  String playerClass = "";
-		
-		  // Costumize Party 
-		  for(int i = 0; i < 3; i++){
-			TextBox(10, 2, 78, 20, "Enter name of player " + i + ": ");
-			name = userInput(in, 1);
-			TextBox(10, 2, 78, 20, "Enter class of player " + i + "(chomper/sunflowers/zombie):");
-			playerClass = userInput(in, 1);
-			while(!(playerClass.equals("chomper") || playerClass.equals("sunflowers") || playerClass.equals("zombie"))){
-			  TextBox(10, 2, 78, 20, "Invalid input. Enter class of player " + i + "(chomper/sunflowers/zombie):");
-			  playerClass = userInput(in, 1);
-			}
-			if(playerClass.equals("chomper")){
-			  party.add(new Chomper(name, 25));
-			}
-			else if(playerClass.equals("sunflowers")){
-			  party.add(new Sunflowers(name, 30));
-			}
-			else{
-			  party.add(new Zombie(name, 35));
-			}
-		  }
-		}
-		else{
-			quit();
-			hasQuitten = true;
-		}
-	}
-	}
+    String input = "";//blank to get into the main loop.'
     
-	
-if(!hasQuitten){
-      boolean partyTurn = true;
-      int whichPlayer = 0;
-      int whichOpponent = 0;
-      int turn = 0;
-      String input = "";//blank to get into the main loop.
->>>>>>> 936884b963ee4568672d07494888bc069b9620f5
+    int extra = 0; 
+    String action = ""; 
+    int actLen = 0; 
+    boolean gameOver = false; 
+
 
     //Draw the window border
-	   //System.out.println(party);
+	  //System.out.println(party);
     //You can add parameters to draw screen!
 
     drawScreen(party, enemies);//initial state.
@@ -383,14 +323,10 @@ if(!hasQuitten){
 
     //Main loop
 
-    //DEATH
-    boolean gameOver = false; 
-    
     //display this prompt at the start of the game.
     String preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su) player #";
 	  extra = preprompt.length()/78+1;
 	  System.out.print(preprompt);
-    
     
     while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")) && !gameOver){
       
@@ -544,11 +480,6 @@ if(!hasQuitten){
           if(randoAdven > enemies.size()){
             randoAdven = (int)(Math.random()*enemies.size());
           }
-<<<<<<< HEAD
-          action = enemies.get(whichOpponent).support(enemies.get(randoAdven));
-          TextBox(10+actLen, 2, 78, action.length()/78+1, action);
-          actLen += action.length()/78+1;
-=======
 		  if(randoAdven == whichOpponent || enemies.size() == 1){
 			  action = enemies.get(whichOpponent).support();
 			  TextBox(10+actLen, 2, 78, action.length()/78+1, action);
@@ -562,7 +493,6 @@ if(!hasQuitten){
 			  TextBox(10+actLen, 2, 78, action.length()/78+1, action);
 			  actLen += action.length()/78+1;
 		  }
->>>>>>> 936884b963ee4568672d07494888bc069b9620f5
         }
           }
           //Decide where to draw the following prompt:
@@ -596,20 +526,18 @@ if(!hasQuitten){
         }
       }
     }
+    }
     if (gameOver){
       quit(); 
     }
-    
-    //end of main game loop
-
-    //After quit reset things:
-    quit();
-<<<<<<< HEAD
-    } 
-=======
-	}
->>>>>>> 936884b963ee4568672d07494888bc069b9620f5
   }
+    
+  //end of main game loop
+
+  //After quit reset things:
+  quit();
+
+} // END OF RUN 
 
   // Add chomper rule that PH would decrease instead of increase; DONE 
   // Add death, because after they die they're still prompted for an action
