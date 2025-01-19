@@ -70,6 +70,10 @@ public class Chomper extends Adventurer{
 		return this + " used Blooming! They spit out some helpful acid for "+other+", helping them reinvigorate themselves and regain 1 HP.";
 	}
 	else{
+		if(other instanceOf Chomper){
+			other.setSpecial(pH - 2);
+			return this + " used Blooming! They spit out some helpful acid for "+other+", helping them reinvigorate themselves and decrease 2" "+other.getSpecialName() +".";
+		}
 		return this + " used Blooming! They spit out some helpful acid for "+other+", helping them reinvigorate themselves and regain " + other.restoreSpecial(1)+" "+other.getSpecialName() +".";
 	}
   }

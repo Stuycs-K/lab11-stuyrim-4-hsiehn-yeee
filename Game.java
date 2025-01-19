@@ -420,7 +420,7 @@ public class Game{
 			  actLen += action.length()/78+1;
 		  }
 		  else{
-			  if(randoAdven > enemies.size()){
+			  if(randoAdven >= enemies.size()){
 				  randoAdven = (int)(Math.random()*enemies.size());
 			  }
 			  action = enemies.get(whichOpponent).support(enemies.get(randoAdven));
