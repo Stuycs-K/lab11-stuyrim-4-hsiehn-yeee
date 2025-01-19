@@ -216,7 +216,11 @@ public class Game{
 
     TextBox(10, 2, 78, 18, "Choose your difficulty level! (Hard(1)/Easy(2)/Medium(3)):");
     Scanner in = new Scanner(System.in);
-    String choice = userInput(in, 2); 
+    String choice = userInput(in, 1);
+	while(!(choice.equals("1") || choice.equals("2") || choice.equals("3"))){
+		TextBox(10, 2, 78, 18, "Invalid input. Please retry. Choose your difficulty level! (Hard(1)/Easy(2)/Medium(3)):");
+		choice = userInput(in, 2);
+	  }
     if (choice.equals("1")){
       enemies.add(new Boss("King Bowser")); 
     }
@@ -235,9 +239,13 @@ public class Game{
 
     ArrayList<Adventurer> party = new ArrayList<>();
     // Default Party
-    TextBox(10, 2, 78, 18, "Choose your party! Would you like to use the default party (a) or would you like to costumize your party (b)?");  
+    TextBox(10, 2, 78, 18, "Choose your party! Would you like to use the default party (a) or would you like to customize your party (b)?");  
     in = new Scanner(System.in);
     choice = userInput(in, 2); 
+	while(!(choice.equalsIgnoreCase("a") || choice.equalsIgnoreCase("b"))){
+		TextBox(10, 2, 78, 18, "Invalid input. Please retry. Choose your party! Would you like to use the default party (a) or would you like to customize your party (b)?");
+		choice = userInput(in, 2);
+	  }
     if (choice.equalsIgnoreCase("a")){
       party.add(new Chomper("Piranha Plant", 25)); 
       party.add(new Sunflowers("Bullet Bill", 30)); 
@@ -422,7 +430,11 @@ public class Game{
 			  actLen += action.length()/78+1;
 		  }
         }
-
+		try {
+    Thread.sleep(1000);
+  }
+    catch (InterruptedException e) {
+  }
         //Decide where to draw the following prompt:
         String prompt = "press enter to see next turn";
         TextBox(10+actLen, 2, 78, 2, prompt);
