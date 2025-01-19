@@ -45,7 +45,7 @@ public class Sunflowers extends Adventurer{
   /*Decrease opponent's special by 25%, also dropping their own by 10%. No threshold of special required
   */
   public String specialAttack(Adventurer other){
-    int dropOtherSpecial = (int) (0.25*other.getSpecial());
+    int dropOtherSpecial = (int) (0.35*other.getSpecial());
     int dropOwnSpecial = (int) (0.1*this.getSpecial());
     if (other instanceof Chomper){
       other.setSpecial(other.getSpecial() + dropOtherSpecial);

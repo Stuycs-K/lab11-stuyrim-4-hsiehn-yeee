@@ -68,26 +68,33 @@ public class Game{
   *@param height the number of rows
   */
   public static void TextBox(int row, int col, int width, int height, String text){
-    /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-    //YOUR CODE HERE
-    /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     Text.go(row, col);
     int place = 0;
 	  int i = 0;
     String rowText = "";
+
     for(i = 0; i < height && place < text.length(); i++){
-		if(place+width > text.length()){
-			rowText = text.substring(place, text.length());
-		}
-		else{
-			rowText = text.substring(place, place+width);
-		}
+      if(place + width >= text.length()){
+        rowText = text.substring(place, text.length());
+        place = text.length(); 
+      }
+      else{
+        rowText = text.substring(place, place+width);
+
+        int wordEnd = rowText.lastIndexOf(' '); 
+        if (wordEnd != -1){
+          rowText = rowText.substring(0, wordEnd); 
+          place += wordEnd + 1; 
+        } else {
+          place += width; 
+        }
+      }
+
       drawText(rowText, i+row, col);
-	  for(int j = rowText.length(); j < width; j++){
-		 drawText(" ", i+row, j+col);
-	  }
-	  place += width;
-	 // System.out.print(i);
+      for(int j = rowText.length(); j < width; j++){
+      drawText(" ", i+row, j+col);
+      }
+    // System.out.print(i);
     }
     for(; i < height; i++){
       for(int j = 0; j < width; j++){
@@ -95,6 +102,7 @@ public class Game{
       }
     }
   }
+
 
     //return a random adventurer (choose between all available subclasses)
     //feel free to overload this method to allow specific names/stats.
@@ -222,19 +230,19 @@ public class Game{
       party.add(new Chomper("Piranha Plant", 25)); 
       party.add(new Sunflowers("Bullet Bill", 30)); 
       party.add(new Zombie("Koopa Paratroopa", 35));
+      TextBox(10, 2, 78, 20, " "); 
     }else if (choice.equalsIgnoreCase("b")){
-
       String name = "";
       String playerClass = "";
     
       // Costumize Party 
       for(int i = 0; i < 3; i++){
-        TextBox(10, 2, 78, 19, "Enter name of player " + i + ": ");
+        TextBox(10, 2, 78, 20, "Enter name of player " + i + ": ");
         name = userInput(in, 1);
-        TextBox(10, 2, 78, 19, "Enter class of player " + i + "(chomper/sunflowers/zombie):");
+        TextBox(10, 2, 78, 20, "Enter class of player " + i + "(chomper/sunflowers/zombie):");
         playerClass = userInput(in, 1);
         while(!(playerClass.equals("chomper") || playerClass.equals("sunflowers") || playerClass.equals("zombie"))){
-          TextBox(10, 2, 78, 19, "Invalid input. Enter class of player " + i + "(chomper/sunflowers/zombie):");
+          TextBox(10, 2, 78, 20, "Invalid input. Enter class of player " + i + "(chomper/sunflowers/zombie):");
           playerClass = userInput(in, 1);
         }
         if(playerClass.equals("chomper")){
@@ -331,9 +339,6 @@ public class Game{
         else if(input.startsWith("su ") || input.startsWith("support ")){
           //"support 0" or "su 0" or "su 2" etc.
           //assume the value that follows su  is an integer.
-          /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-          //YOUR CODE HERE
-          /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
           if(input.indexOf("su ") == -1){
             whichOpponent = Integer.parseInt(""+input.charAt(8));
           }
@@ -343,12 +348,12 @@ public class Game{
           if(whichOpponent == whichPlayer){
             action = party.get(whichPlayer).support();
             TextBox(10+actLen, 2, 78, action.length()/78+1, action);
-			    actLen += action.length()/78+1;
+			      actLen += action.length()/78+1;
           }
           else{
             action = party.get(whichPlayer).support(party.get(whichOpponent));
             TextBox(10+actLen, 2, 78, action.length()/78+1, action);
-			actLen += action.length()/78+1;
+			      actLen += action.length()/78+1;
           }
         }
 
@@ -373,7 +378,7 @@ public class Game{
           String prompt = "press enter to see monster's turn";
           partyTurn = false;
           whichOpponent = 0;
-		  TextBox(10+actLen, 2, 78, prompt.length()/78+1, prompt);
+		      TextBox(10+actLen, 2, 78, prompt.length()/78+1, prompt);
           actLen = 0;
          // TextBox(10, 2, 79, 19, prompt);
           extra = 1;
@@ -381,9 +386,9 @@ public class Game{
         //done with one party member
       }else{
         //not the party turn!
-		if(whichOpponent == 0){
-			TextBox(10, 2, 79, 19, " ");
-		}
+		    if(whichOpponent == 0){
+			  TextBox(10, 2, 79, 19, " ");
+		  }
 
         //enemy attacks a randomly chosen person with a randomly chosen attack.z`
         //Enemy action choices go here!
