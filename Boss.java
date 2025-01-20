@@ -10,7 +10,7 @@ public class Boss extends Adventurer{
   }
 
   public Boss(String name){
-    this(name,35);
+    this(name, 40);
   }
 
   public Boss(){
