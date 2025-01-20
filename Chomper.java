@@ -38,15 +38,18 @@ public class Chomper extends Adventurer{
   /*Deal 5-7 damage to opponent, decreases pH by 2*/
   public String attack(Adventurer other){
     int damage = (int)(Math.random()*3)+5;
+    if (other.getShield() == true){
+      other.applyDamage(damage);
+      return other + " had a shield up! The attack did nothing...";
+    }
     other.applyDamage(damage);
     if(pH > 2){
-		setSpecial(pH - 2);
-	}
-	else{
-		setSpecial(0);
-	}
-    return this + " used Fly Trap! They snatched "+ other + " in their jaws and dealt "+ damage +
-    " points of damage. They then absorbed the opponent's life energy to lower their pH by 2";
+    setSpecial(pH - 2);
+    }
+    else{
+      setSpecial(0);
+    }
+    return this + " used Fly Trap! They snatched "+ other + " in their jaws and dealt "+ damage +" points of damage. They then absorbed the opponent's life energy to lower their pH by 2";
   }
 
   /*Deal 14-pH damage to opponent, only if pH is low enough (<7).
@@ -55,16 +58,26 @@ public class Chomper extends Adventurer{
   public String specialAttack(Adventurer other){
     if(getSpecial()  < 7){
       int damage = 14-pH;
-      if (getSpecial() <= 3){
-        other.setShield(false); 
+
+      if (other.getShield() == true){
+        if (getSpecial() <= 3){
+          other.setShield(false);
+          other.applyDamage(damage);
+          restoreSpecial(3);
+          return this + " used Withering! They spit out acid around it. This melted "+other+" dealing "+ damage +" points of damage.";
+        }
+        else {
+          other.applyDamage(damage);
+          return other + " had a shield up! The attack did nothing...";
+        }
       }
-      restoreSpecial(3);
       other.applyDamage(damage);
+      restoreSpecial(3);
       return this + " used Withering! They spit out acid around it. This melted "+other+" dealing "+ damage +" points of damage.";
-    }else{
+    }
+    else{
       return "Oh no! "+this + " is too basic to spit out potent acid! Nothing happened..";
     }
-
   }
   /*Restores 1 special or 1 HP to other, depending on which one is lower*/
   public String support(Adventurer other){

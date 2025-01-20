@@ -37,6 +37,10 @@ public class Sunflowers extends Adventurer{
   /*Deal 3 damage to opponent, increases sunExposure by 1*/
   public String attack(Adventurer other){
     int damage = (int)(Math.random()*3)+1;
+    if (other.getShield() == true){
+      other.applyDamage(damage);
+      return other + " had a shield up! The attack did nothing...";
+    }
     other.applyDamage(damage);
     this.applyDamage(damage);
     return this + " used Flamethrower! Sunflowers launch themselves at "+ other + " and deal " + damage + " damage to them, while also losing " + damage + " itself.";

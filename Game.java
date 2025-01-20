@@ -379,15 +379,15 @@ public class Game{
             // ** TO DO: IMPLEMENT AN ANTI-CRASHING SYSTEM, b/c right now system crashes when you enter "a 0 " with a space at the end!
             while((partyTurn) && !(input.startsWith("a ") || input.startsWith("attack ") || input.startsWith("sp ") || input.startsWith("special ") || input.startsWith("su ") || input.startsWith("support "))){
               preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
-              TextBox(10+actLen, 2, 78, preprompt.length()/78+2, "Invalid input. Please retry. " + preprompt);
+              TextBox(11+actLen, 2, 78, preprompt.length()/78+2, "Invalid input. Please retry. " + preprompt);
               extra = ("Invalid input. Please retry. " + preprompt).length()/78+1;
-              input = userInput(in, actLen+extra);
+              input = userInput(in, actLen+extra+1);
             }
             while(partyTurn && (input.startsWith("su") && Integer.parseInt(""+input.charAt(input.length()-1)) >= party.size() || (input.startsWith("a") || input.startsWith("sp")) && (Integer.parseInt(""+input.charAt(input.length()-1)) >= enemies.size()) || (input.charAt(input.length()-2) != ' '))){
             preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
-              TextBox(10+actLen, 2, 78, preprompt.length()/78+2, "Invalid input. Please retry. " + preprompt);
+              TextBox(11+actLen, 2, 78, preprompt.length()/78+2, "Invalid input. Please retry. " + preprompt);
               extra = ("Invalid input. Please retry. " + preprompt).length()/78+1;
-              input = userInput(in, actLen+extra);
+              input = userInput(in, actLen+extra+1);
             }
             //example debug statment
             //TextBox(24,2,1,78,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
@@ -396,7 +396,7 @@ public class Game{
             //display event based on last turn's input
             if(partyTurn){
               // Add quit when prompted to enter adventurer again? 
-              
+
               if (party.get(whichPlayer).isDead()){
                 TextBox(10+actLen, 2, 78, 18, party.get(whichPlayer) + " HAS FALLEN! They are no longer able to perform any actions.");
               }
@@ -414,8 +414,8 @@ public class Game{
                     whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
                   }
                     action = party.get(whichPlayer).attack(enemies.get(whichOpponent));
-                    TextBox(10+actLen, 2, 78, action.length()/78+1, action);
-                    actLen += action.length()/78+1;
+                    TextBox(10+actLen, 2, 78, action.length()/78+2, action);
+                    actLen += action.length()/78+2;
                 }
 
                 // SPECIAL
@@ -423,14 +423,14 @@ public class Game{
 
                   whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
 
-                  while (enemies.get(whichOpponent).isDead() &&){
+                  while (enemies.get(whichOpponent).isDead()){
                     TextBox(10+actLen, 2, 78, 2, "Target has already fallen! Please choose another target by entering another target:");
                     input = userInput(in, actLen + 2);
                     whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
                   }
                   action = party.get(whichPlayer).specialAttack(enemies.get(whichOpponent));
-                  TextBox(10+actLen, 2, 78, action.length()/78+1, action);
-                  actLen += action.length()/78+1;
+                  TextBox(10+actLen, 2, 78, action.length()/78+2, action);
+                  actLen += action.length()/78+2;
                 }
 
                 // SUPPORTS
@@ -442,7 +442,7 @@ public class Game{
                   if(whichOpponent == whichPlayer){
                     action = party.get(whichPlayer).support();
                     TextBox(10+actLen, 2, 78, action.length()/78+1, action);
-                    actLen += action.length()/78+1;
+                    actLen += action.length()/78+2;
                   }
                   else{
                     while (party.get(whichOpponent).isDead()){
@@ -450,9 +450,9 @@ public class Game{
                       input = userInput(in, actLen + 2);
                       whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
                     }
-                      action = party.get(whichPlayer).support(party.get(whichOpponent));
-                      TextBox(10+actLen, 2, 78, action.length()/78+1, action);
-                      actLen += action.length()/78+1;    
+                    action = party.get(whichPlayer).support(party.get(whichOpponent));
+                    TextBox(10+actLen, 2, 78, action.length()/78+2, action);
+                    actLen += action.length()/78+2;    
                   }
                 }
               }

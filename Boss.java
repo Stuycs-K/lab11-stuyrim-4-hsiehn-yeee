@@ -36,15 +36,20 @@ public class Boss extends Adventurer{
 
   /*Deals 6-8 damage, makes opponent lose 1 special (chompers gain), and gains 4 special.*/
   public String attack(Adventurer other){
-    int damage = (int)(Math.random()*3)+8;
-    other.applyDamage(damage);
-    if (other instanceof Chomper){
-      other.setSpecial(other.getSpecial() + 2);
-    }else{
-      other.setSpecial(other.getSpecial() - 2); 
+    if (other.getShield() == true){
+      return other + " had a shield up! The attack did nothing...";
     }
-    setSpecial(getSpecial() + 4);
-    return this + " used Clobber! Zomboss clubbed "+ other + " and deals " + damage + " damage to them, paralyzing them and making them lose 2" + other.getSpecialName() + ", while also gaining 4 musclePower";
+    else {
+      int damage = (int)(Math.random()*3)+8;
+      other.applyDamage(damage);
+      if (other instanceof Chomper){
+        other.setSpecial(other.getSpecial() + 2);
+      }else{
+        other.setSpecial(other.getSpecial() - 2); 
+      }
+      setSpecial(getSpecial() + 4);
+      return this + " used Clobber! Zomboss clubbed "+ other + " and deals " + damage + " damage to them, paralyzing them and making them lose 2" + other.getSpecialName() + ", while also gaining 4 musclePower";
+    }
   }
 
   /*"Apocalypse": The Zomboss commands a horde of 8-10 zombies, dealing 2 damage per each zombie and losing 8-10 musclePower. Zombies are careless when they fight, so they damage the Zomboss as well, dealing 1-5 damage to the Zomboss. (musclePower must be greater than 25)
