@@ -126,8 +126,15 @@ public class Game{
     */
   public static void drawParty(ArrayList<Adventurer> party,int startRow){
     String member = "";
-    for(int i = 0; i < party.size(); i++){
-      member = "" + party.get(i);
+    String death = "☠️"; // right now the emoji isn't working
+    for(int i = 0; i < party.size(); i ++){
+      if (party.get(i).isDead()){
+        member = party.get(i) + " (DEAD)"; 
+      }
+      else{
+        member = "" + party.get(i);
+
+      }
       TextBox(startRow, 2+i*(78/party.size()), 78/party.size(), 1, member);
       member = "HP: " + colorByPercent(party.get(i).getHP(), party.get(i).getmaxHP());
       TextBox(startRow+1, 2+i*(78/party.size()), 78/party.size(), 1, member);
@@ -409,6 +416,7 @@ public class Game{
 
                 // SPECIAL
                 else if(input.startsWith("sp ") || input.startsWith("special ")){
+
                   whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
 
                   if (! enemies.get(whichOpponent).isDead()){
@@ -433,7 +441,7 @@ public class Game{
                     actLen += action.length()/78+1;
                   }
                   else{
-                    if (! enemies.get(whichOpponent).isDead()){
+                    if (! party.get(whichOpponent).isDead()){
                       action = party.get(whichPlayer).support(party.get(whichOpponent));
                       TextBox(10+actLen, 2, 78, action.length()/78+1, action);
                       actLen += action.length()/78+1;
@@ -443,6 +451,9 @@ public class Game{
                     }
                   }
                 }
+              }
+              else {
+                TextBox(10+actLen, 2, 78, 19, party.get(whichPlayer).getName() + "HAS DIED! They are no longer able to act.");
               }
 
               //You should decide when you want to re-ask for user input
