@@ -14,9 +14,6 @@ public class Game{
   //Display the borders of your screen that will not change.
   //Do not write over the blank areas where text will appear or parties will appear.
   public static void drawBackground(){
-    /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-    //YOUR CODE HERE
-    /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     Text.go(1, 1);
 		for(int i = 1; i <= WIDTH; i++){
 			System.out.print(Text.colorize(" ", 47));
@@ -48,9 +45,6 @@ public class Game{
   //(columns and rows start at 1 (not zero) in the terminal)
   //use this method in your other text drawing methods to make things simpler.
   public static void drawText(String s,int startRow, int startCol){
-    /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-    //YOUR CODE HERE
-    /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     Text.go(startRow, startCol);
     System.out.print(s);
   }
@@ -595,6 +589,8 @@ public class Game{
   // add win/lose screen; DONE 
   // add add enemy prefer an action 
   // ADD Text for shield behavior; DONE 
+  // Fix the screen when enemy 2 has fallen. 
+  // Right now all the enemies die too fast - adjust settings of the adventurers 
 
   /* NOTES
     - The quit function doesn't work when user inputs invalid text 
