@@ -28,7 +28,16 @@ public class Chomper extends Adventurer{
   }
 
   public void setSpecial(int n){
-    pH = n;
+	if(n < 1){
+		pH = 1;
+	}
+	else if(n > 14){
+		pH = 14;
+	}
+	else{
+		pH = n;
+	}
+    
   }
 
   public int getSpecialMax(){
@@ -43,12 +52,7 @@ public class Chomper extends Adventurer{
       return other + " had a shield up! The attack did nothing...";
     }
     other.applyDamage(damage);
-    if(pH > 2){
     setSpecial(pH - 2);
-    }
-    else{
-      setSpecial(0);
-    }
     return this + " used Fly Trap! They snatched "+ other + " in their jaws and dealt "+ damage +" points of damage. They then absorbed the opponent's life energy to lower their pH by 2";
   }
 
@@ -82,15 +86,24 @@ public class Chomper extends Adventurer{
   /*Restores 1 special or 1 HP to other, depending on which one is lower*/
   public String support(Adventurer other){
 	if(other.getSpecial() > other.getHP()){
+		if(other.getHP() == other.getmaxHP()){
+			return this + " tried to use Blooming, but " + other + " was already at full health!";
+		}
 		other.applyDamage(-1);
 		return this + " used Blooming! They spit out some helpful acid for "+other+", helping them reinvigorate themselves and regain 1 HP.";
 	}
 	else{
-		if(other instanceof Chomper){
+		if(other instanceof Chomper && other.getSpecial() > 2){
 			other.setSpecial(pH - 2);
 			return this + " used Blooming! They spit out some helpful acid for "+other+", helping them reinvigorate themselves and decrease 2 "+other.getSpecialName() +".";
 		}
-		return this + " used Blooming! They spit out some helpful acid for "+other+", helping them reinvigorate themselves and regain " + other.restoreSpecial(1)+" "+other.getSpecialName() +".";
+		else if(other.getSpecial() < other.getSpecialMax()){
+			return this + " used Blooming! They spit out some helpful acid for "+other+", helping them reinvigorate themselves and regain " + other.restoreSpecial(1)+" "+other.getSpecialName() +".";
+		}
+		else{
+			return this + " tried to use Blooming, but " + other + "'s special stat was already maxed out!";
+		}
+		
 	}
   }
   /*Chomper cannot support itself*/

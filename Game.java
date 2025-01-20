@@ -370,15 +370,15 @@ public class Game{
             // ** TO DO: IMPLEMENT AN ANTI-CRASHING SYSTEM, b/c right now system crashes when you enter "a 0 " with a space at the end!
             while((partyTurn) && !(input.startsWith("a ") || input.startsWith("attack ") || input.startsWith("sp ") || input.startsWith("special ") || input.startsWith("su ") || input.startsWith("support ") || input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
               preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
-              TextBox(11+actLen, 2, 78, preprompt.length()/78+2, "Invalid input. Please retry. " + preprompt);
+              TextBox(10+actLen, 2, 78, preprompt.length()/78+2, "Invalid input. Please retry. " + preprompt);
               extra = ("Invalid input. Please retry. " + preprompt).length()/78+1;
-              input = userInput(in, actLen+extra+1);
+              input = userInput(in, actLen+extra);
             }
             while(partyTurn && (input.startsWith("su") && Integer.parseInt(""+input.charAt(input.length()-1)) >= party.size() || (input.startsWith("a") || input.startsWith("sp")) && (Integer.parseInt(""+input.charAt(input.length()-1)) >= enemies.size()) || (input.charAt(input.length()-2) != ' ') || input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
             preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
-              TextBox(11+actLen, 2, 78, preprompt.length()/78+2, "Invalid input. Please retry. " + preprompt);
+              TextBox(10+actLen, 2, 78, preprompt.length()/78+2, "Invalid input. Please retry. " + preprompt);
               extra = ("Invalid input. Please retry. " + preprompt).length()/78+1;
-              input = userInput(in, actLen+extra+1);
+              input = userInput(in, actLen+extra);
             }
             //example debug statment
             //TextBox(24,2,1,78,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
@@ -498,30 +498,27 @@ public class Game{
                   }
                   if((int)(Math.random()*3) == 0){
                     action = enemies.get(whichOpponent).attack(party.get(randoAdven));
-                    TextBox(10+actLen, 2, 78, action.length()/78+1, action);
+                    TextBox(10+actLen, 2, 78, action.length()/78+2, action);
                     actLen += action.length()/78+1;
                   }
                   else if((int)(Math.random()*3) == 0){
                     action = enemies.get(whichOpponent).specialAttack(party.get(randoAdven));
-                    TextBox(10+actLen, 2, 78, action.length()/78+1, action);
+                    TextBox(10+actLen, 2, 78, action.length()/78+2, action);
                     actLen += action.length()/78+1;
                   }
                   else{
-                    while(enemies.get(randoAdven).getHP()== 0 || randoAdven == whichOpponent && enemies.get(whichOpponent) instanceof Chomper){
+                    while(randoAdven > enemies.size() || enemies.get(randoAdven).getHP()== 0 || randoAdven == whichOpponent && enemies.get(whichOpponent) instanceof Chomper){
                       randoAdven = (int)(Math.random()*enemies.size());
                     }
                     if(randoAdven == whichOpponent || enemies.size() == 1){
                       action = enemies.get(whichOpponent).support();
-                      TextBox(10+actLen, 2, 78, action.length()/78+1, action);
+                      TextBox(10+actLen, 2, 78, action.length()/78+2, action);
                       actLen += action.length()/78+1;
                     }
                     else{
-                      //if(randoAdven > enemies.size()){
-                      //  randoAdven = (int)(Math.random()*enemies.size());
-                      //}
                       if(randoAdven == whichOpponent || enemies.size() == 1){
                         action = enemies.get(whichOpponent).support();
-                        TextBox(10+actLen, 2, 78, action.length()/78+1, action);
+                        TextBox(10+actLen, 2, 78, action.length()/78+2, action);
                         actLen += action.length()/78+1;
                       }
                       else{
@@ -529,7 +526,7 @@ public class Game{
                           randoAdven = (int)(Math.random()*enemies.size());
                         }
                         action = enemies.get(whichOpponent).support(enemies.get(randoAdven));
-                        TextBox(10+actLen, 2, 78, action.length()/78+1, action);
+                        TextBox(10+actLen, 2, 78, action.length()/78+2, action);
                         actLen += action.length()/78+1;
                       }
                     }

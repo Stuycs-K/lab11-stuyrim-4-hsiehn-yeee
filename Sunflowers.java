@@ -37,6 +37,9 @@ public class Sunflowers extends Adventurer{
   /*Deal 3 damage to opponent, increases sunExposure by 1*/
   public String attack(Adventurer other){
     int damage = (int)(Math.random()*3)+1;
+	if(getHP() < damage){
+		return this + " didn't have enough sunflowers to use Flamethrower!";
+	}
     if (other.getShield() == true){
       other.applyDamage(damage);
       return other + " had a shield up! The attack did nothing...";
@@ -51,6 +54,9 @@ public class Sunflowers extends Adventurer{
   public String specialAttack(Adventurer other){
     int dropOtherSpecial = (int) (0.50*other.getSpecial());
     int dropOwnSpecial = (int) (0.35*this.getSpecial());
+	if(dropOtherSpecial == 0 || dropOwnSpecial == 0){
+		return this + " tried to use Sunburn, but they couldn't emanate a bright enough light to drop the other's special by a significant amount..";
+	}
     if (other instanceof Chomper){
       other.setSpecial(other.getSpecial() + dropOtherSpecial);
     }else{
@@ -61,6 +67,9 @@ public class Sunflowers extends Adventurer{
   }
   /*Shields the allys from the next atack and take two damage NOTE: A shield attribute must be applied to all other adventurers.*/
   public String support(Adventurer other){
+	if(getHP() < 2){
+		return this + " tried to use Vitamin D, but they didn't have enough Sunflowers to be eaten!";
+	}
     applyDamage(2);
     setShield(true);
   	return this + " used Vitamin D! They gave two Sunflowers to be eaten for the strengthening of their bones!, shielding " + other + " from the next attack!";
@@ -68,8 +77,22 @@ public class Sunflowers extends Adventurer{
   /*Regains 5-7HP while also gaining 2 special*/
   public String support(){
   	int heal = (int)(Math.random()*3) + 5 ;
-    restoreHP(heal);
-  	restoreSpecial(2);
-    return this + " used Plant! Sunflower seeds were sown, and " + heal + " new sunflowers have sprouted, gaining " + heal + " HP and raising sunExposure by 2!";
+    if(getHP()+heal <= getmaxHP()){
+		restoreHP(heal);
+	}
+    else{
+		setHP(getmaxHP());
+	}
+	int restoration = 0;
+	if(getSpecial()+2 > getSpecialMax()){
+		restoration = getSpecialMax()-getSpecial();
+		setSpecial(getSpecialMax());
+	}
+	else{
+		restoration = 2;
+		restoreSpecial(2);
+	}
+  	
+    return this + " used Plant! Sunflower seeds were sown, and " + heal + " new sunflowers have sprouted, gaining " + heal + " HP and raising sunExposure by "+restoration+"!";
   }
 }

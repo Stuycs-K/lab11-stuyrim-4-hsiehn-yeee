@@ -48,7 +48,7 @@ public class Boss extends Adventurer{
         other.setSpecial(other.getSpecial() - 2); 
       }
       setSpecial(getSpecial() + 4);
-      return this + " used Clobber! Zomboss clubbed "+ other + " and deals " + damage + " damage to them, paralyzing them and making them lose 2" + other.getSpecialName() + ", while also gaining 4 musclePower";
+      return this + " used Clobber! They clubbed "+ other + " and deals " + damage + " damage to them, paralyzing them and making them lose 2" + other.getSpecialName() + ", while also gaining 4 musclePower";
     }
   }
 
@@ -80,12 +80,24 @@ public class Boss extends Adventurer{
     if (getHP() < 15){
       setShield(true); 
     }
-    restoreHP(heal);
+	else if(getHP()+heal >= getmaxHP() && chance > 0.5){
+		heal = getmaxHP() - getHP();
+		restoreHP(heal);
+		return this + " used Shield! They collected fallen zombie parts and made a shield, allowing them to regain " + heal + "HP. They also gained 2 musclePower from the workout.";
+	}
+	else if(getHP()+heal >= getmaxHP() && chance <= 0.5){
+		heal = getmaxHP() - getHP();
+		restoreHP(heal);
+		return this + " used Shield! They collected fallen zombie parts and made a shield, allowing them to regain " + heal + "HP. ";
+	}
+    else{
+		setHP(getmaxHP());
+	}
     if (chance > 0.5){
       restoreSpecial(2);
-      return this + "used Shield! They collected fallen zombie parts and made a shield, allowing them to regain " + heal + "HP. They also gained 2 musclePower from the workout.";
+      return this + " used Shield! They collected fallen zombie parts and made a shield, allowing them to regain " + heal + "HP. They also gained 2 musclePower from the workout.";
     }
-  	return this + "used Shield! They collected fallen zombie parts and made a shield, allowing them to regain " + heal + "HP.";
+  	return this + " used Shield! They collected fallen zombie parts and made a shield, allowing them to regain " + heal + "HP.";
   }
   /* Support others does not exist */
 }

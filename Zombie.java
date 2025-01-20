@@ -43,6 +43,9 @@ public class Zombie extends Adventurer{
     }
     int damage = 3;
     other.applyDamage(damage*3);
+	if(getSpecial() == getSpecialMax()){
+		return this + " used Devour! They eat " + other + "'s brains and deal 3 damage to them, but they were too full to swallow the brain, so they just spit it out instead.";
+	}
     restoreSpecial(1);
     return this + " used Devour! They eat "+ other + "'s brains and deal 3 damage to them, while also gaining 1 brain.";
   }
@@ -81,24 +84,39 @@ public class Zombie extends Adventurer{
 
   /*If ally is a Zombie: restores 3 special. Else, restore 1 special.*/
   public String support(Adventurer other){
-    if (other instanceof Chomper){
+	boolean limit = other.getSpecial() == other.getSpecialMax();
+    if (other instanceof Chomper && !(other.getSpecial() < 2)){
       other.setSpecial(other.getSpecial()-1);
       return this + " used CS Test! They tried to give a CS test to "+other+", but seeing as plants don't know computer science, they couldn't do it. Thus, "+ this + " decided to use the test as compost for " + other + ", subtracting 1" +other.getSpecialName() +".";
     }
-    if(other instanceof Zombie){
+    else if(other instanceof Zombie && !limit){
       other.restoreSpecial(3);
       return this + " used CS Test! They gave a CS test to "+other+", making them smarter. " + other + " regains 3 brains!";
     }
-    else{
+    else if(!limit){
       return this + " used CS Test! They tried to give a CS test to "+other+", but seeing as plants don't know computer science, they couldn't do it. Thus, "+ this + " decided to use the test as compost for " + other + ", restoring " + other.restoreSpecial(1)+" "+other.getSpecialName() +".";
     }
+	else{
+	  return this + " tried to use CS Test, but " + other + "'s special stat was already maxed out!";	
+	}
   }
   /*75% chance of regaining 4 brains, 25% chance of nothing happening*/
   public String support(){
     int chance = (int)(Math.random()*4);
     if(chance < 3){
-      restoreSpecial(4);
-      return this + " used Scavenge! It's their lucky day! They spotted 4 brains, eagerly shambling over to eat them. 4 brains were restored!";
+		if(getSpecial()+4 < getSpecialMax()){
+			restoreSpecial(4);
+			return this + " used Scavenge! It's their lucky day! They spotted 4 brains, eagerly shambling over to eat them. 4 brains were restored!";
+		}
+		if(getSpecial() == getSpecialMax()){
+			return this + " used Scavenge! It's their lucky day! They spotted 4 brains..but what's this? " + this + " looks too full to eat them! They ignore the brains and shamble onwards.";
+		}
+		else{
+			int restoration = getSpecialMax()-getSpecial();
+			restoreSpecial(restoration);
+			return this + " used Scavenge! It's their lucky day! They spotted "+restoration+" brains, eagerly shambling over to eat them. "+restoration+" brains were restored!";
+		}
+      
     }
       else{
       return this + " used Scavenge! Unfortunately, no brains were to be found nearby..";
