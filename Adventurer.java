@@ -2,7 +2,7 @@ import java.util.Random;
 public abstract class Adventurer{
   private String name;
   private int HP,maxHP;
-  private boolean shield = false;
+  private boolean shield = false, dead = false; 
 
   //Abstract methods are meant to be implemented in child classes.
   /*
@@ -60,6 +60,7 @@ public abstract class Adventurer{
     }
     if (amount > HP){
       this.HP = 0;
+      dead = true; 
       //System.out.println(name + "has died!");
     }else{
       this.HP -= amount;
@@ -67,7 +68,9 @@ public abstract class Adventurer{
   }
 
   public void restoreHP(int amount){
-    this.HP += amount;
+    if (! isDead()){
+      this.HP += amount;
+    }
   }
 
   //You did it wrong if this happens.
@@ -105,6 +108,10 @@ public abstract class Adventurer{
 
   public boolean getShield(){
     return shield;
+  }
+
+  public boolean isDead(){
+    return dead; 
   }
 
   // Set Methods

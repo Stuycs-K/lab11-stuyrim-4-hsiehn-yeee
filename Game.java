@@ -6,10 +6,8 @@ public class Game{
   private static final int BORDER_COLOR = Text.BLACK;
   private static final int BORDER_BACKGROUND = Text.WHITE + Text.BACKGROUND;
 
-
   public static void main(String[] args) {
     run();
-
     //System.out.println(createRandomAdventurer("Bobbie"));
   }
 
@@ -175,16 +173,16 @@ public class Game{
   public static String userInput(Scanner in, int playerNum){
     Scanner userInput = new Scanner(System.in);
 
-      //Move cursor to prompt location
-      Text.go(10+playerNum, 2);
-      String input = userInput.nextLine();
+    //Move cursor to prompt location
+    Text.go(10+playerNum, 2);
+    String input = userInput.nextLine();
 
-      //show cursor
-      Text.showCursor();
+    //show cursor
+    Text.showCursor();
 
-      //clear the text that was written
-      TextBox(10+playerNum, 2, 77, 1, " ");
-      return input;
+    //clear the text that was written
+    TextBox(10+playerNum, 2, 77, 1, " ");
+    return input;
   }
 
   public static void quit(){
@@ -192,6 +190,8 @@ public class Game{
     Text.showCursor();
     Text.go(32,1);
   }
+
+  //////////////////////// THE GAME ///////////////////////////
 
   public static void run(){
     //Clear and initialize
@@ -298,10 +298,6 @@ public class Game{
     
 	
     if(!hasQuitten){
-      boolean partyTurn = true;
-      int whichPlayer = 0;
-      int whichOpponent = 0;
-      int turn = 0;
       String input = "";//blank to get into the main loop.'
       
       int extra = 0; 
@@ -309,6 +305,10 @@ public class Game{
       int actLen = 0; 
       boolean gameOver = false; 
 
+      boolean partyTurn = true;
+      int whichPlayer = 0;
+      int whichOpponent = 0;
+      int turn = 0;
 
       //Draw the window border
       //System.out.println(party);
@@ -360,7 +360,15 @@ public class Game{
             quit();
           }
           else{
-          
+            
+             for (Adventurer enemy : party){
+                if (enemy.getHP()==0){
+                  TextBox(10, 2, 78, 19, enemy.getName() + " has fallen."); 
+                  enemies.remove(enemy); 
+                }
+              }
+
+            // ** TO DO: IMPLEMENT AN ANTI-CRASHING SYSTEM, b/c right now system crashes when you enter "a 0 " with a space at the end!
             while((partyTurn) && !(input.startsWith("a ") || input.startsWith("attack ") || input.startsWith("sp ") || input.startsWith("special ") || input.startsWith("su ") || input.startsWith("support "))){
               preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
               TextBox(10+actLen, 2, 78, preprompt.length()/78+2, "Invalid input. Please retry. " + preprompt);
@@ -375,6 +383,7 @@ public class Game{
             }
             //example debug statment
             //TextBox(24,2,1,78,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
+    
     // PARTY'S TURN 
             //display event based on last turn's input
             if(partyTurn){
@@ -418,7 +427,6 @@ public class Game{
               //If no errors:
               whichPlayer++;
 
-
               if(whichPlayer < party.size()){
                 //This is a player turn.
                 //Decide where to draw the following prompt:
@@ -431,7 +439,7 @@ public class Game{
               }else{
                 //This is after the player's turn, and allows the user to see the enemy turn
                 //Decide where to draw the following prompt:
-              //  drawText("went into enter monster", 31, 1);
+                //drawText("went into enter monster", 31, 1);
                 String prompt = "press enter to see monster's turn";
                 partyTurn = false;
                 whichOpponent = 0;
@@ -451,9 +459,9 @@ public class Game{
               //enemy attacks a randomly chosen person with a randomly chosen attack.z`
               //Enemy action choices go here!
             
-              int randoAdven = (int)(Math.random()*3);
+              int randoAdven = (int)(Math.random()*party.size());
               while(party.get(randoAdven).getHP() == 0){
-                randoAdven = (int)(Math.random()*3);
+                randoAdven = (int)(Math.random()*party.size());
               }
               if((int)(Math.random()*enemies.size()) == 0){
                 action = enemies.get(whichOpponent).attack(party.get(randoAdven));
