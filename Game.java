@@ -586,14 +586,20 @@ public class Game{
   } // END OF RUN 
 
   // Add chomper rule that PH would decrease instead of increase; DONE 
-  // Add death, because after they die they're still prompted for an action
+  // Add death, because after they die they're still prompted for an action; DONE
   // Add quit; DONE 
   /// add variability in the enemy party; DONE 
   // change the drawScreen 
   // Add default group option; DONE 
   // add party size option for enemy and boss; DONE 
-  // add win/lose screen 
+  // add win/lose screen; DONE 
   // add add enemy prefer an action 
-  // ADD Text for shield behavior
+  // ADD Text for shield behavior; DONE 
+
+  /* NOTES
+    - The quit function doesn't work when user inputs invalid text 
+    - sometimes the invalid text makes the program crash, specifically when you enter: 
+      "a 1 ", "a ", "a -"
+  */ 
 }
 
