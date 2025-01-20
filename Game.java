@@ -221,7 +221,7 @@ public class Game{
 		  quit();
 	  } 
     else{
-		  while(!(choice.equals("1") || choice.equals("2") || choice.equals("3") || choice.equalsIgnoreCase("q"))){
+		  while(!(choice.equals("1") || choice.equals("2") || choice.equals("3") || choice.equalsIgnoreCase("q") || choice.equalsIgnoreCase("quit"))){
       TextBox(10, 2, 78, 18, "Invalid input. Please retry. Choose your difficulty level! (Hard(1)/Easy(2)/Medium(3)/Quit(q)):");
       choice = userInput(in, 2);
       }
@@ -256,7 +256,7 @@ public class Game{
         quit();
       }
       else{
-        while(!(choice.equalsIgnoreCase("a") || choice.equalsIgnoreCase("b") || choice.equalsIgnoreCase("q"))){
+        while(!(choice.equalsIgnoreCase("a") || choice.equalsIgnoreCase("b") || choice.equalsIgnoreCase("q") || choice.equalsIgnoreCase("quit"))){
         TextBox(10, 2, 78, 18, "Invalid input. Please retry. Choose your party! Would you like to use the default party (a), customize your party (b), or quit (q)?");
         choice = userInput(in, 2);
         }
@@ -292,7 +292,7 @@ public class Game{
 		    }
 		    else{
 			    hasQuitten = true;
-          quit(); 
+				quit(); 
 		    }
 	    }
 	  }
@@ -322,10 +322,9 @@ public class Game{
       //Main loop
 
       //display this prompt at the start of the game.
-      String preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su) player #";
+      String preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su) target # or quit(q)";
       extra = preprompt.length()/78+1;
-      System.out.print(preprompt);
-      
+      TextBox(10, 2, 78, 2, preprompt);
       while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")) && !gameOver){
         
         int enemyHealth = 0; 
@@ -371,13 +370,13 @@ public class Game{
             */
 
             // ** TO DO: IMPLEMENT AN ANTI-CRASHING SYSTEM, b/c right now system crashes when you enter "a 0 " with a space at the end!
-            while((partyTurn) && !(input.startsWith("a ") || input.startsWith("attack ") || input.startsWith("sp ") || input.startsWith("special ") || input.startsWith("su ") || input.startsWith("support "))){
+            while((partyTurn) && !(input.startsWith("a ") || input.startsWith("attack ") || input.startsWith("sp ") || input.startsWith("special ") || input.startsWith("su ") || input.startsWith("support ") || input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
               preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
               TextBox(11+actLen, 2, 78, preprompt.length()/78+2, "Invalid input. Please retry. " + preprompt);
               extra = ("Invalid input. Please retry. " + preprompt).length()/78+1;
               input = userInput(in, actLen+extra+1);
             }
-            while(partyTurn && (input.startsWith("su") && Integer.parseInt(""+input.charAt(input.length()-1)) >= party.size() || (input.startsWith("a") || input.startsWith("sp")) && (Integer.parseInt(""+input.charAt(input.length()-1)) >= enemies.size()) || (input.charAt(input.length()-2) != ' '))){
+            while(partyTurn && (input.startsWith("su") && Integer.parseInt(""+input.charAt(input.length()-1)) >= party.size() || (input.startsWith("a") || input.startsWith("sp")) && (Integer.parseInt(""+input.charAt(input.length()-1)) >= enemies.size()) || (input.charAt(input.length()-2) != ' ') || input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
             preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
               TextBox(11+actLen, 2, 78, preprompt.length()/78+2, "Invalid input. Please retry. " + preprompt);
               extra = ("Invalid input. Please retry. " + preprompt).length()/78+1;
@@ -385,10 +384,14 @@ public class Game{
             }
             //example debug statment
             //TextBox(24,2,1,78,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
+			if(input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")){
+				quit();
+				hasQuitten = true;
+			}
     
     // PARTY'S TURN 
             //display event based on last turn's input
-            if(partyTurn){
+            if(partyTurn && !hasQuitten){
               // Add quit when prompted to enter adventurer again? 
 
               if (party.get(whichPlayer).isDead()){
@@ -478,7 +481,7 @@ public class Game{
               }
               //done with one party member
             
-            }else{
+            }else if(!hasQuitten){
               //not the party turn!
               if(whichOpponent == 0){
                 TextBox(10, 2, 78, 19, " ");
@@ -541,7 +544,7 @@ public class Game{
             }//end of one enemy.
 
             //modify this if statement.
-            if(!partyTurn && whichOpponent >= enemies.size()){
+            if(!partyTurn && whichOpponent >= enemies.size() && !hasQuitten){
             //THIS BLOCK IS TO END THE ENEMY TURN
             //It only triggers after the last enemy goes.
 
