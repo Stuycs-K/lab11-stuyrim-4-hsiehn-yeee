@@ -277,12 +277,12 @@ public class Game{
         
           // Costumize Party 
           for(int i = 0; i < 3; i++){
-            TextBox(10, 2, 78, 20, "Enter name of player " + i + ": ");
+            TextBox(10, 2, 78, 18, "Enter name of player " + i + ": ");
             name = userInput(in, 1);
-            TextBox(10, 2, 78, 20, "Enter class of player " + i + "(chomper/sunflowers/zombie):");
+            TextBox(10, 2, 78, 18, "Enter class of player " + i + "(chomper/sunflowers/zombie):");
             playerClass = userInput(in, 1);
             while(!(playerClass.equals("chomper") || playerClass.equals("sunflowers") || playerClass.equals("zombie"))){
-              TextBox(10, 2, 78, 20, "Invalid input. Enter class of player " + i + "(chomper/sunflowers/zombie):");
+              TextBox(10, 2, 78, 18, "Invalid input. Enter class of player " + i + "(chomper/sunflowers/zombie):");
               playerClass = userInput(in, 1);
             }
             if(playerClass.equals("chomper")){
@@ -349,11 +349,11 @@ public class Game{
           gameOver = true; 
 
           if (enemyHealth == 0 && partyHealth > 0){
-            TextBox(10, 2, 78, 19, "YOU HAVE WON! Congratulations! You successfully defeated all the enemies!!");
+            TextBox(10, 2, 78, 18, "YOU HAVE WON! Congratulations! You successfully defeated all the enemies!!");
             gameOver = true; 
           }
           else if (partyHealth == 0 && enemyHealth > 0){
-            TextBox(10, 2, 78, 19, "Oh No. You have been defeated by the enemy. You fought bravely, please try again!");
+            TextBox(10, 2, 78, 18, "Oh No. You have been defeated by the enemy. You fought bravely, please try again!");
             gameOver = true; 
           }
         }
@@ -395,8 +395,12 @@ public class Game{
     // PARTY'S TURN 
             //display event based on last turn's input
             if(partyTurn){
-
-              if (! party.get(whichPlayer).isDead()){
+              // Add quit when prompted to enter adventurer again? 
+              
+              if (party.get(whichPlayer).isDead()){
+                TextBox(10+actLen, 2, 78, 18, party.get(whichPlayer) + " HAS FALLEN! They are no longer able to perform any actions.");
+              }
+              else {
                 //Process user input for the last Adventurer:
 
                 // ATTACK
@@ -404,14 +408,14 @@ public class Game{
 
                   whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
 
-                  if (! enemies.get(whichOpponent).isDead()){
+                  while (enemies.get(whichOpponent).isDead()){
+                    TextBox(10+actLen, 2, 78, 2, "Target has already fallen! Please choose another target by entering another target:");
+                    input = userInput(in, actLen + 2);
+                    whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
+                  }
                     action = party.get(whichPlayer).attack(enemies.get(whichOpponent));
                     TextBox(10+actLen, 2, 78, action.length()/78+1, action);
                     actLen += action.length()/78+1;
-                  }
-                  else{
-                    TextBox(10, 2, 78, 1, "Target has already fallen! Please choose another target by entering another input");
-                  }
                 }
 
                 // SPECIAL
@@ -419,14 +423,14 @@ public class Game{
 
                   whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
 
-                  if (! enemies.get(whichOpponent).isDead()){
-                    action = party.get(whichPlayer).specialAttack(enemies.get(whichOpponent));
-                    TextBox(10+actLen, 2, 78, action.length()/78+1, action);
-                    actLen += action.length()/78+1;
+                  while (enemies.get(whichOpponent).isDead() &&){
+                    TextBox(10+actLen, 2, 78, 2, "Target has already fallen! Please choose another target by entering another target:");
+                    input = userInput(in, actLen + 2);
+                    whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
                   }
-                  else {
-                    TextBox(10, 2, 78, 1, "Target has already fallen! Please choose another target by entering another input");
-                  }
+                  action = party.get(whichPlayer).specialAttack(enemies.get(whichOpponent));
+                  TextBox(10+actLen, 2, 78, action.length()/78+1, action);
+                  actLen += action.length()/78+1;
                 }
 
                 // SUPPORTS
@@ -441,19 +445,16 @@ public class Game{
                     actLen += action.length()/78+1;
                   }
                   else{
-                    if (! party.get(whichOpponent).isDead()){
+                    while (party.get(whichOpponent).isDead()){
+                      TextBox(10+actLen, 2, 78, 2, "Target has already fallen! Please choose another target by entering another target: ");
+                      input = userInput(in, actLen + 2);
+                      whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
+                    }
                       action = party.get(whichPlayer).support(party.get(whichOpponent));
                       TextBox(10+actLen, 2, 78, action.length()/78+1, action);
-                      actLen += action.length()/78+1;
-                    }
-                    else {
-                      TextBox(10, 2, 78, 1, "Target has already fallen! Please choose another target by entering another input");
-                    }
+                      actLen += action.length()/78+1;    
                   }
                 }
-              }
-              else {
-                TextBox(10+actLen, 2, 78, 19, party.get(whichPlayer).getName() + "HAS DIED! They are no longer able to act.");
               }
 
               //You should decide when you want to re-ask for user input
@@ -486,37 +487,31 @@ public class Game{
             }else{
               //not the party turn!
               if(whichOpponent == 0){
-              TextBox(10, 2, 78, 19, " ");
+                TextBox(10, 2, 78, 19, " ");
               }
 
               //enemy attacks a randomly chosen person with a randomly chosen attack.z`
               //Enemy action choices go here!
-            
-              int randoAdven = (int)(Math.random()*party.size());
-              while(party.get(randoAdven).getHP() == 0){
-                randoAdven = (int)(Math.random()*party.size());
-              }
-              if((int)(Math.random()*enemies.size()) == 0){
-                action = enemies.get(whichOpponent).attack(party.get(randoAdven));
-                TextBox(10+actLen, 2, 78, action.length()/78+1, action);
-                actLen += action.length()/78+1;
-              }
-              else if((int)(Math.random()*enemies.size()) == 0){
-                action = enemies.get(whichOpponent).specialAttack(party.get(randoAdven));
-                TextBox(10+actLen, 2, 78, action.length()/78+1, action);
-                actLen += action.length()/78+1;
+              if (enemies.get(whichOpponent).isDead()){
+                TextBox(10+actLen, 2, 78, 18, enemies.get(whichOpponent) + " HAS FALLEN! They are no longer able to perform any actions.");
               }
               else{
-                while(randoAdven == whichOpponent && enemies.get(whichOpponent) instanceof Chomper){
-                  randoAdven = (int)(Math.random()*enemies.size());
+                int randoAdven = (int)(Math.random()*party.size());
+                while(party.get(randoAdven).getHP() == 0){
+                  randoAdven = (int)(Math.random()*party.size());
                 }
-                if(randoAdven == whichOpponent || enemies.size() == 1){
-                  action = enemies.get(whichOpponent).support();
+                if((int)(Math.random()*3) == 0){
+                  action = enemies.get(whichOpponent).attack(party.get(randoAdven));
+                  TextBox(10+actLen, 2, 78, action.length()/78+1, action);
+                  actLen += action.length()/78+1;
+                }
+                else if((int)(Math.random()*3) == 0){
+                  action = enemies.get(whichOpponent).specialAttack(party.get(randoAdven));
                   TextBox(10+actLen, 2, 78, action.length()/78+1, action);
                   actLen += action.length()/78+1;
                 }
                 else{
-                  if(randoAdven > enemies.size()){
+                  while(enemies.get(randoAdven).getHP()== 0 || randoAdven == whichOpponent && enemies.get(whichOpponent) instanceof Chomper){
                     randoAdven = (int)(Math.random()*enemies.size());
                   }
                   if(randoAdven == whichOpponent || enemies.size() == 1){
@@ -525,12 +520,22 @@ public class Game{
                     actLen += action.length()/78+1;
                   }
                   else{
-                    if(randoAdven >= enemies.size()){
-                      randoAdven = (int)(Math.random()*enemies.size());
+                    //if(randoAdven > enemies.size()){
+                    //  randoAdven = (int)(Math.random()*enemies.size());
+                    //}
+                    if(randoAdven == whichOpponent || enemies.size() == 1){
+                      action = enemies.get(whichOpponent).support();
+                      TextBox(10+actLen, 2, 78, action.length()/78+1, action);
+                      actLen += action.length()/78+1;
                     }
-                    action = enemies.get(whichOpponent).support(enemies.get(randoAdven));
-                    TextBox(10+actLen, 2, 78, action.length()/78+1, action);
-                    actLen += action.length()/78+1;
+                    else{
+                      if(randoAdven >= enemies.size()){
+                        randoAdven = (int)(Math.random()*enemies.size());
+                      }
+                      action = enemies.get(whichOpponent).support(enemies.get(randoAdven));
+                      TextBox(10+actLen, 2, 78, action.length()/78+1, action);
+                      actLen += action.length()/78+1;
+                    }
                   }
                 }
               }
@@ -574,7 +579,9 @@ public class Game{
   //end of main game loop
 
   //After quit reset things:
-    quit();
+    else {
+      quit();
+    }
 
   } // END OF RUN 
 
@@ -587,5 +594,6 @@ public class Game{
   // add party size option for enemy and boss; DONE 
   // add win/lose screen 
   // add add enemy prefer an action 
+  // ADD Text for shield behavior
 }
 

@@ -60,7 +60,6 @@ public abstract class Adventurer{
     }
     if (amount > HP){
       this.HP = 0;
-      dead = true; 
       // System.out.println(name + "has Fallen!");
     }else{
       this.HP -= amount;
@@ -111,7 +110,7 @@ public abstract class Adventurer{
   }
 
   public boolean isDead(){
-    return dead; 
+    return (HP == 0); 
   }
 
   // Set Methods
