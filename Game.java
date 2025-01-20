@@ -361,12 +361,13 @@ public class Game{
           }
           else{
             
-             for (Adventurer enemy : party){
+            /* for (Adventurer enemy : party){
                 if (enemy.getHP()==0){
                   TextBox(10, 2, 78, 19, enemy.getName() + " has fallen."); 
                   enemies.remove(enemy); 
                 }
               }
+            */
 
             // ** TO DO: IMPLEMENT AN ANTI-CRASHING SYSTEM, b/c right now system crashes when you enter "a 0 " with a space at the end!
             while((partyTurn) && !(input.startsWith("a ") || input.startsWith("attack ") || input.startsWith("sp ") || input.startsWith("special ") || input.startsWith("su ") || input.startsWith("support "))){
@@ -387,39 +388,60 @@ public class Game{
     // PARTY'S TURN 
             //display event based on last turn's input
             if(partyTurn){
-              //Process user input for the last Adventurer:
 
-              // ATTACK
-              if(input.startsWith("a ") || input.startsWith("attack ") ){
+              if (! party.get(whichPlayer).isDead()){
+                //Process user input for the last Adventurer:
 
-                whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
-                action = party.get(whichPlayer).attack(enemies.get(whichOpponent));
-                TextBox(10+actLen, 2, 78, action.length()/78+1, action);
-                actLen += action.length()/78+1;
-              }
+                // ATTACK
+                if(input.startsWith("a ") || input.startsWith("attack ") ){
 
-              // SPECIAL
-              else if(input.startsWith("sp ") || input.startsWith("special ")){
-                whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
-                action = party.get(whichPlayer).specialAttack(enemies.get(whichOpponent));
-                TextBox(10+actLen, 2, 78, action.length()/78+1, action);
-                actLen += action.length()/78+1;
-              }
+                  whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
 
-              // SUPPORTS
-              else if(input.startsWith("su ") || input.startsWith("support ")){
-                //"support 0" or "su 0" or "su 2" etc.
-                //assume the value that follows su  is an integer.
-                whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
-                if(whichOpponent == whichPlayer){
-                  action = party.get(whichPlayer).support();
-                  TextBox(10+actLen, 2, 78, action.length()/78+1, action);
-                  actLen += action.length()/78+1;
+                  if (! enemies.get(whichOpponent).isDead()){
+                    action = party.get(whichPlayer).attack(enemies.get(whichOpponent));
+                    TextBox(10+actLen, 2, 78, action.length()/78+1, action);
+                    actLen += action.length()/78+1;
+                  }
+                  else{
+                    TextBox(10, 2, 78, 1, "Target has already fallen! Please choose another target by entering another input");
+                  }
                 }
-                else{
-                  action = party.get(whichPlayer).support(party.get(whichOpponent));
-                  TextBox(10+actLen, 2, 78, action.length()/78+1, action);
-                  actLen += action.length()/78+1;
+
+                // SPECIAL
+                else if(input.startsWith("sp ") || input.startsWith("special ")){
+                  whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
+
+                  if (! enemies.get(whichOpponent).isDead()){
+                    action = party.get(whichPlayer).specialAttack(enemies.get(whichOpponent));
+                    TextBox(10+actLen, 2, 78, action.length()/78+1, action);
+                    actLen += action.length()/78+1;
+                  }
+                  else {
+                    TextBox(10, 2, 78, 1, "Target has already fallen! Please choose another target by entering another input");
+                  }
+                }
+
+                // SUPPORTS
+                else if(input.startsWith("su ") || input.startsWith("support ")){
+                  //"support 0" or "su 0" or "su 2" etc.
+                  //assume the value that follows su  is an integer.
+                  whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
+
+                  if(whichOpponent == whichPlayer){
+                    action = party.get(whichPlayer).support();
+                    TextBox(10+actLen, 2, 78, action.length()/78+1, action);
+                    actLen += action.length()/78+1;
+                  }
+                  else{
+                    if (! enemies.get(whichOpponent).isDead()){
+                      action = party.get(whichPlayer).support(party.get(whichOpponent));
+                      TextBox(10+actLen, 2, 78, action.length()/78+1, action);
+                      actLen += action.length()/78+1;
+                    }
+                    else {
+                      TextBox(10, 2, 78, 1, "Target has already fallen! Please choose another target by entering another input");
+                    }
+                  }
                 }
               }
 
