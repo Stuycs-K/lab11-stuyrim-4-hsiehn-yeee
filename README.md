@@ -17,13 +17,13 @@ Make a clear list of features that work/dont work
 
 ### Chomper:
 
-:question: Attack (Fly Trap)
+:white_check_mark: Attack (Fly Trap)
 
-:question: Special Attack (Withering)
+:white_check_mark: Special Attack (Withering)
 
-:question: Support (Blooming)
+:white_check_mark: Support (Blooming)
 
-:question: Support Self (N/A)
+:white_check_mark: Support Self (N/A)
 
 ### Sunflowers:
 
@@ -31,7 +31,7 @@ Make a clear list of features that work/dont work
 
 :question: Special Attack (Sunburn)
 
-:question: Support (Vitamin D)
+:question: Support (Vitamin D --> Shielding Feature)
 
 :question: Support Self (Plant)
 
@@ -49,11 +49,11 @@ Make a clear list of features that work/dont work
 
 ### Zomboss:
 
-:question: Attack (Clobber)
+:white_check_mark: Attack (Clobber)
 
-:question: Special Attack (Apocalypse)
+:white_check_mark: Special Attack (Apocalypse)
 
-:question: Support (Shield)
+:white_check_mark: Support (Shield)
 
 ### Game:
 
@@ -75,11 +75,17 @@ Make a clear list of features that work/dont work
 
 :white_check_mark: Random Enemy Action
 
+:white_check_mark: Death
+
+:white_check_mark: Win/Lose Screen
+
 :question: Favored Enemy Action
 
 :white_check_mark: Quit
 
+:ballot_box_with_check: Name Selection 
 
+:beetle: Quits During Invalid Input Prompters 
 
 ## Adventurer Subclasses
 
