@@ -77,7 +77,7 @@ public class Boss extends Adventurer{
       other.applyDamage(damage * 2);
       setSpecial(getSpecial()-damage);
       applyDamage(ownDamage);
-      return this + " used Apocalypse! They commanded a horde of " + damage + " zombies, which dealt " + (damage * 2) + ", damage to " + other + ". " + this + " was also hurt in the process, and lost " + ownDamage + " HP. Lost " + damage + " musclePower. ";
+      return this + " used Apocalypse! They commanded a horde of " + damage + " zombies, which dealt " + (damage * 2) + " damage to " + other + ". " + this + " was also hurt in the process, and lost " + ownDamage + " HP. Lost " + damage + " musclePower. ";
     }else{
       return "oops! "+ this+ " did not have enough musclePower to use Apocalypse!";
     }
@@ -94,11 +94,13 @@ public class Boss extends Adventurer{
     int heal = (int)(Math.random()*3 + 6);
     double chance = Math.random();
     if (getHP() < 15){
+		restoreHP(heal);
       setShield(true); 
     }
 	else if(getHP()+heal >= getmaxHP() && chance > 0.5){
 		heal = getmaxHP() - getHP();
 		restoreHP(heal);
+		restoreSpecial(2);
 		return this + " used Shield! They collected fallen zombie parts and made a shield, allowing them to regain " + heal + "HP. They also gained 2 musclePower from the workout.";
 	}
 	else if(getHP()+heal >= getmaxHP() && chance <= 0.5){
