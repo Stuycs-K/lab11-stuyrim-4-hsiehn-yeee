@@ -230,7 +230,7 @@ public class Game{
       choice = userInput(in, 2);
       }
       if (choice.equals("1")){
-        enemies.add(new Boss("Voldemort", 50)); 
+        enemies.add(new Boss("Voldemort", 75)); 
       }
       else if (choice.equals("2")){
         enemies.add(createRandomAdventurer("Evil Jessie")); 
