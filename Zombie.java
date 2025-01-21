@@ -43,11 +43,11 @@ public class Zombie extends Adventurer{
     }
     int damage = 3;
     other.applyDamage(damage);
-	if(getSpecial() == getSpecialMax()){
-		return this + " used Devour! They eat " + other + "'s brains and deal 3 damage to them, but they were too full to swallow the brain, so they just spit it out instead.";
-	}
-    restoreSpecial(1);
-    return this + " used Devour! They eat "+ other + "'s brains and deal 3 damage to them, while also gaining 1 brain.";
+	  if(getSpecial() == getSpecialMax()){
+		  return this + " used Devour! They eat " + other + "'s brains and deal 3 damage to them, but they were too full to swallow the brain, so they just spit it out instead.";
+	  }
+      restoreSpecial(1);
+      return this + " used Devour! They eat "+ other + "'s brains and deal 3 damage to them, while also gaining 1 brain.";
   }
 
   /*Deal 2*3 to 4*3 damage to opponent, only if brains > 2.

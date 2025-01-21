@@ -230,16 +230,16 @@ public class Game{
       choice = userInput(in, 2);
       }
       if (choice.equals("1")){
-        enemies.add(new Boss("King Bowser", 50)); 
+        enemies.add(new Boss("Voldemort", 50)); 
       }
       else if (choice.equals("2")){
-        enemies.add(createRandomAdventurer("Jessie")); 
-        enemies.add(createRandomAdventurer("James")); 
+        enemies.add(createRandomAdventurer("Evil Jessie")); 
+        enemies.add(createRandomAdventurer("Evil James")); 
       }
       else if (choice.equals("3")){
-        enemies.add(createRandomAdventurer("Meeny"));
-        enemies.add(createRandomAdventurer("Miney"));
-        enemies.add(createRandomAdventurer("Moe"));
+        enemies.add(createRandomAdventurer("Evil Blossom"));
+        enemies.add(createRandomAdventurer("Evil Buttercup"));
+        enemies.add(createRandomAdventurer("Evil Bubbles"));
       }
       else{
         quit();
