@@ -25,6 +25,8 @@ Make a clear list of features that work/dont work
 
 :white_check_mark: Support Self (N/A)
 
+:white_check_mark: Special pH rule
+
 ### Sunflowers:
 
 :question: Attack (Flamethrower)
@@ -33,9 +35,7 @@ Make a clear list of features that work/dont work
 
 :question: Support (Vitamin D --> Shielding Feature)
 
-:question: Support Self (Plant)
-
-:white_check_mark: Special pH rule
+:white_check_mark: Support Self (Plant)
 
 ### Zombie:
 
@@ -89,7 +89,7 @@ Make a clear list of features that work/dont work
 
 ## Adventurer Subclasses
 
-| **Attributes** | **Sunflowers (30 HP)** | **Chomper (changed from CodeWarrior) (25 HP)** | **Zombie (35 HP)** |
+| **Attributes** | **Sunflowers (40 HP)** | **Chomper (changed from CodeWarrior) (25 HP)** | **Zombie (35 HP)** |
 | :---------: | :----------------: | :--------------------------------: |:---------------:|
 | Special    |sunExposure (15)|ph (14) (note that less pH means better special)|brains (10)|
 | Attack     | "Flamethrower": Sunflowers launch themselves at the opponent, dealing 1-3 damage and losing 1-3 HP.|"Fly Trap": The Chomper snatches its enemies in their acidic trap, dealing 3-4 HP and losing 2 pH.|"Devour": The Zombie eats at an opponent, dealing 3 damage and gaining 1 brain.|

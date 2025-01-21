@@ -136,7 +136,7 @@ public class Game{
       TextBox(startRow, 2+i*(78/party.size()), 78/party.size(), 1, member);
       member = "HP: " + colorByPercent(party.get(i).getHP(), party.get(i).getmaxHP());
       TextBox(startRow+1, 2+i*(78/party.size()), 78/party.size(), 1, member);
-      member = party.get(i).getSpecialName() + ": " + party.get(i).getSpecial();
+      member = party.get(i).getSpecialName() + ": " + party.get(i).getSpecial() + "/" + party.get(i).getMaxSpecial();
       TextBox(startRow+2, 2+i*(78/party.size()), 78/party.size(), 1, member);
       // System.out.print("done");
     }
@@ -266,7 +266,7 @@ public class Game{
         }
         if (choice.equalsIgnoreCase("a")){
           party.add(new Chomper("Piranha Plant", 25)); 
-          party.add(new Sunflowers("Bullet Bill", 30)); 
+          party.add(new Sunflowers("Bullet Bill", 40)); 
           party.add(new Zombie("Koopa Paratroopa", 35));
           TextBox(11, 2, 78, 20, " "); 
         }else if (choice.startsWith("b")){
@@ -287,7 +287,7 @@ public class Game{
               party.add(new Chomper(name, 25));
             }
             else if(playerClass.equalsIgnoreCase("sunflowers")){
-              party.add(new Sunflowers(name, 30));
+              party.add(new Sunflowers(name, 40));
             }
             else{
               party.add(new Zombie(name, 35));

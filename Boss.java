@@ -42,21 +42,20 @@ public class Boss extends Adventurer{
     else {
       int damage = (int)(Math.random()*3)+8;
       other.applyDamage(damage);
-	  setSpecial(getSpecial() + 4);
-	  int lostSpecial = 0;
+	    setSpecial(getSpecial() + 4);
+	    int lostSpecial = 0;
       if (other instanceof Chomper){
         other.setSpecial(other.getSpecial() + 2);
       }else{
-		if(other.getSpecial() - 2 < 1){
-			lostSpecial = 0 - (other.getSpecial() - 2);
-			other.setSpecial(0);
-		}
-		else{
-			lostSpecial = 2;
-			other.setSpecial(other.getSpecial() - 2); 
-		}
+		    if(other.getSpecial() - 2 < 1){
+			    lostSpecial = 0 - (other.getSpecial() - 2);
+			    other.setSpecial(0);
+		    }
+		    else{
+			    lostSpecial = 2;
+			    other.setSpecial(other.getSpecial() - 2); 
+		    } 
       }
-      
       return this + " used Clobber! They clubbed "+ other + " and deals " + damage + " damage to them, paralyzing them and making them lose " + lostSpecial + " " + other.getSpecialName() + ", while also gaining 4 musclePower";
     }
   }
