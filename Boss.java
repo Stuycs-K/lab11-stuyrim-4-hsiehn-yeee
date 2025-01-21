@@ -91,7 +91,7 @@ public class Boss extends Adventurer{
 		return this + " used Shield! They collected fallen zombie parts and made a shield, allowing them to regain " + heal + "HP. ";
 	}
     else{
-		setHP(getmaxHP());
+		restoreHP(heal);
 	}
     if (chance > 0.5){
       restoreSpecial(2);

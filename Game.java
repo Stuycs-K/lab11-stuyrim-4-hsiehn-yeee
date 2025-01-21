@@ -275,7 +275,7 @@ public class Game{
             name = userInput(in, 1);
             TextBox(10, 2, 78, 18, "Enter class of player " + i + "(chomper/sunflowers/zombie):");
             playerClass = userInput(in, 1);
-            while(!(playerClass.equals("chomper") || playerClass.equals("sunflowers") || playerClass.equals("zombie"))){
+            while(!(playerClass.equalsIgnoreCase("chomper") || playerClass.equalsIgnoreCase("sunflowers") || playerClass.equalsIgnoreCase("zombie"))){
               TextBox(10, 2, 78, 18, "Invalid input. Enter class of player " + i + "(chomper/sunflowers/zombie):");
               playerClass = userInput(in, 1);
             }
@@ -534,9 +534,13 @@ public class Game{
                 }
               
               //Decide where to draw the following prompt:
+			  if(whichOpponent < enemies.size()-1){
+				  
               String prompt = "press enter to see next turn";
               TextBox(11+actLen, 2, 78, 2, prompt);
-              whichOpponent++;
+			  input = userInput(in, 0);
+			  }
+			  whichOpponent++;
               } 
             }//end of one enemy.
 

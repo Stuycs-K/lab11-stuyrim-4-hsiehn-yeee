@@ -57,13 +57,16 @@ public class Sunflowers extends Adventurer{
 	if(dropOtherSpecial == 0 || dropOwnSpecial == 0){
 		return this + " tried to use Sunburn, but they couldn't emanate a bright enough light to drop the other's special by a significant amount..";
 	}
+	this.setSpecial(this.getSpecial() - dropOwnSpecial);
     if (other instanceof Chomper){
       other.setSpecial(other.getSpecial() + dropOtherSpecial);
+	  return this + " used Sunburn! They emanated a bright light, temporarily blinding and burning their opponent, raising their " + other.getSpecialName() + " by " + dropOtherSpecial + ", while also losing " + dropOwnSpecial + " itself.";
     }else{
       other.setSpecial(other.getSpecial() - dropOtherSpecial);
+	  return this + " used Sunburn! They emanated a bright light, temporarily blinding and burning their opponent, dropping their " + other.getSpecialName() + " by " + dropOtherSpecial + ", while also losing " + dropOwnSpecial + " itself.";
     }
-    this.setSpecial(this.getSpecial() - dropOwnSpecial);
-    return this + " used Sunburn! They emanated a bright light, temporarily blinding and burning their opponent, dropping their " + other.getSpecialName() + " by " + dropOtherSpecial + ", while also losing " + dropOwnSpecial + " itself.";
+    
+    
   }
   /*Shields the allys from the next atack and take two damage NOTE: A shield attribute must be applied to all other adventurers.*/
   public String support(Adventurer other){
