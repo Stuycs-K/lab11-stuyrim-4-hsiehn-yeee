@@ -45,7 +45,14 @@ public class Boss extends Adventurer{
 	  setSpecial(getSpecial() + 4);
 	  int lostSpecial = 0;
       if (other instanceof Chomper){
-        other.setSpecial(other.getSpecial() + 2);
+		if(other.getSpecial() + 2 > 14){
+			other.setSpecial(other.getSpecial() + 2);
+			return this + " used Clobber! They clubbed "+ other + " and deals " + damage + " damage to them, paralyzing them and making them gain " + (14-other.getSpecial()) + " " + other.getSpecialName() + ", while also gaining 4 musclePower";
+		}
+        else{
+			return this + " used Clobber! They clubbed "+ other + " and deals " + damage + " damage to them, paralyzing them and making them gain 2 " + other.getSpecialName() + ", while also gaining 4 musclePower";
+		}
+		
       }else{
 		if(other.getSpecial() - 2 < 1){
 			lostSpecial = 0 - (other.getSpecial() - 2);
