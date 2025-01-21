@@ -42,13 +42,22 @@ public class Boss extends Adventurer{
     else {
       int damage = (int)(Math.random()*3)+8;
       other.applyDamage(damage);
+	  setSpecial(getSpecial() + 4);
+	  int lostSpecial = 0;
       if (other instanceof Chomper){
         other.setSpecial(other.getSpecial() + 2);
       }else{
-        other.setSpecial(other.getSpecial() - 2); 
+		if(other.getSpecial() - 2 < 1){
+			lostSpecial = 0 - (other.getSpecial() - 2);
+			other.setSpecial(0);
+		}
+		else{
+			lostSpecial = 2;
+			other.setSpecial(other.getSpecial() - 2); 
+		}
       }
-      setSpecial(getSpecial() + 4);
-      return this + " used Clobber! They clubbed "+ other + " and deals " + damage + " damage to them, paralyzing them and making them lose 2" + other.getSpecialName() + ", while also gaining 4 musclePower";
+      
+      return this + " used Clobber! They clubbed "+ other + " and deals " + damage + " damage to them, paralyzing them and making them lose " + lostSpecial + " " + other.getSpecialName() + ", while also gaining 4 musclePower";
     }
   }
 
@@ -91,7 +100,7 @@ public class Boss extends Adventurer{
 		return this + " used Shield! They collected fallen zombie parts and made a shield, allowing them to regain " + heal + "HP. ";
 	}
     else{
-		setHP(getmaxHP());
+		restoreHP(heal);
 	}
     if (chance > 0.5){
       restoreSpecial(2);

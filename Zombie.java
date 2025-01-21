@@ -42,7 +42,7 @@ public class Zombie extends Adventurer{
       return other + " had a shield up! The attack did nothing...";
     }
     int damage = 3;
-    other.applyDamage(damage*3);
+    other.applyDamage(damage);
 	if(getSpecial() == getSpecialMax()){
 		return this + " used Devour! They eat " + other + "'s brains and deal 3 damage to them, but they were too full to swallow the brain, so they just spit it out instead.";
 	}
