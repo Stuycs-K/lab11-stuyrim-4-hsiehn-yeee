@@ -50,7 +50,7 @@ public class Zombie extends Adventurer{
       return this + " used Devour! They eat "+ other + "'s brains and deal 3 damage to them, while also gaining 1 brain.";
   }
 
-  /*Deal 2*3 to 4*3 damage to opponent, only if brains > 2.
+  /*Deal 2*2 to 4*2 damage to opponent, only if brains > 2.
   *Decrease brains by 2-4.
   */
   public String specialAttack(Adventurer other){
@@ -62,19 +62,19 @@ public class Zombie extends Adventurer{
       if(getSpecial() == 2){
         int damage = 2;
         setSpecial(getSpecial() - damage);
-        other.applyDamage(damage);
+        other.applyDamage(damage * 2);
         return this + " used Horde! They laid out " + damage + " brains and lured " + damage + " of its friends to come help it! They each attack " + other + " one time, dealing " + damage + " points of damage.";
       }
       else if(getSpecial() == 3){
         int damage = (int)(Math.random()*2)+2;
         setSpecial(getSpecial() - damage);
-        other.applyDamage(damage);
+        other.applyDamage(damage * 2);
         return this + " used Horde! They laid out " + damage + " brains and lured " + damage + " of its friends to come help it! They each attack " + other + " one time, dealing " + damage + " points of damage.";
       }
       else if(getSpecial() > 3){
         int damage = (int)(Math.random()*3)+2;
         setSpecial(getSpecial() - damage);
-        other.applyDamage(damage);
+        other.applyDamage(damage * 2);
         return this + " used Horde! They laid out " + damage + " brains and lured " + damage + " of its friends to come help it! They each attack " + other + " one time, dealing " + damage + " points of damage.";
       }else{
           return "Oh no! "+this + " doesn't have enough brains to lure over its friends! Nothing happened..";

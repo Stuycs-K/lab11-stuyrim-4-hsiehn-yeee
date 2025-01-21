@@ -39,13 +39,13 @@ Make a clear list of features that work/dont work
 
 ### Zombie:
 
-:question: Attack (Devour)
+:white_check_mark: Attack (Devour)
 
-:question: Special Attack (Horde)
+:white_check_mark: Special Attack (Horde)
 
-:question: Support (CS Test)
+:white_check_mark: Support (CS Test)
 
-:question: Support Self (Scavenge)
+:white_check_mark: Support Self (Scavenge)
 
 ### Zomboss:
 
@@ -75,17 +75,17 @@ Make a clear list of features that work/dont work
 
 :white_check_mark: Random Enemy Action
 
+:beetle: Favored Enemy Action
+
 :white_check_mark: Death
 
 :white_check_mark: Win/Lose Screen
-
-:question: Favored Enemy Action
 
 :white_check_mark: Quit
 
 :ballot_box_with_check: Name Selection 
 
-:beetle: Quits During Invalid Input Prompters 
+:ballot_box_with_check: Enemy Action Preferences
 
 ## Adventurer Subclasses
 

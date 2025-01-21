@@ -501,20 +501,71 @@ public class Game{
                     randoAdven = (int)(Math.random()*party.size());
                   }
                   // RANDOM ACTIONS 
-                  /* 
+                  double act = Math.random(); 
                   if((int)(Math.random()*3) == 0){
                     action = enemies.get(whichOpponent).attack(party.get(randoAdven));
                     TextBox(11+actLen, 2, 78, action.length()/78+2, action);
                     actLen += action.length()/78+1;
                   }
                   else if((int)(Math.random()*3) == 0){
-                    action = enemies.get(whichOpponent).specialAttack(party.get(randoAdven));
-                    TextBox(11+actLen, 2, 78, action.length()/78+2, action);
-                    actLen += action.length()/78+1;
+                    if (enemies.get(whichOpponent) instanceof Boss){
+                      if (enemies.get(whichOpponent).getSpecial() >= 18){
+                        act = Math.random(); 
+                        if (act <= 0.75){
+                          action = enemies.get(whichOpponent).specialAttack(party.get(randoAdven)); 
+                          TextBox(11+actLen, 2, 78, action.length()/78+2, action);
+                          actLen += action.length()/78+2;
+                        }
+                        else {
+                          action = enemies.get(whichOpponent).attack(party.get(randoAdven)); 
+                          TextBox(11+actLen, 2, 78, action.length()/78+2, action);
+                          actLen += action.length()/78+2;
+                        }
+                      }
+                      else {
+                        action = enemies.get(whichOpponent).attack(party.get(randoAdven));
+                        TextBox(11+actLen, 2, 78, action.length()/78+2, action);
+                        actLen += action.length()/78+2;
+                      }
+                    }
+                    else if (enemies.get(whichOpponent) instanceof Chomper){
+                      if (enemies.get(whichOpponent).getSpecial() <= 3){
+                        action = enemies.get(whichOpponent).specialAttack(party.get(randoAdven)); 
+                        TextBox(11+actLen, 2, 78, action.length()/78+2, action);
+                        actLen += action.length()/78+2;
+                      }
+                      else if (enemies.get(whichOpponent).getSpecial() < 7){
+                        act = Math.random(); 
+                        if (act <= 0.75){
+                          action = enemies.get(whichOpponent).specialAttack(party.get(randoAdven)); 
+                          TextBox(11+actLen, 2, 78, action.length()/78+2, action);
+                          actLen += action.length()/78+2;
+                        }
+                        else {
+                          action = enemies.get(whichOpponent).attack(party.get(randoAdven)); 
+                          TextBox(11+actLen, 2, 78, action.length()/78+2, action);
+                          actLen += action.length()/78+2;
+                        }
+                      }
+                      else {
+                        action = enemies.get(whichOpponent).attack(party.get(randoAdven));
+                        TextBox(11+actLen, 2, 78, action.length()/78+2, action);
+                        actLen += action.length()/78+2;
+                      }
+                    }
+                    else {
+                      action = enemies.get(whichOpponent).specialAttack(party.get(randoAdven));
+                      TextBox(11+actLen, 2, 78, action.length()/78+2, action);
+                      actLen += action.length()/78+2;
+                    }
                   }
                   else{
                     while(randoAdven >= enemies.size() || enemies.get(randoAdven).getHP()== 0 || randoAdven == whichOpponent && enemies.get(whichOpponent) instanceof Chomper){
                       randoAdven = (int)(Math.random()*enemies.size());
+                    }
+                    if (enemies.get(whichOpponent).getHP() <= 12 && !(
+                      enemies.get(whichOpponent) instanceof Chomper)){
+                      randoAdven = whichOpponent; 
                     }
                     if(randoAdven == whichOpponent || enemies.size() == 1){
                       action = enemies.get(whichOpponent).support();
@@ -531,13 +582,36 @@ public class Game{
                         if(randoAdven >= enemies.size()){
                           randoAdven = (int)(Math.random()*enemies.size());
                         }
-                        action = enemies.get(whichOpponent).support(enemies.get(randoAdven));
-                        TextBox(11+actLen, 2, 78, action.length()/78+2, action);
-                        actLen += action.length()/78+1;
+                        if (enemies.get(whichOpponent) instanceof Zombie){
+                          if (enemies.get(randoAdven) instanceof Zombie){
+                            action = enemies.get(whichOpponent).support(enemies.get(randoAdven));
+                            TextBox(11+actLen, 2, 78, action.length()/78+2, action);
+                            actLen += action.length()/78+1;
+                          }
+                          else {
+                            act = Math.random(); 
+                            if (act < 0.3){
+                              action = enemies.get(whichOpponent).support(enemies.get(randoAdven));
+                              TextBox(11+actLen, 2, 78, action.length()/78+2, action);
+                              actLen += action.length()/78+1;                            
+                            }
+                            else {
+                              action = enemies.get(whichOpponent).attack(party.get(randoAdven));
+                              TextBox(11+actLen, 2, 78, action.length()/78+2, action);
+                              actLen += action.length()/78+1;   
+                            }
+                          }
+                        }
+                        else {
+                          action = enemies.get(whichOpponent).support(enemies.get(randoAdven));
+                          TextBox(11+actLen, 2, 78, action.length()/78+2, action);
+                          actLen += action.length()/78+1;
+                        } 
                       }
                     }
-                  }*/
-                  
+                  }
+                }
+                  /*
                   // Action Preferences 
                   double act = (Math.random());
                   while(randoAdven >= enemies.size() || enemies.get(randoAdven).getHP()== 0 || randoAdven == whichOpponent && enemies.get(whichOpponent) instanceof Chomper){
@@ -641,14 +715,14 @@ public class Game{
                     }  
 
                   }// end of preference loop 
-                }
+                } */
               
                 //Decide where to draw the following prompt:
 			          if(whichOpponent < enemies.size()-1){
 				  
                   String prompt = "press enter to see next turn";
-                  TextBox(11+actLen, 2, 78, 2, prompt);
-			            input = userInput(in, 0);
+                  TextBox(11+actLen, 2, 78, 3, prompt);
+			            input = userInput(in, actLen);
 			          }
 			          whichOpponent++;
               } 
