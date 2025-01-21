@@ -512,7 +512,7 @@ public class Game{
                   if((int)(Math.random()*3) == 0){
                     action = enemies.get(whichOpponent).attack(party.get(randoAdven));
                     TextBox(11+actLen, 2, 78, action.length()/78+2, action);
-                    actLen += action.length()/78+1;
+                    actLen += action.length()/78+2;
                   }
                   else if((int)(Math.random()*3) == 0){
                     if (enemies.get(whichOpponent) instanceof Boss){
@@ -577,13 +577,13 @@ public class Game{
                     if(randoAdven == whichOpponent || enemies.size() == 1){
                       action = enemies.get(whichOpponent).support();
                       TextBox(11+actLen, 2, 78, action.length()/78+2, action);
-                      actLen += action.length()/78+1;
+                      actLen += action.length()/78+2;
                     }
                     else{
                       if(randoAdven == whichOpponent || enemies.size() == 1){
                         action = enemies.get(whichOpponent).support();
                         TextBox(11+actLen, 2, 78, action.length()/78+2, action);
-                        actLen += action.length()/78+1;
+                        actLen += action.length()/78+2;
                       }
                       else{
                         if(randoAdven >= enemies.size()){
@@ -593,26 +593,26 @@ public class Game{
                           if (enemies.get(randoAdven) instanceof Zombie){
                             action = enemies.get(whichOpponent).support(enemies.get(randoAdven));
                             TextBox(11+actLen, 2, 78, action.length()/78+2, action);
-                            actLen += action.length()/78+1;
+                            actLen += action.length()/78+2;
                           }
                           else {
                             act = Math.random(); 
                             if (act < 0.2){
                               action = enemies.get(whichOpponent).support(enemies.get(randoAdven));
                               TextBox(11+actLen, 2, 78, action.length()/78+2, action);
-                              actLen += action.length()/78+1;                            
+                              actLen += action.length()/78+2;                            
                             }
                             else {
                               action = enemies.get(whichOpponent).attack(party.get(randoAdven));
                               TextBox(11+actLen, 2, 78, action.length()/78+2, action);
-                              actLen += action.length()/78+1;   
+                              actLen += action.length()/78+2;   
                             }
                           }
                         }
                         else {
                           action = enemies.get(whichOpponent).support(enemies.get(randoAdven));
                           TextBox(11+actLen, 2, 78, action.length()/78+2, action);
-                          actLen += action.length()/78+1;
+                          actLen += action.length()/78+2;
                         } 
                       }
                     }
@@ -634,7 +634,7 @@ public class Game{
             if(!partyTurn && whichOpponent >= enemies.size() && !hasQuitten){
             //THIS BLOCK IS TO END THE ENEMY TURN
             //It only triggers after the last enemy goes.
-
+			
               String prompt = "press enter to continue to your turn";
               TextBox(11+actLen, 2, 65, 1, prompt);
               input = userInput(in, 0);
