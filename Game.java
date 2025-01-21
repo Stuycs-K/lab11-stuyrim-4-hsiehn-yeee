@@ -230,7 +230,7 @@ public class Game{
       choice = userInput(in, 2);
       }
       if (choice.equals("1")){
-        enemies.add(new Boss("Voldemort", 50)); 
+        enemies.add(new Boss("Voldemort", 75)); 
       }
       else if (choice.equals("2")){
         enemies.add(createRandomAdventurer("Evil Jessie")); 
@@ -512,7 +512,7 @@ public class Game{
                   if((int)(Math.random()*3) == 0){
                     action = enemies.get(whichOpponent).attack(party.get(randoAdven));
                     TextBox(11+actLen, 2, 78, action.length()/78+2, action);
-                    actLen += action.length()/78+1;
+                    actLen += action.length()/78+2;
                   }
                   else if((int)(Math.random()*3) == 0){
                     if (enemies.get(whichOpponent) instanceof Boss){
