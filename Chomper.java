@@ -11,7 +11,7 @@ public class Chomper extends Adventurer{
 
 
   public Chomper(String name){
-    this(name,25);
+    this(name, 20);
   }
 
   public Chomper(){

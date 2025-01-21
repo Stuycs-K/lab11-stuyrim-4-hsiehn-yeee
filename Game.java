@@ -265,7 +265,7 @@ public class Game{
         choice = userInput(in, 2);
         }
         if (choice.equalsIgnoreCase("a")){
-          party.add(new Chomper("Piranha Plant", 25)); 
+          party.add(new Chomper("Piranha Plant", 20)); 
           party.add(new Sunflowers("Bullet Bill", 40)); 
           party.add(new Zombie("Koopa Paratroopa", 35));
           TextBox(11, 2, 78, 20, " "); 
