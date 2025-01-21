@@ -507,7 +507,7 @@ public class Game{
                     actLen += action.length()/78+1;
                   }
                   else{
-                    while(randoAdven > enemies.size() || enemies.get(randoAdven).getHP()== 0 || randoAdven == whichOpponent && enemies.get(whichOpponent) instanceof Chomper){
+                    while(randoAdven >= enemies.size() || enemies.get(randoAdven).getHP()== 0 || randoAdven == whichOpponent && enemies.get(whichOpponent) instanceof Chomper){
                       randoAdven = (int)(Math.random()*enemies.size());
                     }
                     if(randoAdven == whichOpponent || enemies.size() == 1){
