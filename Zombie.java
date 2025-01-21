@@ -63,19 +63,19 @@ public class Zombie extends Adventurer{
         int damage = 2;
         setSpecial(getSpecial() - damage);
         other.applyDamage(damage * 2);
-        return this + " used Horde! They laid out " + damage + " brains and lured " + damage + " of its friends to come help it! They each attack " + other + " one time, dealing " + damage + " points of damage.";
+        return this + " used Horde! They laid out " + damage + " brains and lured " + damage + " of its friends to come help it! They each attack " + other + " one time, dealing " + damage*2 + " points of damage.";
       }
       else if(getSpecial() == 3){
         int damage = (int)(Math.random()*2)+2;
         setSpecial(getSpecial() - damage);
         other.applyDamage(damage * 2);
-        return this + " used Horde! They laid out " + damage + " brains and lured " + damage + " of its friends to come help it! They each attack " + other + " one time, dealing " + damage + " points of damage.";
+        return this + " used Horde! They laid out " + damage + " brains and lured " + damage + " of its friends to come help it! They each attack " + other + " one time, dealing " + damage*2 + " points of damage.";
       }
       else if(getSpecial() > 3){
         int damage = (int)(Math.random()*3)+2;
         setSpecial(getSpecial() - damage);
         other.applyDamage(damage * 2);
-        return this + " used Horde! They laid out " + damage + " brains and lured " + damage + " of its friends to come help it! They each attack " + other + " one time, dealing " + damage + " points of damage.";
+        return this + " used Horde! They laid out " + damage + " brains and lured " + damage + " of its friends to come help it! They each attack " + other + " one time, dealing " + damage*2 + " points of damage.";
       }else{
           return "Oh no! "+this + " doesn't have enough brains to lure over its friends! Nothing happened..";
       }
@@ -87,7 +87,7 @@ public class Zombie extends Adventurer{
 	boolean limit = other.getSpecial() == other.getSpecialMax();
     if (other instanceof Chomper && !(other.getSpecial() < 2)){
       other.setSpecial(other.getSpecial()-1);
-      return this + " used CS Test! They tried to give a CS test to "+other+", but seeing as plants don't know computer science, they couldn't do it. Thus, "+ this + " decided to use the test as compost for " + other + ", subtracting 1" +other.getSpecialName() +".";
+      return this + " used CS Test! They tried to give a CS test to "+other+", but seeing as plants don't know computer science, they couldn't do it. Thus, "+ this + " decided to use the test as compost for " + other + ", subtracting 1 " +other.getSpecialName() +".";
     }
     else if(other instanceof Zombie && !limit){
       other.restoreSpecial(3);
