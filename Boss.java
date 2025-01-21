@@ -45,8 +45,9 @@ public class Boss extends Adventurer{
 	  setSpecial(getSpecial() + 4);
 	  int lostSpecial = 0;
       if (other instanceof Chomper){
+		  other.setSpecial(other.getSpecial() + 2);
 		if(other.getSpecial() + 2 > 14){
-			other.setSpecial(other.getSpecial() + 2);
+			
 			return this + " used Clobber! They clubbed "+ other + " and deals " + damage + " damage to them, paralyzing them and making them gain " + (14-other.getSpecial()) + " " + other.getSpecialName() + ", while also gaining 4 musclePower";
 		}
         else{
@@ -101,21 +102,21 @@ public class Boss extends Adventurer{
 		heal = getmaxHP() - getHP();
 		restoreHP(heal);
 		restoreSpecial(2);
-		return this + " used Shield! They collected fallen zombie parts and made a shield, allowing them to regain " + heal + "HP. They also gained 2 musclePower from the workout.";
+		return this + " used Shield! They collected fallen zombie parts and made a shield, allowing them to regain " + heal + " HP. They also gained 2 musclePower from the workout.";
 	}
 	else if(getHP()+heal >= getmaxHP() && chance <= 0.5){
 		heal = getmaxHP() - getHP();
 		restoreHP(heal);
-		return this + " used Shield! They collected fallen zombie parts and made a shield, allowing them to regain " + heal + "HP. ";
+		return this + " used Shield! They collected fallen zombie parts and made a shield, allowing them to regain " + heal + " HP. ";
 	}
     else{
 		restoreHP(heal);
 	}
     if (chance > 0.5){
       restoreSpecial(2);
-      return this + " used Shield! They collected fallen zombie parts and made a shield, allowing them to regain " + heal + "HP. They also gained 2 musclePower from the workout.";
+      return this + " used Shield! They collected fallen zombie parts and made a shield, allowing them to regain " + heal + " HP. They also gained 2 musclePower from the workout.";
     }
-  	return this + " used Shield! They collected fallen zombie parts and made a shield, allowing them to regain " + heal + "HP.";
+  	return this + " used Shield! They collected fallen zombie parts and made a shield, allowing them to regain " + heal + " HP.";
   }
   /* Support others does not exist */
 }
