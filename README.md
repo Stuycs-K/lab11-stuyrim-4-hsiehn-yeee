@@ -103,5 +103,5 @@ Make a clear list of features that work/dont work
 | :---------: | :----------------: |
 | Special    |musclePower (30)|
 | Attack     | "Clobber": The Zomboss clubs its opponents on the head, dealing 8-10 damage. This paralyzes the opponent, making them lose 2 special (for Chomper, gains 1 special). The Zomboss also gains 4 musclePower from the workout.|
-| Special Attack | "Apocalypse": The Zomboss commands a horde of 8-10 zombies, dealing 2 damage per each zombie and losing 8-10 musclePower. Zombies are careless when they fight, so they damage the Zomboss as well, dealing 2-6 damage to the Zomboss. (musclePower must be greater than 25)|
+| Special Attack | "Apocalypse": The Zomboss commands a horde of 8-10 zombies, dealing 2 damage per each zombie and losing 8-10 musclePower. Zombies are careless when they fight, so they damage the Zomboss as well, dealing 2-6 damage to the Zomboss. (musclePower must be greater than 18)|
 | Support | "Shield": The Zomboss collects fallen zombie parts to form a shield, hiding behind them while healing itself, regaining 6-8 HP, with a 50% chance it will gain 5 musclePower from the workout of collecting zombies. HP is < 15, the Zomboss will be immune from the next attack.|

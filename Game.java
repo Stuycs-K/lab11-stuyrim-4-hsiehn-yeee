@@ -136,7 +136,7 @@ public class Game{
       TextBox(startRow, 2+i*(78/party.size()), 78/party.size(), 1, member);
       member = "HP: " + colorByPercent(party.get(i).getHP(), party.get(i).getmaxHP());
       TextBox(startRow+1, 2+i*(78/party.size()), 78/party.size(), 1, member);
-      member = party.get(i).getSpecialName() + ": " + party.get(i).getSpecial() + "/" + party.get(i).getMaxSpecial();
+      member = party.get(i).getSpecialName() + ": " + party.get(i).getSpecial() + "/" + party.get(i).getSpecialMax();
       TextBox(startRow+2, 2+i*(78/party.size()), 78/party.size(), 1, member);
       // System.out.print("done");
     }
@@ -371,7 +371,7 @@ public class Game{
           else{
             
 
-            // ** TO DO: IMPLEMENT AN ANTI-CRASHING SYSTEM, b/c right now system crashes when you enter "a 0 " with a space at the end!
+            // ** TO DO: IMPLEMENT AN ANTI-CRASHING SYSTEM, b/c right now system crashes when you enter "a 0 " with a space at the end!; DONE 
             while((partyTurn) && !(input.startsWith("a ") || input.startsWith("attack ") || input.startsWith("sp ") || input.startsWith("special ") || input.startsWith("su ") || input.startsWith("support ") || input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
               preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
               TextBox(11+actLen, 2, 78, preprompt.length()/78+2, "Invalid input. Please retry. " + preprompt);
@@ -487,7 +487,7 @@ public class Game{
               //not the party turn!
               while (whichOpponent < enemies.size()){
                 if(whichOpponent == 0){
-                  TextBox(11, 2, 78, 19, " ");
+                  TextBox(11, 2, 78, 17, " ");
                 }
 
                 //enemy attacks a randomly chosen person with a randomly chosen attack.z`
@@ -500,6 +500,8 @@ public class Game{
                   while(party.get(randoAdven).getHP() == 0){
                     randoAdven = (int)(Math.random()*party.size());
                   }
+                  // RANDOM ACTIONS 
+                  /* 
                   if((int)(Math.random()*3) == 0){
                     action = enemies.get(whichOpponent).attack(party.get(randoAdven));
                     TextBox(11+actLen, 2, 78, action.length()/78+2, action);
@@ -534,17 +536,121 @@ public class Game{
                         actLen += action.length()/78+1;
                       }
                     }
+                  }*/
+                  
+                  // Action Preferences 
+                  double act = (Math.random());
+                  while(randoAdven >= enemies.size() || enemies.get(randoAdven).getHP()== 0 || randoAdven == whichOpponent && enemies.get(whichOpponent) instanceof Chomper){
+                      randoAdven = (int)(Math.random()*enemies.size());
                   }
+                  if (enemies.get(whichOpponent).getHP() <= 10 && !(enemies.get(whichOpponent) instanceof Chomper)){ // if enemyHP <= 10, 100% chance of healing 
+                    if (act < 0.9){
+                      action = enemies.get(whichOpponent).support(); 
+                      TextBox(11+actLen, 2, 78, action.length()/78+2, action);
+                      actLen += action.length()/78+2;
+                    }
+                    else{
+                      action = enemies.get(whichOpponent).attack(party.get(randoAdven));
+                       TextBox(11+actLen, 2, 78, action.length()/78+2, action);
+                        actLen += action.length()/78+2;                    }
+                  }
+                  else if (enemies.get(whichOpponent).getHP() <= 0.65 * enemies.get(whichOpponent).getmaxHP() && !(enemies.get(whichOpponent) instanceof Chomper)){ // if enemyHP <= 65%, 70% % chance of healing 
+                    act = Math.random(); 
+                    if (act < 0.7){
+                      action = enemies.get(whichOpponent).support();
+                      TextBox(11+actLen, 2, 78, action.length()/78+2, action);
+                      actLen += action.length()/78+2;
+                    }
+                    else {
+                      action = enemies.get(whichOpponent).attack(party.get(randoAdven));
+                       TextBox(11+actLen, 2, 78, action.length()/78+2, action);
+                        actLen += action.length()/78+2;
+                    }
+                  }
+                  else if (enemies.get(randoAdven).getHP() <= 0.30 * enemies.get(randoAdven).getmaxHP()){ // if the randomly selected allyHP <= 30%, 100% chance of healing 
+                    action = enemies.get(whichOpponent).support(enemies.get(randoAdven)); 
+                    TextBox(11+actLen, 2, 78, action.length()/78+2, action);
+                    actLen += action.length()/78+2;
+                  }
+                  else if ((int)(Math.random()*3)==0){
+                    if (party.get(randoAdven).getHP() <= 8){
+                      action = enemies.get(whichOpponent).attack(party.get(randoAdven));
+                       TextBox(11+actLen, 2, 78, action.length()/78+2, action);
+                        actLen += action.length()/78+2;
+                    }
+                    else {
+                      if (act < 0.75){
+                        action = enemies.get(whichOpponent).attack(party.get(randoAdven)); 
+                         TextBox(11+actLen, 2, 78, action.length()/78+2, action);
+                        actLen += action.length()/78+2;
+                      }
+                      else {
+                        action = enemies.get(whichOpponent).support();
+                        TextBox(11+actLen, 2, 78, action.length()/78+2, action);
+                        actLen += action.length()/78+2;
+                      }
+                    }
+                  }
+                  else{
+                    if ((int)(Math.random() * 3) == 0){
+                    if (enemies.get(whichOpponent) instanceof Boss){
+                      if (enemies.get(whichOpponent).getSpecial() >= 18){
+                        act = Math.random(); 
+                        if (act <= 0.75){
+                          action = enemies.get(whichOpponent).specialAttack(party.get(randoAdven)); 
+                          TextBox(11+actLen, 2, 78, action.length()/78+2, action);
+                          actLen += action.length()/78+2;
+                        }
+                        else {
+                          action = enemies.get(whichOpponent).attack(party.get(randoAdven)); 
+                          TextBox(11+actLen, 2, 78, action.length()/78+2, action);
+                          actLen += action.length()/78+2;
+                        }
+                      }
+                      else {
+                        action = enemies.get(whichOpponent).attack(party.get(randoAdven));
+                        TextBox(11+actLen, 2, 78, action.length()/78+2, action);
+                        actLen += action.length()/78+2;
+                      }
+                    }
+                    else if (enemies.get(whichOpponent) instanceof Chomper){
+                      if (enemies.get(whichOpponent).getSpecial() <= 3){
+                        action = enemies.get(whichOpponent).specialAttack(party.get(randoAdven)); 
+                        TextBox(11+actLen, 2, 78, action.length()/78+2, action);
+                        actLen += action.length()/78+2;
+                      }
+                      else if (enemies.get(whichOpponent).getSpecial() < 7){
+                        act = Math.random(); 
+                        if (act <= 0.75){
+                          action = enemies.get(whichOpponent).specialAttack(party.get(randoAdven)); 
+                           TextBox(11+actLen, 2, 78, action.length()/78+2, action);
+                        actLen += action.length()/78+2;
+                        }
+                        else {
+                          action = enemies.get(whichOpponent).attack(party.get(randoAdven)); 
+                          TextBox(11+actLen, 2, 78, action.length()/78+2, action);
+                          actLen += action.length()/78+2;
+                        }
+                      }
+                      else {
+                        action = enemies.get(whichOpponent).attack(party.get(randoAdven));
+                        TextBox(11+actLen, 2, 78, action.length()/78+2, action);
+                        actLen += action.length()/78+2;
+                      }
+                    }
+                    }  
+
+                  }// end of preference loop 
                 }
               
-              //Decide where to draw the following prompt:
-			  if(whichOpponent < enemies.size()-1){
+                //Decide where to draw the following prompt:
+			          if(whichOpponent < enemies.size()-1){
 				  
-              String prompt = "press enter to see next turn";
-              TextBox(11+actLen, 2, 78, 2, prompt);
-			  input = userInput(in, 0);
-			  }
-			  whichOpponent++;
+                  String prompt = "press enter to see next turn";
+                  TextBox(11+actLen, 2, 78, 2, prompt);
+			            input = userInput(in, 0);
+			          }
+			          whichOpponent++;
               } 
             }//end of one enemy.
 
@@ -564,7 +670,7 @@ public class Game{
               //display this prompt before player's turn
               drawScreen(party, enemies);
               prompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q)";
-              TextBox(11, 2, 78, 19, prompt);
+              TextBox(11, 2, 78, 17, prompt);
 
             }
             else{//display the updated screen after input has been processed.

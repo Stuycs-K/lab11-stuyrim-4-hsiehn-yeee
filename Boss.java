@@ -6,7 +6,7 @@ public class Boss extends Adventurer{
   public Boss(String name, int hp){
     super(name,hp);
     musclePowerMax = 30;
-    musclePower = musclePowerMax/2;
+    musclePower = musclePowerMax/3;
   }
 
   public Boss(String name){
