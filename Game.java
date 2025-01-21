@@ -279,10 +279,10 @@ public class Game{
               TextBox(10, 2, 78, 18, "Invalid input. Enter class of player " + i + "(chomper/sunflowers/zombie):");
               playerClass = userInput(in, 1);
             }
-            if(playerClass.equals("chomper")){
+            if(playerClass.equalsIgnoreCase("chomper")){
               party.add(new Chomper(name, 25));
             }
-            else if(playerClass.equals("sunflowers")){
+            else if(playerClass.equalsIgnoreCase("sunflowers")){
               party.add(new Sunflowers(name, 30));
             }
             else{
