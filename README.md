@@ -25,27 +25,27 @@ Make a clear list of features that work/dont work
 
 :white_check_mark: Support Self (N/A)
 
+:ballot_box_with_check: Special pH rule
+
 ### Sunflowers:
 
-:question: Attack (Flamethrower)
+:white_check_mark: Attack (Flamethrower)
 
-:question: Special Attack (Sunburn)
+:white_check_mark: Special Attack (Sunburn)
 
-:question: Support (Vitamin D --> Shielding Feature)
+:ballot_box_with_check: Support (Vitamin D --> Shielding Feature)
 
-:question: Support Self (Plant)
-
-:white_check_mark: Special pH rule
+:white_check_mark: Support Self (Plant)
 
 ### Zombie:
 
-:question: Attack (Devour)
+:white_check_mark: Attack (Devour)
 
-:question: Special Attack (Horde)
+:white_check_mark: Special Attack (Horde)
 
-:question: Support (CS Test)
+:white_check_mark: Support (CS Test)
 
-:question: Support Self (Scavenge)
+:white_check_mark: Support Self (Scavenge)
 
 ### Zomboss:
 
@@ -63,7 +63,7 @@ Make a clear list of features that work/dont work
 
 :white_check_mark: Color HP by Percent
 
-:white_check_mark: Draw Parties
+:white_check_mark: Draw Party
 
 :white_check_mark: Input
 
@@ -83,9 +83,17 @@ Make a clear list of features that work/dont work
 
 :white_check_mark: Quit
 
-:ballot_box_with_check: Name Selection 
+:ballot_box_with_check: Name/Class Selection 
 
-:beetle: Quits During Invalid Input Prompters 
+:ballot_box_with_check: Quits During Invalid Input Prompters 
+
+:ballot_box_with_check: Death Marker
+
+:ballot_box_with_check: Style Line
+
+:ballot_box_with_check: Default Party
+
+:ballot_box_with_check: Easy (Two Enemy), Medium (Reg Three Enemy), Hard (Boss) Modes
 
 ## Adventurer Subclasses
 
