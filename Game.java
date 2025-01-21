@@ -309,8 +309,8 @@ public class Game{
       String action = ""; 
       int actLen = 0; 
       boolean gameOver = false; 
-
       boolean partyTurn = true;
+	  boolean dead = false;
       int whichPlayer = 0;
       int whichOpponent = 0;
       int turn = 0;
@@ -371,14 +371,14 @@ public class Game{
           else{
             
 
-            // ** TO DO: IMPLEMENT AN ANTI-CRASHING SYSTEM, b/c right now system crashes when you enter "a 0 " with a space at the end!; DONE 
-            while((partyTurn) && !(input.startsWith("a ") || input.startsWith("attack ") || input.startsWith("sp ") || input.startsWith("special ") || input.startsWith("su ") || input.startsWith("support ") || input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
+            // ** TO DO: IMPLEMENT AN ANTI-CRASHING SYSTEM, b/c right now system crashes when you enter "a 0 " with a space at the end!
+            while(partyTurn && !dead && (!(input.startsWith("a ") || input.startsWith("attack ") || input.startsWith("sp ") || input.startsWith("special ") || input.startsWith("su ") || input.startsWith("support ") || input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")))){
               preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
               TextBox(11+actLen, 2, 78, preprompt.length()/78+2, "Invalid input. Please retry. " + preprompt);
               extra = ("Invalid input. Please retry. " + preprompt).length()/78+1;
               input = userInput(in, actLen+extra);
             }
-            while(partyTurn && (input.charAt(input.length()-1) >= 48 && input.charAt(input.length()-1) <= 57) && Integer.parseInt(""+input.charAt(input.length()-1)) >= party.size() || (input.startsWith("a") || input.startsWith("sp")) && (input.startsWith("su") && (input.charAt(input.length()-1) >= 48 && input.charAt(input.length()-1) <= 57) && (Integer.parseInt(""+input.charAt(input.length()-1)) >= enemies.size()) || (input.charAt(input.length()-2) != ' ') || input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
+            while(partyTurn && !dead && ((input.startsWith("su") && input.charAt(input.length()-1) >= 48 && input.charAt(input.length()-1) <= 57) && Integer.parseInt(""+input.charAt(input.length()-1)) >= party.size() || (input.startsWith("a") || input.startsWith("sp")) && (input.charAt(input.length()-1) >= 48 && input.charAt(input.length()-1) <= 57) && (Integer.parseInt(""+input.charAt(input.length()-1)) >= enemies.size()) || (input.charAt(input.length()-2) != ' ') || input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
             preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
               TextBox(11+actLen, 2, 78, preprompt.length()/78+2, "Invalid input. Please retry. " + preprompt);
               extra = ("Invalid input. Please retry. " + preprompt).length()/78+1;
@@ -396,19 +396,16 @@ public class Game{
             if(partyTurn && !hasQuitten){
               // Add quit when prompted to enter adventurer again? 
 
-              if (party.get(whichPlayer).isDead()){
-                TextBox(11+actLen, 2, 78, 2, party.get(whichPlayer) + " HAS FALLEN! They are no longer able to perform any actions.");
-              }
-              else {
+             
                 //Process user input for the last Adventurer:
 
                 // ATTACK
-                if(input.startsWith("a ") || input.startsWith("attack ") ){
+                if((input.startsWith("a ") || input.startsWith("attack ")) && !dead){
 
                   whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
 
                   while (enemies.get(whichOpponent).isDead()){
-                    TextBox(11+actLen, 2, 78, 2, "Target has already fallen! Please choose another target by entering another target:");
+                    TextBox(11+actLen, 2, 78, 2, "Target has already fallen! Please choose another target by entering another target. Note that you are locked into the attack command!:");
                     input = userInput(in, actLen + 2);
                     whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
                   }
@@ -418,12 +415,12 @@ public class Game{
                 }
 
                 // SPECIAL
-                else if(input.startsWith("sp ") || input.startsWith("special ")){
+                else if((input.startsWith("sp ") || input.startsWith("special ")) && !dead){
 
                   whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
 
                   while (enemies.get(whichOpponent).isDead()){
-                    TextBox(11+actLen, 2, 78, 2, "Target has already fallen! Please choose another target by entering another target:");
+                    TextBox(11+actLen, 2, 78, 2, "Target has already fallen! Please choose another target by entering another target. Note that you are locked into the special attack command!:");
                     input = userInput(in, actLen + 2);
                     whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
                   }
@@ -433,7 +430,7 @@ public class Game{
                 }
 
                 // SUPPORTS
-                else if(input.startsWith("su ") || input.startsWith("support ")){
+                else if((input.startsWith("su ") || input.startsWith("support ")) && !dead){
                   //"support 0" or "su 0" or "su 2" etc.
                   //assume the value that follows su  is an integer.
                   whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
@@ -443,9 +440,9 @@ public class Game{
                     TextBox(11+actLen, 2, 78, action.length()/78+1, action);
                     actLen += action.length()/78+2;
                   }
-                  else{
+                  else if(!dead){
                     while (party.get(whichOpponent).isDead()){
-                      TextBox(11+actLen, 2, 78, 2, "Target has already fallen! Please choose another target by entering another target: ");
+                      TextBox(11+actLen, 2, 78, 2, "Target has already fallen! Please choose another target by entering another target. Note that you are locked into the support command!: ");
                       input = userInput(in, actLen + 2);
                       whichOpponent = Integer.parseInt(""+input.charAt(input.length()-1));
                     }
@@ -454,7 +451,7 @@ public class Game{
                     actLen += action.length()/78+2;    
                   }
                 }
-              }
+              
 
               //You should decide when you want to re-ask for user input
               //If no errors:
@@ -463,9 +460,18 @@ public class Game{
               if(whichPlayer < party.size()){
                 //This is a player turn.
                 //Decide where to draw the following prompt:
-                String prompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
-                Text.showCursor();
-                TextBox(11+actLen, 2, 78, prompt.length()/78+1, prompt);
+				if(!party.get(whichPlayer).isDead()){
+					String prompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
+					Text.showCursor();
+					TextBox(11+actLen, 2, 78, prompt.length()/78+1, prompt);
+					dead = false;
+				}
+				else{
+					String prompt = party.get(whichPlayer) + " HAS FALLEN! They are no longer able to perform any actions. Press enter to continue";
+					Text.showCursor();
+					TextBox(11+actLen, 2, 78, prompt.length()/78+1, prompt);
+					dead = true;
+					}
                 extra = 1;
 
     // ENEMIES TURN 
@@ -474,6 +480,7 @@ public class Game{
                 //Decide where to draw the following prompt:
                 //drawText("went into enter monster", 31, 1);
                 String prompt = "press enter to see monster's turn";
+				dead = false;
                 partyTurn = false;
                 whichOpponent = 0;
                 TextBox(11+actLen, 2, 78, prompt.length()/78+1, prompt);
@@ -743,8 +750,16 @@ public class Game{
               //drawText("went into enter command", 31, 1);
               //display this prompt before player's turn
               drawScreen(party, enemies);
-              prompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q)";
-              TextBox(11, 2, 78, 17, prompt);
+			  if(party.get(whichPlayer).isDead()){
+				  prompt = party.get(whichPlayer) + " HAS FALLEN! They are no longer able to perform any actions. Press enter to continue";
+				TextBox(11, 2, 78, 19, prompt);
+				dead = true;
+			  }
+			  else{
+				  prompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q)";
+				TextBox(11, 2, 78, 19, prompt);
+			  }
+              
 
             }
             else{//display the updated screen after input has been processed.

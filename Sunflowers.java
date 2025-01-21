@@ -74,7 +74,7 @@ public class Sunflowers extends Adventurer{
 		return this + " tried to use Vitamin D, but they didn't have enough Sunflowers to be eaten!";
 	}
     applyDamage(2);
-    setShield(true);
+    other.setShield(true);
   	return this + " used Vitamin D! They gave two Sunflowers to be eaten for the strengthening of their bones!, shielding " + other + " from the next attack!";
   }
   /*Regains 5-7HP while also gaining 2 special*/

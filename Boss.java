@@ -45,7 +45,15 @@ public class Boss extends Adventurer{
 	    setSpecial(getSpecial() + 4);
 	    int lostSpecial = 0;
       if (other instanceof Chomper){
-        other.setSpecial(other.getSpecial() + 2);
+		  other.setSpecial(other.getSpecial() + 2);
+		if(other.getSpecial() + 2 > 14){
+			
+			return this + " used Clobber! They clubbed "+ other + " and deals " + damage + " damage to them, paralyzing them and making them gain " + (14-other.getSpecial()) + " " + other.getSpecialName() + ", while also gaining 4 musclePower";
+		}
+        else{
+			return this + " used Clobber! They clubbed "+ other + " and deals " + damage + " damage to them, paralyzing them and making them gain 2 " + other.getSpecialName() + ", while also gaining 4 musclePower";
+		}
+		
       }else{
 		    if(other.getSpecial() - 2 < 1){
 			    lostSpecial = 0 - (other.getSpecial() - 2);
@@ -69,7 +77,7 @@ public class Boss extends Adventurer{
       other.applyDamage(damage * 2);
       setSpecial(getSpecial()-damage);
       applyDamage(ownDamage);
-      return this + " used Apocalypse! They commanded a horde of " + damage + " zombies, which dealt " + (damage * 2) + ", damage to " + other + ". " + this + " was also hurt in the process, and lost " + ownDamage + " HP. Lost " + damage + " musclePower. ";
+      return this + " used Apocalypse! They commanded a horde of " + damage + " zombies, which dealt " + (damage * 2) + " damage to " + other + ". " + this + " was also hurt in the process, and lost " + ownDamage + " HP. Lost " + damage + " musclePower. ";
     }else{
       return "oops! "+ this+ " did not have enough musclePower to use Apocalypse!";
     }
@@ -86,26 +94,28 @@ public class Boss extends Adventurer{
     int heal = (int)(Math.random()*3 + 6);
     double chance = Math.random();
     if (getHP() < 15){
+		restoreHP(heal);
       setShield(true); 
     }
 	else if(getHP()+heal >= getmaxHP() && chance > 0.5){
 		heal = getmaxHP() - getHP();
 		restoreHP(heal);
-		return this + " used Shield! They collected fallen zombie parts and made a shield, allowing them to regain " + heal + "HP. They also gained 2 musclePower from the workout.";
+		restoreSpecial(2);
+		return this + " used Shield! They collected fallen zombie parts and made a shield, allowing them to regain " + heal + " HP. They also gained 2 musclePower from the workout.";
 	}
 	else if(getHP()+heal >= getmaxHP() && chance <= 0.5){
 		heal = getmaxHP() - getHP();
 		restoreHP(heal);
-		return this + " used Shield! They collected fallen zombie parts and made a shield, allowing them to regain " + heal + "HP. ";
+		return this + " used Shield! They collected fallen zombie parts and made a shield, allowing them to regain " + heal + " HP. ";
 	}
     else{
 		restoreHP(heal);
 	}
     if (chance > 0.5){
       restoreSpecial(2);
-      return this + " used Shield! They collected fallen zombie parts and made a shield, allowing them to regain " + heal + "HP. They also gained 2 musclePower from the workout.";
+      return this + " used Shield! They collected fallen zombie parts and made a shield, allowing them to regain " + heal + " HP. They also gained 2 musclePower from the workout.";
     }
-  	return this + " used Shield! They collected fallen zombie parts and made a shield, allowing them to regain " + heal + "HP.";
+  	return this + " used Shield! They collected fallen zombie parts and made a shield, allowing them to regain " + heal + " HP.";
   }
   /* Support others does not exist */
 }
