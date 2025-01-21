@@ -374,7 +374,7 @@ public class Game{
               extra = ("Invalid input. Please retry. " + preprompt).length()/78+1;
               input = userInput(in, actLen+extra);
             }
-            while(partyTurn && (input.startsWith("su") && Integer.parseInt(""+input.charAt(input.length()-1)) >= party.size() || (input.startsWith("a") || input.startsWith("sp")) && (Integer.parseInt(""+input.charAt(input.length()-1)) >= enemies.size()) || (input.charAt(input.length()-2) != ' ') || input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
+            while(partyTurn && (input.charAt(input.length()-1) >= 48 && input.charAt(input.length()-1) <= 57) && Integer.parseInt(""+input.charAt(input.length()-1)) >= party.size() || (input.startsWith("a") || input.startsWith("sp")) && (input.startsWith("su") && (input.charAt(input.length()-1) >= 48 && input.charAt(input.length()-1) <= 57) && (Integer.parseInt(""+input.charAt(input.length()-1)) >= enemies.size()) || (input.charAt(input.length()-2) != ' ') || input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
             preprompt = "Enter command for "+party.get(whichPlayer)+": attack(a)/special(sp)/support(su)/quit(q) ";
               TextBox(10+actLen, 2, 78, preprompt.length()/78+2, "Invalid input. Please retry. " + preprompt);
               extra = ("Invalid input. Please retry. " + preprompt).length()/78+1;
