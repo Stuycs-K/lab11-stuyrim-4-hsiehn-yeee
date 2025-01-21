@@ -76,7 +76,7 @@ public class Chomper extends Adventurer{
         }
       }
       other.applyDamage(damage);
-      restoreSpecial(3);
+      restoreSpecial(damage - 3);
       return this + " used Withering! They spit out acid around it. This melted "+other+" dealing "+ damage +" points of damage.";
     }
     else{
